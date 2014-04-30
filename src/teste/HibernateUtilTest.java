@@ -187,6 +187,25 @@ public class HibernateUtilTest {
         }
         return resultList;
     }
+	
+	@Test
+	static public List TesteRetornoIdCotacaoEmConsultaHQL(String hql) {
+        List resultList = null;
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            
+            Query query = session.createQuery(hql);
+            query.setMaxResults(1);
+            resultList = query.list();
+            
+            session.getTransaction().commit();
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            throw he;
+        }
+        return resultList;
+    }
 
  
 	
