@@ -5,6 +5,8 @@ import java.util.List;
 import scada.anotacoes.Funcionalidade;
 import scada.hibernate.HibernateUtil;
 import scada.modelo.Contrato;
+import scada.modelo.Status;
+import scada.modelo.TipoContrato;
 import scada.sessao.SessaoGeral;
 import scada.util.Util;
 import scada.util.UtilController;
@@ -48,6 +50,10 @@ public class ContratoController {
 
 	@Funcionalidade(nome = "Criar e editar contratos")
 	public void criarEditarContrato() {
+		
+		List<TipoContrato> tipoContrato = hibernateUtil.buscar(new TipoContrato());
+		result.include("tipoContrato", tipoContrato);
+		
 	}
 
 	@Path("/contrato/excluirContrato/{contrato.id}")
@@ -82,6 +88,9 @@ public class ContratoController {
 
 		List<Contrato> contratos = hibernateUtil.buscar(contrato, pagina);
 		result.include("contratos", contratos);
+		
+		List<TipoContrato> tipoContrato = hibernateUtil.buscar(new TipoContrato());
+		result.include("tipoContrato", tipoContrato);
 
 	}
 }
