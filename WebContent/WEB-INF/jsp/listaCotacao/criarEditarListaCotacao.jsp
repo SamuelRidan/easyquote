@@ -1,6 +1,6 @@
 <%@ include file="/EQbase.jsp" %> 
 
-<%@ page import="java.util.*, scada.modelo.*, scada.hibernate.*" %>
+<%@ page import="java.util.*, scada.modelo.*, scada.hibernate.*, teste.*" %>
 
       <div id="page-wrapper">
         <div class="row">
@@ -17,9 +17,22 @@
 		   <div class="control-group">
 		      <label class="control-label">Sequencial de Cotacao</label>
 		      <div class="controls">
+		           	<%
 		           	
-		      		<input type="text" class="input-xlarge numero-inteiro" name="listaCotacao.cotacao.id" value="${listaCotacao.cotacao.id}">
+		    		List cotacoes = HibernateUtilTest.TesteexecutarConsultaHQL("from cotacao order by id desc limit 1");
+		    		
+		    		for (Object obj: cotacoes) {
+		                Cotacao c = (Cotacao)obj;
+		           	
+		           	%>
+		           	
+		      		<input type="text" class="input-xlarge numero-inteiro" name="listaCotacao.cotacao.id" value="<%= c.getId() %>">
+		      	
+		      		<%
 		      		
+		    		}
+		    		
+		      		%>	
 		      	
 		      </div>
 		    </div>

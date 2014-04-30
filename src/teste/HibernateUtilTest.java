@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
@@ -12,6 +14,8 @@ import org.hibernate.criterion.Restrictions;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import java.sql.Connection;
+import org.hibernate.Session;
 
 import scada.hibernate.HibernateUtil;
 import scada.modelo.*;
@@ -165,5 +169,25 @@ public class HibernateUtilTest {
 		operador.setLogin(".0");
 		assertEquals(new Integer(2), hibernateUtil.contar(operador, MatchMode.END));
 	}
+	
+	@Test
+	static public List TesteexecutarConsultaHQL(String hql) {
+        List resultList = null;
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            
+            Query query = session.createQuery(hql);
+            resultList = query.list();
+            
+            session.getTransaction().commit();
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            throw he;
+        }
+        return resultList;
+    }
 
+ 
+	
 }
