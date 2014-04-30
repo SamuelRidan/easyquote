@@ -35,6 +35,7 @@
       <mapping class="scada.modelo.ListaCotacao" />
       <mapping class="scada.modelo.Setor" />
       <mapping class="scada.modelo.Status" />
+	  <mapping class="scada.modelo.TipoContrato" />
 
 </session-factory>
 </hibernate-configuration>

@@ -36,9 +36,9 @@
 				<table class="table table-striped table-bordered tablesorter">
 					<thead>
 				    	<tr>
-		                    <th> InicioVigencia </th>
-		                    <th> FimVigencia </th>
-		                    <th> PeriodicidadeReajuste </th>
+		                    <th> Inicio de Vigência </th>
+		                    <th> Fim de Vigência </th>
+		                    <th> Tipo de Contrato </th>
 						</tr>
 					</thead>
 					<tbody>
@@ -46,7 +46,9 @@
 							<tr id="contrato_${item.id}">
 		                        <td> <fmt:formatDate value="${item.inicioVigencia.time}" /> </td>
 		                        <td> <fmt:formatDate value="${item.fimVigencia.time}" /> </td>
-		                        <td> ${item.periodicidadeReajuste} </td>
+		                        <c:forEach items="${tipoContrato}" var="tipocontrato">
+									<c:if test="${item.tipocontrato == tipocontrato.id}"> <td> ${tipocontrato.descricao} </td> </c:if>
+								</c:forEach>
 							</tr>
 						</c:forEach>
 					</tbody>
