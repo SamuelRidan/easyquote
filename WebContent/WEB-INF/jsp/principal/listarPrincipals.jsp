@@ -8,10 +8,7 @@
           </div>
         </div><!-- /.row -->     
 
-<ul id="principal" class="dropdown-menu">
-	<li><a href="javascript:gerarLinkCompleto('<c:url value="/principal/editarPrincipal"/>')">Editar</a></li>
-	<li><a href="javascript:deletar('<c:url value="/principal/excluirPrincipal"/>')">Excluir</a></li>
-</ul>
+
 
 <a class="btn" href="<c:url value="/principal/criarPrincipal"/>" > Criar principal </a>
 
@@ -35,12 +32,16 @@
 			<thead>
 		    	<tr>
                     <th> PrecoTotal </th>
+		            <th> Editar </th>
+		            <th> Remover </th>	                    
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${principals}" var="item">
 					<tr id="principal_${item.id}">
                         <td> ${item.precoTotal} </td>
+                         <td> <a href="<c:url value="/principal/editarPrincipal/${item.id}"/>" ><i class="fa fa-edit"></i> Editar </a> </td>
+			             <td> <a href="<c:url value="/principal/excluirPrincipal/${item.id}"/>" ><i class="fa fa-trash-o"></i> Remover</a></td>                        
 					</tr>
 				</c:forEach>
 			</tbody>

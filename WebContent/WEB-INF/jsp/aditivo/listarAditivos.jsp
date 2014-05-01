@@ -10,11 +10,6 @@
           </div>
         </div><!-- /.row -->    
 
-		<ul id="aditivo" class="dropdown-menu">
-			<li><a href="javascript:gerarLinkCompleto('<c:url value="/aditivo/editarAditivo"/>')">Editar</a></li>
-			<li><a href="javascript:deletar('<c:url value="/aditivo/excluirAditivo"/>')">Excluir</a></li>
-		</ul>
-		
 		<a class="btn" href="<c:url value="/aditivo/criarAditivo"/>" > Criar aditivo </a>
 		
 		<br><br>
@@ -36,13 +31,17 @@
 				<table class="table table-striped table-bordered tablesorter">
 					<thead>
 				    	<tr>
-		                    <th> PrecoTotal </th>
+		                    <th> Preço Total </th>
+		                    <th> Editar </th>
+		                    <th> Remover </th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${aditivos}" var="item">
 							<tr id="aditivo_${item.id}">
 		                        <td> ${item.precoTotal} </td>
+			                    <td> <a href="<c:url value="/aditivo/editarAditivo/${item.id}"/>" ><i class="fa fa-edit"></i> Editar </a> </td>
+			                    <td> <a href="<c:url value="/aditivo/excluirAditivo/${item.id}"/>" ><i class="fa fa-trash-o"></i> Remover</a></td>		                        
 							</tr>
 						</c:forEach>
 					</tbody>

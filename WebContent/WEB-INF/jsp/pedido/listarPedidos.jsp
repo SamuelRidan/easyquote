@@ -8,10 +8,7 @@
           </div>
         </div><!-- /.row -->    
 
-		<ul id="pedido" class="dropdown-menu">
-			<li><a href="javascript:gerarLinkCompleto('<c:url value="/pedido/editarPedido"/>')">Editar</a></li>
-			<li><a href="javascript:deletar('<c:url value="/pedido/excluirPedido"/>')">Excluir</a></li>
-		</ul>
+
 		
 		<a class="btn" href="<c:url value="/pedido/criarPedido"/>" > Criar pedido </a>
 		
@@ -35,12 +32,16 @@
 					<thead>
 				    	<tr>
 		                    <th> DataEntrega </th>
+		                    <th> Editar </th>
+		                    <th> Remover </th>			                    
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${pedidos}" var="item">
 							<tr id="pedido_${item.id}">
 		                        <td> <fmt:formatDate value="${item.dataEntrega.time}" /> </td>
+			                    <td> <a href="<c:url value="/pedido/editarPedido/${item.id}"/>" ><i class="fa fa-edit"></i> Editar </a> </td>
+			                    <td> <a href="<c:url value="/pedido/excluirPedido/${item.id}"/>" ><i class="fa fa-trash-o"></i> Remover</a></td>			                        
 							</tr>
 						</c:forEach>
 					</tbody>

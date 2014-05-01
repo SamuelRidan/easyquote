@@ -1,5 +1,13 @@
-<%@ include file="/base.jsp" %> 
+<%@ include file="/EQbase.jsp" %> 
 <%@ taglib uri="/tags/tags" prefix="tags"%>
+
+      <div id="page-wrapper">
+        <div class="row">
+          <div class="col-lg-12">
+            <h1><small><span style="color:#31708F">//</span> Listar contrato </small></h1>
+          </div>
+        </div><!-- /.row -->   
+
 
 <ul id="cotacao" class="dropdown-menu">
 	<li><a href="javascript:gerarLinkCompleto('<c:url value="/cotacao/editarCotacao"/>')">Editar</a></li>
@@ -38,6 +46,8 @@
                     <th> Setor </th>
                     <th> Valor Total </th>
                     <th> Observações </th>
+		            <th> Editar </th>
+		            <th> Remover </th>                    
 				</tr>
 			</thead>
 			<tbody>
@@ -45,14 +55,20 @@
 					<tr id="cotacao_${item.id}">
                         <td> <fmt:formatDate value="${item.dataAbertura.time}" /> </td>
                         <td> <fmt:formatDate value="${item.dataLimiteResposta.time}" /> </td>
+                        <td>
                         <c:forEach items="${tipoStatus}" var="itemStatus">
-							<c:if test="${item.status == itemStatus.id}"> <td> ${itemStatus.descricao} </td> </c:if>
+							<c:if test="${item.status == itemStatus.id}">  ${itemStatus.descricao}  </c:if>
 						</c:forEach>
+						</td>
+						<td>						
                         <c:forEach items="${tipoSetor}" var="itemSetor">
-							<c:if test="${item.setor == itemSetor.id}"> <td> ${itemSetor.descricao} </td> </c:if> 
+							<c:if test="${item.setor == itemSetor.id}">  ${itemSetor.descricao} </c:if> 
 						</c:forEach>
+						</td> 						
                         <td> ${item.valorTotal} </td>
                         <td> ${item.obs} </td>
+			            <td> <a href="<c:url value="/cotacao/editarCotacao/${item.id}"/>" ><i class="fa fa-edit"></i> Editar </a> </td>
+			            <td> <a href="<c:url value="/cotacao/excluirCotacao/${item.id}"/>" ><i class="fa fa-trash-o"></i> Remover</a></td>		                                           
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -62,3 +78,7 @@
 		<br>  <br>  <h4> Nenhum registro foi encontrado </h4>
 	</c:otherwise>
 </c:choose>
+
+		
+<%@ include file="/EQbaseFim.jsp" %> 
+		

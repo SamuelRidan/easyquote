@@ -8,11 +8,7 @@
           </div>
         </div><!-- /.row -->   
 
-		<ul id="contrato" class="dropdown-menu">
-			<li><a href="javascript:gerarLinkCompleto('<c:url value="/contrato/editarContrato"/>')">Editar</a></li>
-			<li><a href="javascript:deletar('<c:url value="/contrato/excluirContrato"/>')">Excluir</a></li>
-		</ul>
-		
+ 
 		<a class="btn" href="<c:url value="/contrato/criarContrato"/>" > Criar contrato </a>
 		
 		<br><br>
@@ -39,6 +35,8 @@
 		                    <th> InicioVigencia </th>
 		                    <th> FimVigencia </th>
 		                    <th> PeriodicidadeReajuste </th>
+		                    <th> Editar </th>
+		                    <th> Remover </th>		                    
 						</tr>
 					</thead>
 					<tbody>
@@ -47,6 +45,8 @@
 		                        <td> <fmt:formatDate value="${item.inicioVigencia.time}" /> </td>
 		                        <td> <fmt:formatDate value="${item.fimVigencia.time}" /> </td>
 		                        <td> ${item.periodicidadeReajuste} </td>
+			                    <td> <a href="<c:url value="/contrato/editarContrato/${item.id}"/>" ><i class="fa fa-edit"></i> Editar </a> </td>
+			                    <td> <a href="<c:url value="/contrato/excluirContrato/${item.id}"/>" ><i class="fa fa-trash-o"></i> Remover</a></td>		                        
 							</tr>
 						</c:forEach>
 					</tbody>

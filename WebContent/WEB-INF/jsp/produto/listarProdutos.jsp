@@ -10,10 +10,6 @@
         </div><!-- /.row -->   
 
 
-<ul id="produto" class="dropdown-menu">
-	<li><a href="javascript:gerarLinkCompleto('<c:url value="/produto/editarProduto"/>')">Editar</a></li>
-	<li><a href="javascript:deletar('<c:url value="/produto/excluirProduto"/>')">Excluir</a></li>
-</ul>
 
 <a class="btn" href="<c:url value="/produto/criarProduto"/>" > Criar produto </a>
 
@@ -41,6 +37,8 @@
                     <th> Descricao </th>
                     <th> Preco </th>
                     <th> CodSAP </th>
+		            <th> Editar </th>
+		            <th> Remover </th>	                    
 				</tr>
 			</thead>
 			<tbody>
@@ -49,6 +47,8 @@
                         <td> ${item.descricao} </td>
                         <td> ${item.preco} </td>
                         <td> ${item.codSAP} </td>
+			            <td> <a href="<c:url value="/produto/editarProduto/${item.id}"/>" ><i class="fa fa-edit"></i> Editar </a> </td>
+			            <td> <a href="<c:url value="/produto/excluirProduto/${item.id}"/>" ><i class="fa fa-trash-o"></i> Remover</a></td>		                                                
 					</tr>
 				</c:forEach>
 			</tbody>

@@ -40,6 +40,8 @@
 					    	<tr>
 			                    <th> Nome </th>
 			                    <th> CodSAP </th>
+		                        <th> Editar </th>
+		                        <th> Remover </th>			                    
 							</tr>
 						</thead>
 						<tbody>
@@ -47,6 +49,8 @@
 								<tr id="pessoa_${item.id}">
 			                        <td> ${item.nome} </td>
 			                        <td> ${item.codSAP} </td>
+			                        <td> <a href="<c:url value="/pessoa/editarPessoa/${item.id}"/>" ><i class="fa fa-edit"></i> Editar </a> </td>
+			                        <td> <a href="<c:url value="/pessoa/excluirPessoa/${item.id}"/>" ><i class="fa fa-trash-o"></i> Remover</a></td>				                        
 								</tr>
 							</c:forEach>
 						</tbody>

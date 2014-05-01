@@ -8,10 +8,6 @@
           </div>
         </div><!-- /.row -->    
         
-<ul id="status" class="dropdown-menu">
-	<li><a href="javascript:gerarLinkCompleto('<c:url value="/status/editarStatus"/>')">Editar</a></li>
-	<li><a href="javascript:deletar('<c:url value="/status/excluirStatus"/>')">Excluir</a></li>
-</ul>
 
 <a class="btn" href="<c:url value="/status/criarStatus"/>" > Criar status </a>
 
@@ -23,7 +19,7 @@
 	<button type="submit" class="btn btn-info">Pesquisar</button>
 </form>
 
-<h3> Statuss </h3>
+<h3> Status </h3>
 
 <c:choose>
 	<c:when test="${!empty statuss}">
@@ -35,12 +31,16 @@
 			<thead>
 		    	<tr>
                     <th> Descricao </th>
+		            <th> Editar </th>
+		            <th> Remover </th>                    
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${statuss}" var="item">
 					<tr id="status_${item.id}">
                         <td> ${item.descricao} </td>
+			             <td> <a href="<c:url value="/status/editarStatus/${item.id}"/>" ><i class="fa fa-edit"></i> Editar </a> </td>
+			              <td> <a href="<c:url value="/status/excluirStatus/${item.id}"/>" ><i class="fa fa-trash-o"></i> Remover</a></td>                        
 					</tr>
 				</c:forEach>
 			</tbody>

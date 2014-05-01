@@ -35,6 +35,9 @@
 		    <tr>
 		      <th>Nome</th>
 		      <th>Permissão Especial</th>
+		      <th> Vincular </th>  
+		      <th> Editar </th>
+		      <th> Remover </th>	 
 		    </tr>
 		  </thead>
 		  <tbody>
@@ -42,6 +45,9 @@
 				<tr id="grupoOperador_${item.id}">
 				  <td> ${item.nome} </td>
 				  <td> <tags:simNao valor="${item.permissaoEspecial}"/> </td>
+				  <td> <a href="<c:url value="/grupoOperador/vincularFuncionalidades/${item.id}"/>" ><i class="fa fa-magnet"></i> Vincular </a> </td>
+                  <td> <a href="<c:url value="/grupoOperador/editarGrupoOperador/${item.id}"/>" ><i class="fa fa-edit"></i> Editar </a> </td>
+			      <td> <a href="<c:url value="/grupoOperador/excluirGrupoOperador/${item.id}"/>" ><i class="fa fa-trash-o"></i> Remover</a></td>		 				  
 				</tr>
 		  	</c:forEach>  	
 		  </tbody>

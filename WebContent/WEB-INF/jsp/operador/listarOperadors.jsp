@@ -39,6 +39,8 @@
                     <th> Login </th>
                     <th> Senha </th>
                     <th> Ativo </th>
+		            <th> Editar </th>
+		            <th> Remover </th>	                    
 				</tr>
 			</thead>
 			<tbody>
@@ -47,6 +49,8 @@
                         <td> ${item.login} </td>
                         <td> ${item.senha} </td>
                         <td> <tags:simNao valor="${item.ativo}" /> </td>
+                        <td> <a href="<c:url value="/operador/editarOperador/${item.id}"/>" ><i class="fa fa-edit"></i> Editar </a> </td>
+			            <td> <a href="<c:url value="/operador/excluirOperador/${item.id}"/>" ><i class="fa fa-trash-o"></i> Remover</a></td>		                         
 					</tr>
 				</c:forEach>
 			</tbody>
