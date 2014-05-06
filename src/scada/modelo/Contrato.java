@@ -18,6 +18,7 @@ public class Contrato implements Entidade {
 
     private GregorianCalendar inicioVigencia;
     private GregorianCalendar fimVigencia;
+    private Integer tipo;
     private Integer periodicidadeReajuste;
 
 	public Contrato() {
@@ -48,6 +49,14 @@ public class Contrato implements Entidade {
         return fimVigencia;
     }
 
+    public Integer getTipo() {
+    	return tipo;
+    }
+    
+    public void setTipo(Integer tipo) {
+		this.tipo = tipo;
+	}
+    
     public void setFimVigencia(GregorianCalendar fimVigencia){
         this.fimVigencia = fimVigencia;
     }

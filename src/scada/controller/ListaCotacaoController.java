@@ -10,8 +10,6 @@ import scada.hibernate.HibernateUtil;
 import scada.sessao.SessaoGeral;
 import scada.util.Util;
 import scada.util.UtilController;
-
-
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
@@ -34,7 +32,7 @@ public class ListaCotacaoController {
 	public void criarListaCotacao(Cotacao cotacao) {
 
 		sessaoGeral.adicionar("idListaCotacao", null);		
-		sessaoGeral.adicionar("cotacao", cotacao.getId());
+	//	sessaoGeral.adicionar("cotacao", cotacao.getId());
 		result.forwardTo(this).criarEditarListaCotacao();
 		
 	}
@@ -55,7 +53,7 @@ public class ListaCotacaoController {
 	}
 
 	@Funcionalidade(nome = "Criar e editar lista de produtos para cotação")
-	public void criarEditarListaCotacao() {
+	public void criarEditarListaCotacao() {            		
 	}
 	
 	@Path("/listaCotacao/excluirListaCotacao/{listaCotacao.id}")

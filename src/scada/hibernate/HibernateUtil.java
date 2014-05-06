@@ -14,7 +14,7 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-
+import org.hibernate.cfg.AnnotationConfiguration;
 import scada.modelo.Configuracao;
 import scada.util.Util;
 import scada.util.UtilReflection;
@@ -24,6 +24,7 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.RequestScoped;
 
+@SuppressWarnings("deprecation")
 @Component
 @RequestScoped
 public class HibernateUtil {
@@ -41,6 +42,22 @@ public class HibernateUtil {
 	public HibernateUtil() {
 
 	}
+    
+    	static {
+    		try {
+    			// Create the SessionFactory from standard (hibernate.cfg.xml) 
+    			// config file.
+    			sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
+    		} catch (Throwable ex) {
+    			// Log the exception. 
+    			System.err.println("Initial SessionFactory creation failed." + ex);
+    			throw new ExceptionInInitializerError(ex);
+    		}
+    	}
+    
+    public static SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
 
 	@SuppressWarnings("deprecation")
 	private void iniciarSessionFactory() {
