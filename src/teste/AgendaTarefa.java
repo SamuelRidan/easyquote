@@ -4,7 +4,7 @@ public class AgendaTarefa {
 	
     public static void main(String args[]) {
     	
-    	long intervaloDeTempoEntreExecucoes = 86400, numeroDeExecucoes = 10; // em segundos
+    	long intervaloDeTempoEntreExecucoes = 5, numeroDeExecucoes = 10; // em segundos
     	
     	TarefaTemporizada tarefa = new TarefaTemporizada(intervaloDeTempoEntreExecucoes, numeroDeExecucoes);
     	
