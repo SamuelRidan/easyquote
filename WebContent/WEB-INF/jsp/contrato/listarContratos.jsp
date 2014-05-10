@@ -8,11 +8,7 @@
           </div>
         </div><!-- /.row -->   
 
-		<ul id="contrato" class="dropdown-menu">
-			<li><a href="javascript:gerarLinkCompleto('<c:url value="/contrato/editarContrato"/>')">Editar</a></li>
-			<li><a href="javascript:deletar('<c:url value="/contrato/excluirContrato"/>')">Excluir</a></li>
-		</ul>
-		
+ 
 		<a class="btn" href="<c:url value="/contrato/criarContrato"/>" > Criar contrato </a>
 		
 		<br><br>
@@ -36,9 +32,17 @@
 				<table class="table table-striped table-bordered tablesorter">
 					<thead>
 				    	<tr>
+<<<<<<< HEAD
+		                    <th> InicioVigencia </th>
+		                    <th> FimVigencia </th>
+		                    <th> PeriodicidadeReajuste </th>
+		                    <th> Editar </th>
+		                    <th> Remover </th>		                    
+=======
 		                    <th> Inicio de Vigência </th>
 		                    <th> Fim de Vigência </th>
 		                    <th> Tipo de Contrato </th>
+>>>>>>> df02433f1173b98418501b1cc6e1b13942b11bfc
 						</tr>
 					</thead>
 					<tbody>
@@ -46,9 +50,15 @@
 							<tr id="contrato_${item.id}">
 		                        <td> <fmt:formatDate value="${item.inicioVigencia.time}" /> </td>
 		                        <td> <fmt:formatDate value="${item.fimVigencia.time}" /> </td>
+<<<<<<< HEAD
+		                        <td> ${item.periodicidadeReajuste} </td>
+			                    <td> <a href="<c:url value="/contrato/editarContrato/${item.id}"/>" ><i class="fa fa-edit"></i> Editar </a> </td>
+			                    <td> <a href="<c:url value="/contrato/excluirContrato/${item.id}"/>" ><i class="fa fa-trash-o"></i> Remover</a></td>		                        
+=======
 		                        <c:forEach items="${tipoContrato}" var="tipocontrato">
 									<c:if test="${item.tipocontrato == tipocontrato.id}"> <td> ${tipocontrato.descricao} </td> </c:if>
 								</c:forEach>
+>>>>>>> df02433f1173b98418501b1cc6e1b13942b11bfc
 							</tr>
 						</c:forEach>
 					</tbody>

@@ -28,7 +28,7 @@
                   </div>
                 </div>
               </div>
-              <a href="#">
+              <a href="<c:url value="/aditivo/listarAditivos"/>">
                 <div class="panel-footer announcement-bottom">
                   <div class="row">
                     <div class="col-xs-6">
@@ -54,7 +54,7 @@
                   </div>
                 </div>
               </div>
-              <a href="#">
+              <a href="<c:url value="/cotacao/listarCotacaos"/>">
                 <div class="panel-footer announcement-bottom">
                   <div class="row">
                     <div class="col-xs-6">
@@ -82,7 +82,7 @@
                   </div>
                 </div>
               </div>
-              <a href="#">
+              <a href="<c:url value="/cotacao/listarCotacaos"/>">
                 <div class="panel-footer announcement-bottom">
                   <div class="row">
                     <div class="col-xs-6">
@@ -109,7 +109,7 @@
                   </div>
                 </div>
               </div>
-              <a href="#">
+              <a href="<c:url value="/pedido/listarPedidos"/>">
                 <div class="panel-footer announcement-bottom">
                   <div class="row">
                     <div class="col-xs-6">

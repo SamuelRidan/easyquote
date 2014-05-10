@@ -8,11 +8,7 @@
           </div>
         </div><!-- /.row -->  
         
-		        
-		<ul id="setor" class="dropdown-menu">
-			<li><a href="javascript:gerarLinkCompleto('<c:url value="/setor/editarSetor"/>')">Editar</a></li>
-			<li><a href="javascript:deletar('<c:url value="/setor/excluirSetor"/>')">Excluir</a></li>
-		</ul>
+
 		
 		<a class="btn" href="<c:url value="/setor/criarSetor"/>" > Criar setor </a>
 		
@@ -36,12 +32,16 @@
 					<thead>
 				    	<tr>
 		                    <th> Descricao </th>
+		                    <th> Editar </th>
+		                    <th> Remover </th>		                    
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${setors}" var="item">
 							<tr id="setor_${item.id}">
 		                        <td> ${item.descricao} </td>
+			                    <td> <a href="<c:url value="/setor/editarSetor/${item.id}"/>" ><i class="fa fa-edit"></i> Editar </a> </td>
+			                    <td> <a href="<c:url value="/setor/excluirSetor/${item.id}"/>" ><i class="fa fa-trash-o"></i> Remover</a></td>			                        
 							</tr>
 						</c:forEach>
 					</tbody>
