@@ -48,7 +48,7 @@
 		      <div class="controls">
 		           	<%
 		           	
-		    		List cotacoes = HibernateUtilTest.TesteRetornoIdCotacaoEmConsultaHQL("from Cotacao order by id desc");
+		    		List cotacoes = HibernateUtilTest.RetornaUmValorEmConsultaHQL("from Cotacao order by id desc");
 		    		
 		    		for (Object obj: cotacoes) {
 		                Cotacao c = (Cotacao)obj;
