@@ -36,11 +36,11 @@ class TarefaTemporizada extends TimerTask {
 			
 			//Pegando dataAtual + 7 dias
 			Date date = new Date();
-			Calendar data = Calendar.getInstance();
+			GregorianCalendar data = (GregorianCalendar) GregorianCalendar.getInstance();
 			data.setTime(date);		
 			data.add(Calendar.DAY_OF_MONTH, 7);	
 			SimpleDateFormat dataFormatada = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
-						
+
 			System.out.println("--> Data de comparação: " + dataFormatada.format(data.getTime()));
 			
 			cotacoes = HibernateUtilTest.executarConsultaHQL("from Cotacao");
@@ -48,7 +48,11 @@ class TarefaTemporizada extends TimerTask {
 			for (Object obj: cotacoes) {
 	            Cotacao c = (Cotacao)obj;
 	            
-	            System.out.println(c.getId());
+	            if (c.getDataLimiteResposta().getTime().before(data.getTime())) {
+	            	
+	            	// TODO o relatório de cotações e enviar por email
+	            	
+	            } 
 	            
 			}
 			
