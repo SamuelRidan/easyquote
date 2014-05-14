@@ -1,0 +1,55 @@
+<%@ include file="/EQbase.jsp" %>  
+
+<%@ taglib uri="/tags/tags" prefix="tags"%>
+
+      <div id="page-wrapper">
+        <div class="row">
+          <div class="col-lg-12">
+            <h1><small><span style="color:#31708F">// </span> Listar pagamento </small></h1>
+          </div>
+        </div><!-- /.row -->   
+
+		<ul id="pagamento" class="dropdown-menu">
+			<li><a href="javascript:gerarLinkCompleto('<c:url value="/pagamento/editarPagamento"/>')">Editar</a></li>
+			<li><a href="javascript:deletar('<c:url value="/pagamento/excluirPagamento"/>')">Excluir</a></li>
+		</ul>
+		
+		<a class="btn" href="<c:url value="/pagamento/criarPagamento"/>" > Criar pagamento </a>
+		
+		<br><br>
+		
+		<form class="well form-inline" action="<c:url value="/pagamento/listarPagamentos"/>" method="post" >
+		    <input type="text" class="input-small" name="pagamento.descricao" value="${sessaoGeral.valor.get('pagamento').descricao}" placeholder="Descricao">
+		
+			<button type="submit" class="btn btn-info">Pesquisar</button>
+		</form>
+		
+		<h3> Pagamentos </h3>
+		
+		<c:choose>
+			<c:when test="${!empty pagamentos}">
+				
+				<c:set var="link" value="pagamento/listarPagamentos" scope="request" />
+				<%@ include file="/paginacao.jsp" %> 
+				
+				<table class="table table-striped table-bordered tablesorter">
+					<thead>
+				    	<tr>
+		                    <th> Descricao </th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${pagamentos}" var="item">
+							<tr id="pagamento_${item.id}">
+		                        <td> ${item.descricao} </td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</c:when>
+			<c:otherwise>
+				<br>  <br>  <h4> Nenhum registro foi encontrado </h4>
+			</c:otherwise>
+		</c:choose>
+		
+<%@ include file="/EQbaseFim.jsp" %> 		

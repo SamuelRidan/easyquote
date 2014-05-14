@@ -61,8 +61,8 @@
 					<li><a href="<c:url value="/${item.codigo}"/>">${item.nomeFuncionalidade}</a></li>
                 </c:forEach>
               </ul>
-            </li>
-            </c:forEach> 
+            </li>          
+            </c:forEach>          
           </ul>
 
           <ul class="nav navbar-nav navbar-right navbar-user">
