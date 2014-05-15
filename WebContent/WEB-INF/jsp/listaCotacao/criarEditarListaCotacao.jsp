@@ -1,21 +1,27 @@
 <%@page import="scada.controller.ListaCotacaoController"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/EQbase.jsp" %> 
 
 <%@ page import="java.util.*, scada.modelo.*, scada.hibernate.*, teste.*" %>
 
 <script LANGUAGE="JavaScript">
-    totals =0;
+    totals = 0;
+    
     function adiciona(){
-    totals++
-        tbl = document.getElementById("tabela")
+    	totals++;
+        tbl = document.getElementById("tabela");
         prod = document.getElementById("produto");
     	produto = prod.options[prod.options.selectedIndex];
+    	idProduto = produto.value;
         quantidade = document.getElementById("quantidade").value; 
+        idCotacao = document.getElementById("listaCotacao.cotacao.id").value;
  
         var novaLinha = tbl.insertRow(-1);
         var novaCelula;
  
         novaCelula = novaLinha.insertCell(0);
+        novaCelula.align = "left";
+        novaCelula.setAttribute("id", "listaCotacao_" + totals);
         novaCelula.innerHTML = totals;
  
         novaCelula = novaLinha.insertCell(1);
@@ -26,8 +32,42 @@
         novaCelula.align = "left";
         novaCelula.innerHTML = quantidade;
         
-
- 
+        novaCelula = novaLinha.insertCell(3);
+        novaCelula.align = "left";
+        novaCelula.innerHTML = '<a href="#" onclick="deleta(' + idProduto +',' + totals + ')">Deletar</a>';
+        
+        $.ajax({
+        	  url: "<c:url value='/listaCotacao/salvarProdutoLista'/>",
+        	  data: {
+        	    produto: idProduto,
+        	    quantidade: quantidade,
+        	    cotacao: idCotacao
+        	  },
+        	  success: function( data ) {
+        	    
+        	  }
+        }); 
+    }
+    
+    function deleta(id,linha){
+    	
+    	tbl = document.getElementById("tabela");
+    	idCotacao = document.getElementById("listaCotacao.cotacao.id");
+    	idProduto = id;
+    	
+    	$.ajax({
+      	  url: "<c:url value='/listaCotacao/excluirProdutoLista'/>",
+      	  data: {
+      	    produto: idProduto,
+      	    cotacao: idCotacao
+      	  },
+      	  success: function( data ) {
+      	    
+      	  }
+      	}); 
+    	
+    	var linha = tbl.deleteRow(linha);
+    	
     }
     </script>
 
@@ -37,6 +77,10 @@
             <h1><small><span style="color:#31708F">//</span> Criar/editar lista de produtos para cotação </small></h1>
           </div>
         </div><!-- /.row -->  
+        
+        <ul id="listaCotacao" class="dropdown-menu">
+			<li><a href="javascript:deletar('<c:url value="/listaCotacao/excluirProdutoLista"/>')">Excluir</a></li>
+		</ul>
 
 		<form class="form-horizontal" action="<c:url value="/listaCotacao/salvarListaCotacao"/>" method="post">
 		  <fieldset>
@@ -44,11 +88,11 @@
 		    <legend></legend>
 		    
 		   <table width="80%" border="0" align="center" id="tabela" class="table table-striped table-bordered tablesorter">
-  <tr>
-    <td colspan="3">
-    <div class="control-group">
-		      <label class="control-label">Sequencial de Cotacao</label>
-		      <div class="controls">
+  			<tr>
+    			<td colspan="4">
+    			<div class="control-group">
+		      	<label class="control-label">Sequencial de Cotacao</label>
+		      	<div class="controls">
 		           	<%
 		           	
 		    		List cotacao = HibernateUtilTest.RetornaUmValorEmConsultaHQL("from Cotacao order by id desc");
@@ -58,7 +102,7 @@
 		           	
 		           	%>
 		           	
-		      		<input type="text" class="input-xlarge numero-inteiro" name="listaCotacao.cotacao.id" value="<%= c.getId() %>">
+		      		<input type="text" class="input-xlarge numero-inteiro" id="listaCotacao.cotacao.id" name="listaCotacao.cotacao.id" value="<%= c.getId() %>">
 		      	
 		      		<%
 		      		
@@ -66,10 +110,8 @@
 		    		
 		      		%>	
 		      	
-		      </div>
-		    </div>
-		    
-		    
+		      	 </div>
+		    	</div>	    
 		    
 		    <div class="control-group">
 		      <label class="control-label">Produto</label>
@@ -138,25 +180,30 @@
     <div class="control-group">
       <label class="control-label">Quantidade</label>
       <div class="controls">
-        <input type="text" id="quantidade" class="input-xlarge numero-inteiro" name="listaCotacao.quantidade" value="${listaCotacao.quantidade}">
-        <input type="button" id="incluir" class="btn btn-default" value="Adicionar produto" onclick="adiciona()"/>
+        <input type="number" id="quantidade" class="input-xlarge numero-inteiro" name="listaCotacao.quantidade" value="${listaCotacao.quantidade}">
+		&nbsp;&nbsp;&nbsp;
+      	<input type="button" id="incluir" class="btn btn-default" value="Adicionar produto" onclick="adiciona()"/>
       </div>
     </div>
     </td>
     </tr>
   	<tr>
-    	<td colspan="3">&nbsp;</td>
+    	<td colspan="4">&nbsp;</td>
   	</tr>
   	<tr>
-    	<td width="20%">Sequencial</td>
+    	<td width="10%">#</td>
     	<td width="55%">Descrição do Produto</td>
-    	<td width="25%">Quantidade</td>
+    	<td width="20%">Quantidade</td>
+    	<td width="15">&nbsp;</td>
   	</tr>
 
 	</table>
-   
+	
+   <!--
     <button type="submit" class="btn btn-default">Salvar</button>
-    <a class="btn btn-default" href="<c:url value="/listaCotacao/listarListaCotacaos"/>" > Cancelar </a>
+    <a class="btn btn-default" href="<c:url value="/listaCotacao/listarListaCotacaos"/>" > Cancelar </a>    
+    -->
+    
   </fieldset>
 </form>
 

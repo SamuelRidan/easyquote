@@ -3,16 +3,18 @@ package scada.controller;
 import java.util.List;
 
 import scada.anotacoes.Funcionalidade;
+import scada.hibernate.HibernateUtil;
 import scada.modelo.Cotacao;
 import scada.modelo.ListaCotacao;
 import scada.modelo.Produto;
-import scada.hibernate.HibernateUtil;
 import scada.sessao.SessaoGeral;
 import scada.util.Util;
 import scada.util.UtilController;
+import teste.HibernateUtilTest;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.view.Results;
 
 @Resource
 public class ListaCotacaoController {
@@ -78,19 +80,6 @@ public class ListaCotacaoController {
 		result.redirectTo(this).listarListaCotacaos(null, null);
 		
 	}
-	
-	@Funcionalidade(filhaDe = "criarEditarListaCotacao")
-	public void salvarListaCotacao2(ListaCotacao listaCotacao) {
-
-		if (Util.preenchido(sessaoGeral.getValor("idListaCotacao"))) {
-
-			listaCotacao.setId((Integer) sessaoGeral.getValor("idListaCotacao"));
-		}
-
-		hibernateUtil.salvarOuAtualizar(listaCotacao);
-		result.include("sucesso", "Cotação salva com sucesso");
-		
-	}
 
 	@Funcionalidade(nome = "ListaCotacaos", modulo = "New")
 	public void listarListaCotacaos(ListaCotacao listaCotacao, Integer pagina) {
@@ -129,5 +118,67 @@ public class ListaCotacaoController {
 		List<Produto> produto = hibernateUtil.buscar(new Produto());
 		result.include("tipoProduto", produto);
 
+	}
+	
+	@Funcionalidade(filhaDe = "criarEditarListaCotacao")
+	public void salvarProdutoLista(Integer prod, Integer quantidade, Integer idCotacao) {
+
+		ListaCotacao lista = new ListaCotacao();
+
+		List produto = hibernateUtil.buscar(new Produto());		
+		for (Object obj: produto){
+			Produto p = (Produto)obj;			
+			if (p.getId() == prod){
+				lista.setProduto(p);
+			}			
+		}
+		
+		lista.setQuantidade(quantidade);
+		
+		List cotacao = hibernateUtil.buscar(new Cotacao());		
+		for (Object obj: cotacao) {
+            Cotacao c = (Cotacao)obj;            
+            if (c.getId() == idCotacao){
+            	lista.setCotacao(c);
+            }            
+		}		
+		
+		hibernateUtil.salvarOuAtualizar(lista);
+		result.use(Results.json()).from("ok").serialize();
+
+	}
+	
+	@Funcionalidade(nome = "Excluir Produto da Lista")
+	public void excluirProdutoLista(Integer idProduto, Integer idCotacao) {
+		
+		ListaCotacao listaCotacao = new ListaCotacao();
+		
+		List produto = hibernateUtil.buscar(new Produto());		
+		for (Object obj: produto){
+			Produto p = (Produto)obj;			
+			if (p.getId() == idProduto){
+				listaCotacao.setProduto(p);
+			}			
+		}
+		
+		List cotacao = hibernateUtil.buscar(new Cotacao());		
+		for (Object obj: cotacao) {
+            Cotacao c = (Cotacao)obj;            
+            if (c.getId() == idCotacao){
+            	listaCotacao.setCotacao(c);
+            }            
+		}
+		
+		List produtoCotacao = HibernateUtilTest.executarConsultaHQL("from ListaCotacao");
+		
+		for (Object obj: produtoCotacao) {
+			ListaCotacao pc = (ListaCotacao)obj;            
+            if ((pc.getProduto().getId() == idProduto) && (pc.getCotacao().getId() == idCotacao) ){
+            	listaCotacao.setId(pc.getId());
+            }            
+		}
+
+		hibernateUtil.deletar(listaCotacao);
+		result.use(Results.json()).from("ok").serialize();
 	}
 }

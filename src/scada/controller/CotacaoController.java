@@ -6,16 +6,12 @@ import scada.anotacoes.Funcionalidade;
 import scada.hibernate.HibernateUtil;
 import scada.modelo.Cotacao;
 import scada.modelo.ListaCotacao;
-import scada.modelo.Operador;
 import scada.modelo.Produto;
 import scada.modelo.Setor;
 import scada.modelo.Status;
 import scada.sessao.SessaoGeral;
-import scada.sessao.SessaoOperador;
 import scada.util.Util;
 import scada.util.UtilController;
-import teste.HibernateUtilTest;
-
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
@@ -102,10 +98,10 @@ public class CotacaoController {
 		if (Util.preenchido(sessaoGeral.getValor("idCotacao"))) {
 
 			cotacao.setId((Integer) sessaoGeral.getValor("idCotacao"));
-			cotacao.setResponsavel(LoginController.RetornaOperador());
-		
 		}
 
+		cotacao.setResponsavel(LoginController.RetornaOperador());
+		
 		hibernateUtil.salvarOuAtualizar(cotacao);
 		result.include("sucesso", "Cotação salva com sucesso");
 	//  result.redirectTo(this).listarCotacaos(new Cotacao(), null);

@@ -16,7 +16,10 @@ public class ListaCotacao implements Entidade {
 	@Id
 	@GeneratedValue
 	private Integer id;
-    private Integer produto;	
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    private Produto produto;	
+	
     private Integer quantidade;
     
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,11 +40,11 @@ public class ListaCotacao implements Entidade {
 		this.id = id;
 	}
 
-	public Integer getProduto() {
+	public Produto getProduto() {
 		return produto;
 	}
 
-	public void setProduto(Integer produto) {
+	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
 
