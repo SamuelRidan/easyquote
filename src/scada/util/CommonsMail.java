@@ -11,8 +11,8 @@ import org.apache.commons.mail.SimpleEmail;
 
 public class CommonsMail {
 	
-	private static String usuario = "adamlope@gmail.com";
-	private static String senha = "@D@M@q!w23e";
+	private static String usuario = "syseasyquote@gmail.com";
+	private static String senha = "87ca3be2776f9eb58c719f51b334d5c";
 	
 	public CommonsMail() throws EmailException, MalformedURLException { 
 		enviaEmailSimples("adamlopesscn@yahoo.it", "Comprador"); 
@@ -33,7 +33,7 @@ public class CommonsMail {
 			email.setFrom("adamlope@gmail.com", "EasyQuote - Sistema de Cotações"); // remetente  
 			email.setSubject("Teste -> Email simples"); // assunto do e-mail  
 			email.setMsg("Teste de Email utilizando commons-email"); //conteudo do e-mail  
-			email.setAuthentication(GeradorDeMd5.converter(usuario), GeradorDeMd5.converter(senha));  
+			email.setAuthentication(usuario, senha);  
 			email.setSmtpPort(465);  
 			email.setSSL(true);  
 			email.setTLS(true);  
