@@ -15,7 +15,6 @@ public class CommonsMail {
 	private static String senha = "87ca3be2776f9eb58c719f51b334d5c";
 	
 	public CommonsMail() throws EmailException, MalformedURLException { 
-		enviaEmailSimples("adamlopesscn@yahoo.it", "Comprador"); 
     } 
 
 	/** 
@@ -30,7 +29,7 @@ public class CommonsMail {
 			SimpleEmail email = new SimpleEmail();  
 			email.setHostName("smtp.gmail.com"); // o servidor SMTP para envio do e-mail  
 			email.addTo(destinatario, nomeDestinatario); //destinatário  
-			email.setFrom("adamlope@gmail.com", "EasyQuote - Sistema de Cotações"); // remetente  
+			email.setFrom(usuario, "EasyQuote - Sistema de Cotações"); // remetente  
 			email.setSubject("Teste -> Email simples"); // assunto do e-mail  
 			email.setMsg("Teste de Email utilizando commons-email"); //conteudo do e-mail  
 			email.setAuthentication(usuario, senha);  
@@ -93,31 +92,33 @@ public class CommonsMail {
      * @throws EmailException  
      * @throws MalformedURLException  
      */  
-    public void enviaEmailFormatoHtml() throws EmailException, MalformedURLException {  
+    public static void enviaEmailFormatoHtml(String destinatario, String nomeDestinatario, String assuntoEmail, String html, String txt) throws EmailException, MalformedURLException {  
           
-        HtmlEmail email = new HtmlEmail();  
-          
-        // adiciona uma imagem ao corpo da mensagem e retorna seu id  
-        URL url = new URL("http://www.apache.org/images/asf_logo_wide.gif");  
-        String cid = email.embed(url, "Apache logo");     
-          
-        // configura a mensagem para o formato HTML  
-        email.setHtmlMsg("<html>Logo do Apache - <img ></html>");  
-  
-        // configure uma mensagem alternativa caso o servidor não suporte HTML  
-        email.setTextMsg("Seu servidor de e-mail não suporta mensagem HTML");  
-          
-        email.setHostName("smtp.gmail.com"); // o servidor SMTP para envio do e-mail  
-        email.addTo("teste@gmail.com", "Guilherme"); //destinatário  
-        email.setFrom("teste@gmail.com", "Eu"); // remetente  
-        email.setSubject("Teste -> Html Email"); // assunto do e-mail  
-        email.setMsg("Teste de Email HTML utilizando commons-email"); //conteudo do e-mail  
-        email.setAuthentication("teste", "xxxxx");  
-        email.setSmtpPort(465);  
-        email.setSSL(true);  
-        email.setTLS(true);  
-        // envia email  
-        email.send();  
+        try {
+        	
+        	System.out.println("Iniciando processo!");
+        	
+			HtmlEmail email = new HtmlEmail();      
+			  
+			email.setHostName("smtp.gmail.com"); // o servidor SMTP para envio do e-mail  
+			email.addTo(destinatario, nomeDestinatario); //destinatário  
+			email.setFrom(usuario, "EasyQuote - Sistemas de Cotação"); // remetente  
+			email.setSubject(assuntoEmail); // assunto do e-mail   
+			email.setHtmlMsg(html); // configura a mensagem para o formato HTML 
+			email.setTextMsg(txt); // configure uma mensagem alternativa caso o servidor não suporte HTML   
+			email.setAuthentication(usuario, senha);  
+			email.setSmtpPort(465);  
+			email.setSSL(true);  
+			email.setTLS(true);  
+			  
+			email.send();  // envia email
+			
+			System.out.println("Processo concluído!");
+			
+		} catch (Exception e) {
+			System.out.println("Erro no processo!");
+			e.printStackTrace();
+		}
     }  
       
       

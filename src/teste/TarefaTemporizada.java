@@ -3,7 +3,9 @@ package teste;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import scada.auxiliar.AuxiliarEmail;
 import scada.modelo.Cotacao;
+import scada.util.CommonsMail;
 
 //---------------------------------------------------------------------------------
 class TarefaTemporizada extends TimerTask {
@@ -29,6 +31,8 @@ class TarefaTemporizada extends TimerTask {
 	public void run() {
 		
 		List cotacoes;
+		String textoHTML;
+		String txt;
 		
 		try {
 			
@@ -44,17 +48,25 @@ class TarefaTemporizada extends TimerTask {
 			System.out.println("--> Data de comparação: " + dataFormatada.format(data.getTime()));
 			
 			cotacoes = HibernateUtilTest.executarConsultaHQL("from Cotacao");
+			AuxiliarEmail rel = new AuxiliarEmail();
+			
+			textoHTML = rel.cabecalhoHTML();
+			txt = rel.cabecalhoTEXTO();
 			
 			for (Object obj: cotacoes) {
 	            Cotacao c = (Cotacao)obj;
-	            
-	            if (c.getDataLimiteResposta().getTime().before(data.getTime())) {
+	            if (c.getDataLimiteResposta().getTime().before(data.getTime()) && c.getStatus() == 1) {
 	            	
-	            	// TODO o relatório de cotações e enviar por email
+	            	// TODO o relatório de cotações e enviar por email	            	
 	            	
 	            } 
 	            
+	        textoHTML += rel.rodapeHTML();
+	        txt += rel.rodapeTEXTO();
+	            
 			}
+			
+			CommonsMail.enviaEmailFormatoHtml("emailComprador", "nomeComprador", "Cotações pendentes!", textoHTML, txt);
 			
 			System.out.println("Tarefa executada.");
 			
