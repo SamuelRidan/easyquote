@@ -26,28 +26,7 @@
         novaCelula.align = "left";
         novaCelula.innerHTML = quantidade;
         
-        <%
-        
-        	List cotacoes = HibernateUtilTest.RetornaUmValorEmConsultaHQL("from Cotacao order by id desc");
-        	int i = 0;
-		
-			for (Object obj: cotacoes) {
-            	Cotacao c = (Cotacao)obj;
-        
-        		ListaCotacao lista = new ListaCotacao();
-        		lista.setId(i);
-        		lista.setCotacao(c);
-        		lista.setProduto( %> produto.value <% );
-        		lista.setQuantidade( %> quantidade <% );
-        		
-        		HibernateUtil util = new HibernateUtil();
-        		util.salvarOuAtualizar(lista);
-        		
-        		i++;
-        		
-			}
-        
-        %>
+
  
     }
     </script>
