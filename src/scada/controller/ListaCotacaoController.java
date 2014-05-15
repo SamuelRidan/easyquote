@@ -5,7 +5,10 @@ import java.util.List;
 import scada.anotacoes.Funcionalidade;
 import scada.modelo.Cotacao;
 import scada.modelo.ListaCotacao;
+import scada.modelo.Pagamento;
 import scada.modelo.Produto;
+import scada.modelo.Setor;
+import scada.modelo.Status;
 import scada.hibernate.HibernateUtil;
 import scada.sessao.SessaoGeral;
 import scada.util.Util;
@@ -114,6 +117,15 @@ public class ListaCotacaoController {
 		
 		List<Produto> produto = hibernateUtil.buscar(new Produto());
 		result.include("tipoProduto", produto);
+		
+		List<Pagamento> pagamento= hibernateUtil.buscar(new Pagamento());
+		result.include("tipoPagamento", pagamento);		
+		
+		List<Status> status = hibernateUtil.buscar(new Status());
+		result.include("tipoStatus", status);
+		
+		List<Setor> setor = hibernateUtil.buscar(new Setor());
+		result.include("tipoSetor", setor);
 
 	}	
 }

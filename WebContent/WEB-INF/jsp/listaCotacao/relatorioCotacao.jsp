@@ -1,8 +1,31 @@
 <%@ include file="/EQbase.jsp" %> 
 <%@ taglib uri="/tags/tags" prefix="tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
 
 <%@ page import="java.util.*, scada.modelo.*, scada.hibernate.*, teste.*" %>
 
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+ 
+<script type="text/javascript">
+
+function btnProd(r){	
+    $("#Prod"+r.id).toggle("fast");
+    $(r).html("<i class='fa fa-angle-up'></i>");
+    $(r).attr("onclick", "btnProd2(this);");
+} 
+
+function btnProd2(r){	
+    $("#Prod"+r.id).toggle("fast");
+    $(r).html("<i class='fa fa-angle-down'></i>");
+    $(r).attr("onclick", "btnProd(this);");	
+}
+
+$( document ).ready(function() {
+	$(".prod").hide();
+
+ 
+ });
+</script>
 
       <div id="page-wrapper">
         <div class="row">
@@ -17,72 +40,14 @@
 		</ul>
 		
 		<!--  <a class="btn" href="<c:url value="/listaCotacao/criarListaCotacao"/>" > Criar listaCotacao </a> -->
+ 
 		
-		<form class="well form-inline" action="<c:url value="/listaCotacao/listarListaCotacaos"/>" method="post" >
-		    <input type="text" class="input-small numero-inteiro" name="listaCotacao.produto" value="${sessaoGeral.valor.get('listaCotacao').produto.descricao}" placeholder="Produto">
-		    <input type="text" class="input-small numero-inteiro" name="listaCotacao.cotacao" value="${sessaoGeral.valor.get('listaCotacao').cotacao.id}" placeholder="Cotacao">
-		
-			<button type="submit" class="btn btn-info">Pesquisar</button>
-		</form>
-		
-		<h3> Produtos cotados </h3>
-		
-		<c:choose>
-			<c:when test="${!empty listaCotacaos}">
-				
+		 
 				<c:set var="link" value="listaCotacao/listarListaCotacaos" scope="request" />
 				<%@ include file="/paginacao.jsp" %> 
 				
-				<table class="table table-striped table-bordered tablesorter">
-					<thead>
-				    	<tr>
-		                    <th> Sequencial de Cotacao </th>
-		                    <th> Descrição do produto </th>
-		                    <th> Quantidade </th>
-		                    <th> Data limite de resposta</th>
-						</tr>
-					</thead>
- 
-						<c:forEach items="${listaCotacaos}" var="item">
-							<tr id="listaCotacao_${item.id}">
-								<td> ${item.cotacao.id} </td>
-		                        <c:forEach items="${tipoProduto}" var="itemProd">
-									<c:if test="${item.produto == itemProd.id}"> <td> ${itemProd.descricao} </td> </c:if> 
-								</c:forEach>
-		                        <td> ${item.quantidade} </td>
-		                        <c:forEach items="${tipoCotacao}" var="itemCot">
-									<c:if test="${item.cotacao.id == itemCot.id}"> <td> <fmt:formatDate value="${itemCot.dataLimiteResposta.time}" /> </td> </c:if> 
-								</c:forEach>
-							</tr>
-						</c:forEach>
- 
-				</table>
-			</c:when>
-			<c:otherwise>
-				<br>  <br>  <h4> Nenhum registro foi encontrado </h4>
-			</c:otherwise>
-		</c:choose>      
-		
-
-
-							<%
-					      		
-					      		Cotacao cotacao = new Cotacao();
-					      		HibernateUtil hibernateUtil = new HibernateUtil();
-					      		List<Cotacao> cotacoes = hibernateUtil.buscar(cotacao);
-					
-								for (Cotacao c : cotacoes ) {			
-								
-							%>
-								<c:forEach items="${tipoCotacao}" var="itemCod">
-									<span>aaaaaaa<%=c.getId()%></span>
-								</c:forEach>
-							<%
-								}
-							%>		
-									
 		<c:choose>
-			<c:when test="${!empty listaCotacaos}">		 
+			<c:when test="${!empty tipoCotacao}">		 
 		<table class="table table-striped table-bordered tablesorter" >
 			<tr>
 				<th>Cod. Cotação</th>
@@ -93,26 +58,57 @@
 				<th>Setor</th>								
 				<th>Observação</th>
 				<th></th>
-			</tr>
-		 <c:forEach items="${listaCotacaos}" var="item">		
+			</tr>	
 		   <c:forEach items="${tipoCotacao}" var="itemCot">	
 			<tr>			
-				<c:if test="${item.cotacao.id == itemCot.id}">
+					<td>${itemCot.id}</td>
 					<td><fmt:formatDate value="${itemCot.dataAbertura.time}"/></td>
 					<td><fmt:formatDate value="${itemCot.dataLimiteResposta.time}"/></td>
-					<td>${itemCot.cotacao.formaPgto}</td>				
-					<td>${itemCot.cotacao.status}</td>
-					<td>${itemCot.cotacao.setor}</td>								
-					<td>${itemCot.cotacao.obs}</td>
-				</c:if> 		
-				
-				
+					<c:forEach items="${tipoPagamento}" var="itemPag">
+						<c:if test="${itemCot.formaPgto == itemPag.id}"> <td>${itemPag.descricao}</td></c:if>
+					</c:forEach>	
+					<c:forEach items="${tipoStatus}" var="itemStatus">			
+						<c:if test="${itemCot.status == itemStatus.id}"> <td>${itemStatus.descricao}</td></c:if>
+					</c:forEach>
+					<c:forEach items="${tipoSetor}" var="itemSetor">	
+						<c:if test="${itemCot.setor == itemSetor.id}"><td>${itemSetor.descricao}</td></c:if>							
+					</c:forEach>	
+					<td>${itemCot.obs}</td>
+					<td id="${itemCot.id}" onclick="btnProd(this)" style="cursor:pointer;"> <i class="fa fa-angle-down"></i> </td>
 			</tr>		
-			<tr>
-					 <td colspan="8"> BBB</td>			 
-			</tr>
-		 </c:forEach>		
-		</c:forEach>		
+			<tr class="prod" id="Prod${itemCot.id}">
+			  <td colspan="8" style="background:#E5E5E5;">	
+				  
+				 <table style="width:80%;" align="center" class="table table-hover tablesorter" >
+						 <tr>
+						 	<th>Cod. Produto</th>
+						 	<th>Descrição</th>
+						 	<th>Quantidade</th>
+						 </tr>
+					<c:forEach items="${listaCotacaos}" var="lista" varStatus="l">
+				    <c:choose>
+					     <c:when test="${lista.cotacao.id == itemCot.id}">															
+						 <tr>
+						 	<td> ${lista.produto}</td>
+			                 <c:forEach items="${tipoProduto}" var="itemProd">
+										<c:if test="${lista.produto == itemProd.id}"> <td> ${itemProd.descricao} </td> </c:if> 
+						     </c:forEach>	
+						 	<td> ${lista.quantidade}</td>
+						 </tr>						 	
+						</c:when>
+						<c:otherwise>
+								<c:choose>
+								<c:when test="${l.count == 1 }">	
+							 		  <tr> <td colspan="3"><center><h5>Nenhum produto para esta cotação </h5></center></td> </tr>
+							   </c:when>
+							   </c:choose>				
+						</c:otherwise>
+					</c:choose>
+					</c:forEach>	 
+				   </table>
+			  </td>	 	 
+			</tr>					
+		 </c:forEach>				 
 		</table >
 
 			</c:when>
