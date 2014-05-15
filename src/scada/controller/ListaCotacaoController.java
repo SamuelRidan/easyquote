@@ -78,6 +78,19 @@ public class ListaCotacaoController {
 		result.redirectTo(this).listarListaCotacaos(null, null);
 		
 	}
+	
+	@Funcionalidade(filhaDe = "criarEditarListaCotacao")
+	public void salvarListaCotacao2(ListaCotacao listaCotacao) {
+
+		if (Util.preenchido(sessaoGeral.getValor("idListaCotacao"))) {
+
+			listaCotacao.setId((Integer) sessaoGeral.getValor("idListaCotacao"));
+		}
+
+		hibernateUtil.salvarOuAtualizar(listaCotacao);
+		result.include("sucesso", "Cotação salva com sucesso");
+		
+	}
 
 	@Funcionalidade(nome = "ListaCotacaos", modulo = "New")
 	public void listarListaCotacaos(ListaCotacao listaCotacao, Integer pagina) {

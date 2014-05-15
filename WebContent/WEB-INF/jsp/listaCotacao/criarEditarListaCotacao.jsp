@@ -1,3 +1,4 @@
+<%@page import="scada.controller.ListaCotacaoController"%>
 <%@ include file="/EQbase.jsp" %> 
 
 <%@ page import="java.util.*, scada.modelo.*, scada.hibernate.*, teste.*" %>
@@ -24,6 +25,29 @@
         novaCelula = novaLinha.insertCell(2);
         novaCelula.align = "left";
         novaCelula.innerHTML = quantidade;
+        
+        <%
+        
+        	List cotacoes = HibernateUtilTest.RetornaUmValorEmConsultaHQL("from Cotacao order by id desc");
+        	int i = 0;
+		
+			for (Object obj: cotacoes) {
+            	Cotacao c = (Cotacao)obj;
+        
+        		ListaCotacao lista = new ListaCotacao();
+        		lista.setId(i);
+        		lista.setCotacao(c);
+        		lista.setProduto( %> produto.value <% );
+        		lista.setQuantidade( %> quantidade <% );
+        		
+        		HibernateUtil util = new HibernateUtil();
+        		util.salvarOuAtualizar(lista);
+        		
+        		i++;
+        		
+			}
+        
+        %>
  
     }
     </script>
@@ -48,9 +72,9 @@
 		      <div class="controls">
 		           	<%
 		           	
-		    		List cotacoes = HibernateUtilTest.RetornaUmValorEmConsultaHQL("from Cotacao order by id desc");
+		    		List cotacao = HibernateUtilTest.RetornaUmValorEmConsultaHQL("from Cotacao order by id desc");
 		    		
-		    		for (Object obj: cotacoes) {
+		    		for (Object obj: cotacao) {
 		                Cotacao c = (Cotacao)obj;
 		           	
 		           	%>
