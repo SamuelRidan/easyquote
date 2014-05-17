@@ -87,8 +87,6 @@ public class CotacaoController {
 			hibernateUtil.deletar(cotacao);
 			result.include("sucesso", "Cotação excluída com sucesso");
 			result.forwardTo(this).listarCotacaos(null, null);
-
-		
 		
 	}
 

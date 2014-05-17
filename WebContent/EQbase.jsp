@@ -12,11 +12,24 @@
 
     <title>Easy Quote</title>
 
-    <link href="<c:url value="/EQ-css/bootstrap.css"/>"  rel="stylesheet"><!-- Bootstrap core CSS -->
-    <link href="<c:url value="/EQ-css/sb-admin.css"/>" rel="stylesheet">  <!-- Add custom CSS here -->
+    <!-- Bootstrap core CSS -->
+    <link href="<c:url value="/EQ-css/bootstrap.css"/>"  rel="stylesheet">
+    <!-- Add custom CSS here -->
+    <link href="<c:url value="/EQ-css/sb-admin.css"/>" rel="stylesheet">
     <link rel="stylesheet" href="<c:url value="/font-awesome/css/font-awesome.min.css"/>" >
-    <link rel="stylesheet" href="<c:url value="/EQ-css/morris-0.4.3.min.css"/>" ><!-- Page Specific CSS -->
+    <!-- Page Specific CSS -->
+    <link rel="stylesheet" href="<c:url value="/EQ-css/morris-0.4.3.min.css"/>" >
+    <!-- JavaScript -->
+    <script src="<c:url value="/EQ-js/jquery-1.10.2.js"/>" ></script>
+    <script src="<c:url value="/EQ-js/bootstrap.js"/>"></script>
 
+    <!-- Page Specific Plugins -->
+    <script src="<c:url value="/EQ-js/raphael-min.js"/>"></script>
+    <script src="<c:url value="/EQ-js/morris-0.4.3.min.js"/>"></script>
+    <script src="<c:url value="/EQ-js/morris/chart-data-morris.js"/>"></script>
+    <script src="<c:url value="/EQ-js/tablesorter/jquery.tablesorter.js"/>"></script>
+    <script src="<c:url value="/EQ-js/tablesorter/tables.js"/>"></script>
+  
   </head>
 
 
@@ -58,8 +71,8 @@
 					<li><a href="<c:url value="/${item.codigo}"/>">${item.nomeFuncionalidade}</a></li>
                 </c:forEach>
               </ul>
-            </li>
-            </c:forEach> 
+            </li>          
+            </c:forEach>          
           </ul>
 
           <ul class="nav navbar-nav navbar-right navbar-user">
