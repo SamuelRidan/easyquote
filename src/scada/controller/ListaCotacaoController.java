@@ -34,7 +34,6 @@ public class ListaCotacaoController {
 	public void criarListaCotacao(Cotacao cotacao) {
 
 		sessaoGeral.adicionar("idListaCotacao", null);		
-	//	sessaoGeral.adicionar("cotacao", cotacao.getId());
 		result.forwardTo(this).criarEditarListaCotacao();
 		
 	}
@@ -121,64 +120,53 @@ public class ListaCotacaoController {
 	}
 	
 	@Funcionalidade(filhaDe = "criarEditarListaCotacao")
-	public void salvarProdutoLista(Integer prod, Integer quantidade, Integer idCotacao) {
+	public void salvarProdutoLista(Integer prod, Integer quantidade, Integer idCot) {
 
-		ListaCotacao lista = new ListaCotacao();
-
-		List produto = hibernateUtil.buscar(new Produto());		
-		for (Object obj: produto){
-			Produto p = (Produto)obj;			
-			if (p.getId() == prod){
-				lista.setProduto(p);
-			}			
-		}
-		
-		lista.setQuantidade(quantidade);
-		
-		List cotacao = hibernateUtil.buscar(new Cotacao());		
-		for (Object obj: cotacao) {
-            Cotacao c = (Cotacao)obj;            
-            if (c.getId() == idCotacao){
-            	lista.setCotacao(c);
-            }            
-		}		
-		
-		hibernateUtil.salvarOuAtualizar(lista);
-		result.use(Results.json()).from("ok").serialize();
-
-	}
-	
-	@Funcionalidade(nome = "Excluir Produto da Lista")
-	public void excluirProdutoLista(Integer idProduto, Integer idCotacao) {
-		
 		ListaCotacao listaCotacao = new ListaCotacao();
 		
 		List produto = hibernateUtil.buscar(new Produto());		
 		for (Object obj: produto){
 			Produto p = (Produto)obj;			
-			if (p.getId() == idProduto){
+			if (p.getId() == prod){
 				listaCotacao.setProduto(p);
 			}			
 		}
 		
+		listaCotacao.setQuantidade(quantidade);
+		
 		List cotacao = hibernateUtil.buscar(new Cotacao());		
 		for (Object obj: cotacao) {
             Cotacao c = (Cotacao)obj;            
-            if (c.getId() == idCotacao){
+            if (c.getId() == idCot){
             	listaCotacao.setCotacao(c);
             }            
 		}
+		
+		hibernateUtil.salvarOuAtualizar(listaCotacao);
+		result.use(Results.json()).from("ok").serialize();
+		
+	}
+	
+	@Funcionalidade(filhaDe = "criarEditarListaCotacao")
+	public void excluirProdutoLista(Integer prod, Integer idCot) {
+		
+		System.out.println("idProduto: " + prod);
+		System.out.println("idCotação: " + idCot);
+		
+		/*
+		ListaCotacao listaCotacao = new ListaCotacao();
 		
 		List produtoCotacao = HibernateUtilTest.executarConsultaHQL("from ListaCotacao");
 		
 		for (Object obj: produtoCotacao) {
 			ListaCotacao pc = (ListaCotacao)obj;            
-            if ((pc.getProduto().getId() == idProduto) && (pc.getCotacao().getId() == idCotacao) ){
+            if ((pc.getProduto().getId() == prod) && (pc.getCotacao().getId() == idCot) ){
             	listaCotacao.setId(pc.getId());
             }            
 		}
 
 		hibernateUtil.deletar(listaCotacao);
 		result.use(Results.json()).from("ok").serialize();
+		*/
 	}
 }

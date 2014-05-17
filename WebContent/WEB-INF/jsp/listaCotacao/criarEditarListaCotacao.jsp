@@ -13,40 +13,44 @@
         prod = document.getElementById("produto");
     	produto = prod.options[prod.options.selectedIndex];
     	idProduto = produto.value;
-        quantidade = document.getElementById("quantidade").value; 
+        quant = document.getElementById("quantidade").value; 
         idCotacao = document.getElementById("listaCotacao.cotacao.id").value;
- 
-        var novaLinha = tbl.insertRow(-1);
-        var novaCelula;
- 
-        novaCelula = novaLinha.insertCell(0);
-        novaCelula.align = "left";
-        novaCelula.setAttribute("id", "listaCotacao_" + totals);
-        novaCelula.innerHTML = totals;
- 
-        novaCelula = novaLinha.insertCell(1);
-        novaCelula.align = "left";
-        novaCelula.innerHTML = produto.text;
- 
-        novaCelula = novaLinha.insertCell(2);
-        novaCelula.align = "left";
-        novaCelula.innerHTML = quantidade;
         
-        novaCelula = novaLinha.insertCell(3);
-        novaCelula.align = "left";
-        novaCelula.innerHTML = '<a href="#" onclick="deleta(' + idProduto +',' + totals + ')">Deletar</a>';
+        if (quant == 0){
+        	alert('Por favor preencha o quantidade desejada!');
+        } else {
         
-        $.ajax({
-        	  url: "<c:url value='/listaCotacao/salvarProdutoLista'/>",
-        	  data: {
-        	    produto: idProduto,
-        	    quantidade: quantidade,
-        	    cotacao: idCotacao
-        	  },
-        	  success: function( data ) {
-        	    
-        	  }
-        }); 
+		        $.ajax({
+		      	  url: "<c:url value='/listaCotacao/salvarProdutoLista'/>",
+		      	  data: {
+		      		prod: idProduto,
+		      	    quantidade: quant,
+		      	    idCot: idCotacao
+		      	  },
+		      	  success: function( data ) {
+		      		  	var novaLinha = tbl.insertRow(-1);
+		      	        var novaCelula;
+		      	 
+		      	        novaCelula = novaLinha.insertCell(0);
+		      	        novaCelula.align = "left";
+		      	        novaCelula.setAttribute("id", "listaCotacao_" + totals);
+		      	        novaCelula.innerHTML = totals;
+		      	 
+		      	        novaCelula = novaLinha.insertCell(1);
+		      	        novaCelula.align = "left";
+		      	        novaCelula.innerHTML = produto.text;
+		      	 
+		      	        novaCelula = novaLinha.insertCell(2);
+		      	        novaCelula.align = "left";
+		      	        novaCelula.innerHTML = quant;
+		      	        
+		      	        novaCelula = novaLinha.insertCell(3);
+		      	        novaCelula.align = "left";
+		      	        novaCelula.innerHTML = '<a href="#" onclick="deleta(' + idProduto +',' + totals + ')">Excluir</a>';
+		      	  }
+		      }); 
+        
+        }
     }
     
     function deleta(id,linha){
@@ -55,18 +59,20 @@
     	idCotacao = document.getElementById("listaCotacao.cotacao.id");
     	idProduto = id;
     	
+    	alert('idProduto: ' + idProduto + ", linha: " + linha);
+    	
     	$.ajax({
       	  url: "<c:url value='/listaCotacao/excluirProdutoLista'/>",
       	  data: {
-      	    produto: idProduto,
-      	    cotacao: idCotacao
+      		prod: idProduto,
+      		idCot: idCotacao
       	  },
       	  success: function( data ) {
-      	    
+
       	  }
       	}); 
     	
-    	var linha = tbl.deleteRow(linha);
+    	
     	
     }
     </script>
@@ -180,7 +186,7 @@
     <div class="control-group">
       <label class="control-label">Quantidade</label>
       <div class="controls">
-        <input type="number" id="quantidade" class="input-xlarge numero-inteiro" name="listaCotacao.quantidade" value="${listaCotacao.quantidade}">
+        <input type="text" id="quantidade" class="input-xlarge numero-inteiro" name="listaCotacao.quantidade" value="${listaCotacao.quantidade}">
 		&nbsp;&nbsp;&nbsp;
       	<input type="button" id="incluir" class="btn btn-default" value="Adicionar produto" onclick="adiciona()"/>
       </div>

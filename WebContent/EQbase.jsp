@@ -12,14 +12,11 @@
 
     <title>Easy Quote</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="<c:url value="/EQ-css/bootstrap.css"/>"  rel="stylesheet">
-
-    <!-- Add custom CSS here -->
-    <link href="<c:url value="/EQ-css/sb-admin.css"/>" rel="stylesheet">
+    <link href="<c:url value="/EQ-css/bootstrap.css"/>"  rel="stylesheet"><!-- Bootstrap core CSS -->
+    <link href="<c:url value="/EQ-css/sb-admin.css"/>" rel="stylesheet">  <!-- Add custom CSS here -->
     <link rel="stylesheet" href="<c:url value="/font-awesome/css/font-awesome.min.css"/>" >
-    <!-- Page Specific CSS -->
-    <link rel="stylesheet" href="<c:url value="/EQ-css/morris-0.4.3.min.css"/>" >
+    <link rel="stylesheet" href="<c:url value="/EQ-css/morris-0.4.3.min.css"/>" ><!-- Page Specific CSS -->
+
   </head>
 
 
