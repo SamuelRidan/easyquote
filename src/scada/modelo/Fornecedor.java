@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 
 import scada.hibernate.Entidade;
 
-public class Fornecedor implements Entidade {
+public class Fornecedor extends Pessoa implements Entidade {
 
 	@Id
 	@GeneratedValue
@@ -18,6 +18,7 @@ public class Fornecedor implements Entidade {
 	private BigDecimal cnpj;
 	private String razao_soacial;
 	private String telefone;
+	private String email;
 	private String segmento;
 	private String reputacao;
 	
@@ -61,6 +62,14 @@ public class Fornecedor implements Entidade {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void getEmail(String email) {
+		this.email = email;
 	}
 
 	public String getSegmento() {
