@@ -37,6 +37,7 @@
       <mapping class="scada.modelo.Status" />
 	  <mapping class="scada.modelo.TipoContrato" />
 	  <mapping class="scada.modelo.Fornecedor" />
-
+	  <mapping class="scada.modelo.Comprador" />
+	  
 </session-factory>
 </hibernate-configuration>

@@ -27,6 +27,12 @@
         <input type="text" class="input-xlarge" name="fornecedor.telefone" value="${fornecedor.telefone}">
       </div>
     </div>
+        <div class="control-group">
+      <label class="control-label">Email</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" name="fornecedor.email" value="${fornecedor.email}">
+      </div>
+    </div>
     <div class="control-group">
       <label class="control-label">Segmento</label>
       <div class="controls">

@@ -36,6 +36,7 @@
 		                    <th> CNPJ </th>
 		                    <th> Razao social </th>
 		                    <th> Telefone </th>
+		                    <th> Email </th>
 		                    <th> Segmento </th>
 		                    <th> Reputação </th>
 						</tr>
@@ -47,6 +48,7 @@
 		                        <td> ${item.cnpj} </td>
 		                        <td> ${item.razao_social} </td>
 		                        <td> ${item.telefone} </td>
+		                        <td> ${item.email} </td>
 		                        <td> ${item.segmento} </td>
 		                        <td> ${item.reputacao} </td>
 							</tr>

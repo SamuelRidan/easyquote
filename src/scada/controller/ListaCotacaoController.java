@@ -103,9 +103,11 @@ public class ListaCotacaoController {
 	}
 	
 	@Path("/listaCotacao/listarListaCotacaos/{listaCotacao.Cotacao.id}")
-	public void listarListaCotacaos(ListaCotacao listaCotacao, Integer pagina, Integer i) {
+	public void listarListaCotacao(ListaCotacao listaCotacao, Integer pagina) {
 
 		listaCotacao = (ListaCotacao) UtilController.preencherFiltros(listaCotacao, "listaCotacao.Cotacao.id", sessaoGeral);
+		
+		System.out.println(listaCotacao.getId());
 		
 		if (Util.vazio(listaCotacao)) {
 			listaCotacao = new ListaCotacao();
@@ -120,6 +122,7 @@ public class ListaCotacaoController {
 		List<Produto> produto = hibernateUtil.buscar(new Produto());
 		result.include("tipoProduto", produto);
 
+		
 	}
 	
 	@Funcionalidade(filhaDe = "criarEditarListaCotacao")

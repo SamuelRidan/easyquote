@@ -98,7 +98,7 @@ public class CotacaoController {
 			cotacao.setId((Integer) sessaoGeral.getValor("idCotacao"));
 		}
 
-		cotacao.setResponsavel(LoginController.RetornaOperador());
+		cotacao.setResponsavel(LoginController.RetornaComprador());
 		
 		hibernateUtil.salvarOuAtualizar(cotacao);
 		result.include("sucesso", "Cotação salva com sucesso");

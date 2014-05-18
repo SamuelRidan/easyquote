@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import scada.auxiliar.AuxiliarEmail;
+import scada.modelo.Comprador;
 import scada.modelo.Cotacao;
 import scada.util.CommonsMail;
 
@@ -13,6 +14,7 @@ class TarefaTemporizada extends TimerTask {
 	private Timer temporizador;
 	private long tempo = 1;
 	private long vezes = 0;
+	private Comprador comprador;
 	
 	public TarefaTemporizada(long tempo, long vezes) {
 		this.tempo = tempo;
@@ -48,25 +50,26 @@ class TarefaTemporizada extends TimerTask {
 			System.out.println("--> Data de comparação: " + dataFormatada.format(data.getTime()));
 			
 			cotacoes = HibernateUtilTest.executarConsultaHQL("from Cotacao");
-			AuxiliarEmail rel = new AuxiliarEmail();
 			
-			textoHTML = rel.cabecalhoHTML();
-			txt = rel.cabecalhoTEXTO();
+			textoHTML = AuxiliarEmail.cabecalhoHTML();
+			txt = AuxiliarEmail.cabecalhoTEXTO();
 			
 			for (Object obj: cotacoes) {
 	            Cotacao c = (Cotacao)obj;
 	            if (c.getDataLimiteResposta().getTime().before(data.getTime()) && c.getStatus() == 1) {
 	            	
+	            	comprador.setEmail(c.getResponsavel().getEmail());
+	            	comprador.setNome(c.getResponsavel().getNome());
 	            	// TODO o relatório de cotações e enviar por email	            	
 	            	
 	            } 
 	            
-	        textoHTML += rel.rodapeHTML();
-	        txt += rel.rodapeTEXTO();
+	        textoHTML += AuxiliarEmail.rodapeHTML();
+	        txt += AuxiliarEmail.rodapeTEXTO();
 	            
 			}
 			
-			CommonsMail.enviaEmailFormatoHtml("emailComprador", "nomeComprador", "Cotações pendentes!", textoHTML, txt);
+			CommonsMail.enviaEmailFormatoHtml(comprador.getEmail(), comprador.getNome(), "Cotações pendentes!", textoHTML, txt);
 			
 			System.out.println("Tarefa executada.");
 			

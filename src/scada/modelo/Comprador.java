@@ -9,26 +9,23 @@ import javax.persistence.ManyToOne;
 
 import scada.hibernate.Entidade;
 
-public class Fornecedor extends Operador implements Entidade {
+public class Comprador extends Operador implements Entidade {
 
 	@Id
 	@GeneratedValue
 	private Integer id;
 	
-	private BigDecimal cnpj;
-	private String razao_soacial;
+	private BigDecimal cpf;
 	private String telefone;
 	private String email;
-	private String segmento;
-	private String reputacao;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     private Operador pessoa;
 
-	public Fornecedor() {
+	public Comprador() {
 	}
 
-	public Fornecedor(Integer id) {
+	public Comprador(Integer id) {
 		this.id = id;
 	}
 
@@ -38,22 +35,6 @@ public class Fornecedor extends Operador implements Entidade {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-	
-	public BigDecimal getCnpj() {
-		return cnpj;
-	}
-
-	public void setCnpj(BigDecimal cnpj) {
-		this.cnpj = cnpj;
-	}
-
-	public String getRazao_soacial() {
-		return razao_soacial;
-	}
-
-	public void setRazao_soacial(String razao_soacial) {
-		this.razao_soacial = razao_soacial;
 	}
 
 	public String getTelefone() {
@@ -72,20 +53,16 @@ public class Fornecedor extends Operador implements Entidade {
 		this.email = email;
 	}
 
-	public String getSegmento() {
-		return segmento;
+	public BigDecimal getCpf() {
+		return cpf;
 	}
 
-	public void setSegmento(String segmento) {
-		this.segmento = segmento;
+	public void setCpf(BigDecimal cpf) {
+		this.cpf = cpf;
 	}
 
-	public String getReputacao() {
-		return reputacao;
-	}
-
-	public void setReputacao(String reputacao) {
-		this.reputacao = reputacao;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Operador getPessoa() {

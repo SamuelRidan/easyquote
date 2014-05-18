@@ -12,7 +12,7 @@ public class AuxiliarEmail {
 		try {
 			
 			textoHTML = "<html>";
-			textoHTML += "<img src=''><br>";
+			textoHTML += "<img src='<c:url value='/imagens/cabeca_email.jpg'/>'><br>";
 			textoHTML += "Olá comprador! <br><br>";
 			textoHTML += "Você tem cotações pendentes para verificar. Segue abaixo a lista das cotações: <br><br>";
 			
@@ -34,8 +34,8 @@ public class AuxiliarEmail {
 		try {
 			
 			textoHTML += "Entre o mais rápido possível em seu sistema para verificar suas pendências. <br>";
-			textoHTML += "Equipe EasyQuote - Sistemas de cotação";
-			textoHTML += "<br></html>";
+			textoHTML += "Equipe EasyQuote - Sistemas de cotação<br>";
+			textoHTML += "<img src='<c:url value='/imagens/rodape_email.jpg'/>'><br></html>";
 			
 		} catch (Exception e) {
 			
