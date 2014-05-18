@@ -46,11 +46,23 @@
       </div>
     </div>
     <div class="control-group">
-      <label class="control-label">Pessoa</label>
-      <div class="controls">
-        <input type="text" class="input-xlarge numero-inteiro" name="fornecedor.pessoa" value="${fornecedor.pessoa}">
-      </div>
-    </div>
+		      <label class="control-label">Login</label>
+		      <div class="controls">
+		        <input type="text" class="input-xlarge" name="fornecedor.operador.login" value="${fornecedor.operador.login}">
+		      </div>
+		    </div>
+		    <div class="control-group">
+		      <label class="control-label">Senha</label>
+		      <div class="controls">
+		        <input type="text" class="input-xlarge" name="fornecedor.operador.senha" value="${fornecedor.operador.senha}">
+		      </div>
+		    </div>
+		    <div class="control-group">
+		      <label class="control-label">Ativo</label>
+		      <div class="controls">
+		        <input type="checkbox" <c:if test="${fornecedor.operador.ativo}"> checked="checked" </c:if> class="input-xlarge" name="fornecedor.operador.ativo">
+		      </div>
+		    </div>
 
     <button type="submit" class="btn btn-primary">Salvar</button>
     <a class="btn btn-danger" href="<c:url value="/fornecedor/listarFornecedors"/>" > Cancelar </a>

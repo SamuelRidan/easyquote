@@ -16,14 +16,14 @@ public class Fornecedor extends Operador implements Entidade {
 	private Integer id;
 	
 	private BigDecimal cnpj;
-	private String razao_soacial;
+	private String razao_social;
 	private String telefone;
 	private String email;
 	private String segmento;
 	private String reputacao;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-    private Operador pessoa;
+    private Operador operador;
 
 	public Fornecedor() {
 	}
@@ -49,11 +49,11 @@ public class Fornecedor extends Operador implements Entidade {
 	}
 
 	public String getRazao_soacial() {
-		return razao_soacial;
+		return razao_social;
 	}
 
 	public void setRazao_soacial(String razao_soacial) {
-		this.razao_soacial = razao_soacial;
+		this.razao_social = razao_social;
 	}
 
 	public String getTelefone() {
@@ -89,11 +89,11 @@ public class Fornecedor extends Operador implements Entidade {
 	}
 
 	public Operador getPessoa() {
-		return pessoa;
+		return operador;
 	}
 
-	public void setPessoa(Operador pessoa) {
-		this.pessoa = pessoa;
+	public void setPessoa(Operador operador) {
+		this.operador = operador;
 	}
 
 }
