@@ -7,5 +7,5 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({ GrupoOperadorControllerTest.class, HibernateUtilTest.class })
 public class AllTests {
-
+	
 }

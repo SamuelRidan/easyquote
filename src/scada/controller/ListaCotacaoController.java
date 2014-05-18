@@ -3,19 +3,25 @@ package scada.controller;
 import java.util.List;
 
 import scada.anotacoes.Funcionalidade;
+import scada.hibernate.HibernateUtil;
 import scada.modelo.Cotacao;
 import scada.modelo.ListaCotacao;
 import scada.modelo.Pagamento;
 import scada.modelo.Produto;
 import scada.modelo.Setor;
 import scada.modelo.Status;
+<<<<<<< HEAD
 import scada.hibernate.HibernateUtil;
+=======
+>>>>>>> e94adacabe1998ff8a6abdbbf02deda203db1bea
 import scada.sessao.SessaoGeral;
 import scada.util.Util;
 import scada.util.UtilController;
+import teste.HibernateUtilTest;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.view.Results;
 
 @Resource
 public class ListaCotacaoController {
@@ -35,7 +41,6 @@ public class ListaCotacaoController {
 	public void criarListaCotacao(Cotacao cotacao) {
 
 		sessaoGeral.adicionar("idListaCotacao", null);		
-	//	sessaoGeral.adicionar("cotacao", cotacao.getId());
 		result.forwardTo(this).criarEditarListaCotacao();
 		
 	}
@@ -101,10 +106,18 @@ public class ListaCotacaoController {
 
 	}
 	
+<<<<<<< HEAD
 	@Funcionalidade(nome = "Cotação", modulo = "Relatórios")
 	public void relatorioCotacao(ListaCotacao listaCotacao, Integer pagina) {
 
 		listaCotacao = (ListaCotacao) UtilController.preencherFiltros(listaCotacao, "listaCotacao", sessaoGeral);
+=======
+	@Path("/listaCotacao/listarListaCotacaos/{listaCotacao.Cotacao.id}")
+	public void listarListaCotacaos(ListaCotacao listaCotacao, Integer pagina, Integer i) {
+
+		listaCotacao = (ListaCotacao) UtilController.preencherFiltros(listaCotacao, "listaCotacao.Cotacao.id", sessaoGeral);
+		
+>>>>>>> e94adacabe1998ff8a6abdbbf02deda203db1bea
 		if (Util.vazio(listaCotacao)) {
 			listaCotacao = new ListaCotacao();
 		}
@@ -117,6 +130,7 @@ public class ListaCotacaoController {
 		
 		List<Produto> produto = hibernateUtil.buscar(new Produto());
 		result.include("tipoProduto", produto);
+<<<<<<< HEAD
 		
 		List<Pagamento> pagamento= hibernateUtil.buscar(new Pagamento());
 		result.include("tipoPagamento", pagamento);		
@@ -132,6 +146,64 @@ public class ListaCotacaoController {
 	}	
 
 	public void propostaFornecedor(ListaCotacao listaCotacao, Integer pagina) {
+=======
+
+	}
+	
+	@Funcionalidade(filhaDe = "criarEditarListaCotacao")
+	public void salvarProdutoLista(Integer prod, Integer quantidade, Integer idCot) {
+
+		ListaCotacao listaCotacao = new ListaCotacao();
+		
+		List produto = hibernateUtil.buscar(new Produto());		
+		for (Object obj: produto){
+			Produto p = (Produto)obj;			
+			if (p.getId() == prod){
+				listaCotacao.setProduto(p);
+			}			
+		}
+		
+		listaCotacao.setQuantidade(quantidade);
+		
+		List cotacao = hibernateUtil.buscar(new Cotacao());		
+		for (Object obj: cotacao) {
+            Cotacao c = (Cotacao)obj;            
+            if (c.getId() == idCot){
+            	listaCotacao.setCotacao(c);
+            }            
+		}
+		
+		hibernateUtil.salvarOuAtualizar(listaCotacao);
+		result.use(Results.json()).from("ok").serialize();
+		
+	}
+	
+	@Funcionalidade(filhaDe = "criarEditarListaCotacao")
+	public void excluirProdutoLista(Integer prod, Integer idCot) {
+		
+		System.out.println("idProduto: " + prod);
+		System.out.println("idCotação: " + idCot);
+		
+		/*
+		ListaCotacao listaCotacao = new ListaCotacao();
+		
+		List produtoCotacao = HibernateUtilTest.executarConsultaHQL("from ListaCotacao");
+		
+		for (Object obj: produtoCotacao) {
+			ListaCotacao pc = (ListaCotacao)obj;            
+            if ((pc.getProduto().getId() == prod) && (pc.getCotacao().getId() == idCot) ){
+            	listaCotacao.setId(pc.getId());
+            }            
+		}
+
+		hibernateUtil.deletar(listaCotacao);
+		result.use(Results.json()).from("ok").serialize();
+		*/
+	}
+	
+	@Funcionalidade(nome = "Cotação", modulo = "Relatórios")
+	public void relatorioCotacao(ListaCotacao listaCotacao, Integer pagina) {
+>>>>>>> e94adacabe1998ff8a6abdbbf02deda203db1bea
 
 		listaCotacao = (ListaCotacao) UtilController.preencherFiltros(listaCotacao, "listaCotacao", sessaoGeral);
 		if (Util.vazio(listaCotacao)) {
@@ -155,9 +227,14 @@ public class ListaCotacaoController {
 		
 		List<Setor> setor = hibernateUtil.buscar(new Setor());
 		result.include("tipoSetor", setor);
+<<<<<<< HEAD
 		
 		
 
 	}	
 	
+=======
+
+	}	
+>>>>>>> e94adacabe1998ff8a6abdbbf02deda203db1bea
 }

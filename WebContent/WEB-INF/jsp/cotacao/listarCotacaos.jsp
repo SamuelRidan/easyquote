@@ -46,6 +46,10 @@
                     <th> Setor </th>
                     <th> Valor Total </th>
                     <th> Observações </th>
+<<<<<<< HEAD
+=======
+                    <th> Lista de produtos </th>
+>>>>>>> e94adacabe1998ff8a6abdbbf02deda203db1bea
 		            <th> Editar </th>
 		            <th> Remover </th>                    
 				</tr>
@@ -67,6 +71,10 @@
 						</td> 						
                         <td> ${item.valorTotal} </td>
                         <td> ${item.obs} </td>
+<<<<<<< HEAD
+=======
+                        <td> <a href="<c:url value="/listaCotacao/listarListaCotacaos/${item.id}"/>" ><i class="fa fa-edit"></i> Visualizar lista </a> </td>
+>>>>>>> e94adacabe1998ff8a6abdbbf02deda203db1bea
 			            <td> <a href="<c:url value="/cotacao/editarCotacao/${item.id}"/>" ><i class="fa fa-edit"></i> Editar </a> </td>
 			            <td> <a href="<c:url value="/cotacao/excluirCotacao/${item.id}"/>" ><i class="fa fa-trash-o"></i> Remover</a></td>		                                           
 					</tr>

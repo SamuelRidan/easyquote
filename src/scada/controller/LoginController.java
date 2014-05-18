@@ -33,6 +33,7 @@ public class LoginController {
 
 	private final Result result;
 	private SessaoOperador sessaoOperador;
+	private static SessaoOperador so;
 	private SessaoFuncionalidades sessaoFuncionalidades;
 	private Validator validator;
 	private HibernateUtil hibernateUtil;
@@ -40,6 +41,7 @@ public class LoginController {
 	public LoginController(Result result, SessaoOperador sessaoOperador, SessaoFuncionalidades sessaoFuncionalidades, Validator validator, HibernateUtil hibernateUtil) {
 		this.result = result;
 		this.sessaoOperador = sessaoOperador;
+		so = sessaoOperador;
 		this.validator = validator;
 		this.sessaoFuncionalidades = sessaoFuncionalidades;
 		this.hibernateUtil = hibernateUtil;
@@ -222,5 +224,9 @@ public class LoginController {
 		}
 
 		return true;
+	}
+	
+	public static Operador RetornaOperador() {
+		return so.getOperador();
 	}
 }
