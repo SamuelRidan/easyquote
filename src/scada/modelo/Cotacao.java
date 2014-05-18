@@ -2,8 +2,10 @@ package scada.modelo;
 
 import java.util.GregorianCalendar;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import scada.hibernate.Entidade;
 
@@ -23,6 +25,9 @@ public class Cotacao implements Entidade {
     private Integer setor;
     private String obs;
     private Double valorTotal;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+	private Operador responsavel;
 
 	public Cotacao() {
 	}
@@ -95,4 +100,12 @@ public class Cotacao implements Entidade {
     public void setValorTotal(Double valorTotal){
         this.valorTotal = valorTotal;
     }
+    
+    public Pessoa getResponsavel() {
+		return responsavel;
+	}
+
+	public void setResponsavel(Operador responsavel) {
+		this.responsavel = responsavel;
+	}
 }

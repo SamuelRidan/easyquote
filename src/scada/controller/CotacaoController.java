@@ -12,7 +12,6 @@ import scada.modelo.Status;
 import scada.sessao.SessaoGeral;
 import scada.util.Util;
 import scada.util.UtilController;
-
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
@@ -38,8 +37,9 @@ public class CotacaoController {
 	@Funcionalidade(filhaDe = "criarEditarCotacao")
 	public void criarCotacao() {
 
-		sessaoGeral.adicionar("idCotacao", null);
+		sessaoGeral.adicionar("idCotacao", null);			
 		result.forwardTo(this).criarEditarCotacao();
+		
 	}
 
 	@Path("/cotacao/editarCotacao/{cotacao.id}")
@@ -66,7 +66,7 @@ public class CotacaoController {
 		result.include("tipoProduto", tipoProduto);
 		
 		List<ListaCotacao> tipoLista = hibernateUtil.buscar(new ListaCotacao());
-		result.include("tipoLista", tipoLista);
+		result.include("tipoLista", tipoLista);		
 		
 	}
 
@@ -87,8 +87,6 @@ public class CotacaoController {
 			hibernateUtil.deletar(cotacao);
 			result.include("sucesso", "Cotação excluída com sucesso");
 			result.forwardTo(this).listarCotacaos(null, null);
-
-		
 		
 	}
 
@@ -98,9 +96,10 @@ public class CotacaoController {
 		if (Util.preenchido(sessaoGeral.getValor("idCotacao"))) {
 
 			cotacao.setId((Integer) sessaoGeral.getValor("idCotacao"));
-			
 		}
 
+		cotacao.setResponsavel(LoginController.RetornaOperador());
+		
 		hibernateUtil.salvarOuAtualizar(cotacao);
 		result.include("sucesso", "Cotação salva com sucesso");
 	//  result.redirectTo(this).listarCotacaos(new Cotacao(), null);

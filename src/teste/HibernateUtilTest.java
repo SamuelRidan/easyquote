@@ -171,7 +171,7 @@ public class HibernateUtilTest {
 	}
 	
 	@Test
-	static public List TesteexecutarConsultaHQL(String hql) {
+	static public List executarConsultaHQL(String hql) {
         List resultList = null;
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
@@ -189,7 +189,7 @@ public class HibernateUtilTest {
     }
 	
 	@Test
-	static public List TesteRetornoIdCotacaoEmConsultaHQL(String hql) {
+	static public List RetornaUmValorEmConsultaHQL(String hql) {
         List resultList = null;
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();

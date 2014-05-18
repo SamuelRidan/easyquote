@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+<%@page import="java.util.*, java.text.*"%>
+>>>>>>> e94adacabe1998ff8a6abdbbf02deda203db1bea
 <%@ include file="/EQbase.jsp" %> 
 <%@ taglib uri="/tags/tags" prefix="tags"%>
 
@@ -15,8 +19,21 @@
     
     <div class="control-group">
       <label class="control-label">Data de abertura</label>
-      <div class="controls">
-        <input type="text" class="input-xlarge data" name="cotacao.dataAbertura" value="<fmt:formatDate value="${cotacao.dataAbertura.time}"/>" required>
+      <div class="controls">      
+      	<%
+			Date date = new Date();
+			SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
+			GregorianCalendar data = (GregorianCalendar) GregorianCalendar.getInstance();
+			data.setTime(date);
+		%>      
+  		<c:choose>
+      		<c:when test="${!empty cotacao.dataAbertura.time}">
+        		<input type="text" class="input-xlarge data" name="cotacao.dataAbertura" value="<fmt:formatDate value="${cotacao.dataAbertura.time}"/>" required>
+        	</c:when>
+        	<c:otherwise>
+        		<input type="text" class="input-xlarge data" name="cotacao.dataAbertura" value="<fmt:formatDate value="<%= dataFormatada.parse(dataFormatada.format(data.getTime())) %>"/>" required>
+       		</c:otherwise>
+        </c:choose> 
       </div>
     </div>
     
