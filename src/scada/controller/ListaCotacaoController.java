@@ -126,6 +126,38 @@ public class ListaCotacaoController {
 		
 		List<Setor> setor = hibernateUtil.buscar(new Setor());
 		result.include("tipoSetor", setor);
+		
+		
 
 	}	
+
+	public void propostaFornecedor(ListaCotacao listaCotacao, Integer pagina) {
+
+		listaCotacao = (ListaCotacao) UtilController.preencherFiltros(listaCotacao, "listaCotacao", sessaoGeral);
+		if (Util.vazio(listaCotacao)) {
+			listaCotacao = new ListaCotacao();
+		}
+
+		List<ListaCotacao> listaCotacaos = hibernateUtil.buscar(listaCotacao, pagina);
+		result.include("listaCotacaos", listaCotacaos);
+		
+		List<Cotacao> cotacao = hibernateUtil.buscar(new Cotacao());
+		result.include("tipoCotacao", cotacao);
+		
+		List<Produto> produto = hibernateUtil.buscar(new Produto());
+		result.include("tipoProduto", produto);
+		
+		List<Pagamento> pagamento= hibernateUtil.buscar(new Pagamento());
+		result.include("tipoPagamento", pagamento);		
+		
+		List<Status> status = hibernateUtil.buscar(new Status());
+		result.include("tipoStatus", status);
+		
+		List<Setor> setor = hibernateUtil.buscar(new Setor());
+		result.include("tipoSetor", setor);
+		
+		
+
+	}	
+	
 }

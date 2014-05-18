@@ -10,6 +10,7 @@ import scada.util.Util;
 import scada.util.UtilController;
 
 
+import teste.HibernateUtilTest;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
@@ -72,7 +73,7 @@ public class FornecedorController {
 		result.redirectTo(this).listarFornecedors(new Fornecedor(), null);
 	}
 
-	@Funcionalidade(nome = "Fornecedors", modulo = "New")
+	@Funcionalidade(nome = "Fornecedor", modulo="Relatórios")
 	public void listarFornecedors(Fornecedor fornecedor, Integer pagina) {
 
 		fornecedor = (Fornecedor) UtilController.preencherFiltros(fornecedor, "fornecedor", sessaoGeral);
@@ -84,4 +85,20 @@ public class FornecedorController {
 		result.include("fornecedors", fornecedors);
 
 	}
+	
+
+	public void relatorioFornecedor(Fornecedor fornecedor, Integer pagina) {
+
+		fornecedor = (Fornecedor) UtilController.preencherFiltros(fornecedor, "fornecedor", sessaoGeral);
+		if (Util.vazio(fornecedor)) {
+			fornecedor = new Fornecedor();
+		}
+
+		List<Fornecedor> fornecedors = hibernateUtil.buscar(fornecedor, pagina);
+		result.include("fornecedor", fornecedors);
+		
+		List<Fornecedor> fornecedores = HibernateUtilTest.TesteexecutarConsultaHQL("from Fornecedor order by reputacao desc");
+		result.include("fornecedorOrd", fornecedores);
+
+	}	
 }

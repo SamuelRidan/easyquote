@@ -22,7 +22,6 @@ function btnProd2(r){
 
 $( document ).ready(function() {
 	$(".prod").hide();
-
  
  });
 </script>
@@ -33,21 +32,17 @@ $( document ).ready(function() {
             <h1><small><span style="color:#31708F">//</span> Relatórios Cotação </small></h1>
           </div>
         </div><!-- /.row -->     
-
 		<ul id="listaCotacao" class="dropdown-menu">
 			<li><a href="javascript:gerarLinkCompleto('<c:url value="/listaCotacao/editarListaCotacao"/>')">Editar</a></li>
 			<li><a href="javascript:deletar('<c:url value="/listaCotacao/excluirListaCotacao"/>')">Excluir</a></li>
 		</ul>
 		
 		<!--  <a class="btn" href="<c:url value="/listaCotacao/criarListaCotacao"/>" > Criar listaCotacao </a> -->
- 
-		
-		 
+
 				<c:set var="link" value="listaCotacao/listarListaCotacaos" scope="request" />
-				<%@ include file="/paginacao.jsp" %> 
-				
-		<c:choose>
-			<c:when test="${!empty tipoCotacao}">		 
+				<%@ include file="/paginacao.jsp" %> 	
+	<c:choose>
+	  <c:when test="${!empty tipoCotacao}">
 		<table class="table table-striped table-bordered tablesorter" >
 			<tr>
 				<th>Cod. Cotação</th>
@@ -78,14 +73,19 @@ $( document ).ready(function() {
 			</tr>		
 			<tr class="prod" id="Prod${itemCot.id}">
 			  <td colspan="8" style="background:#E5E5E5;">	
-				  
+		           	
+		           	<c:set var="idcot" value="${itemCot.id}"/>
+		           	<%
+		           	
+		    		List listCotacaoFonecedor = HibernateUtilTest.TesteexecutarConsultaHQL("from ListaCotacaoFornecedor where cotacao="+pageContext.getAttribute("idcot"));
+		           %> <span> Quantidade de Proposta:<a href="<c:url value="/listaCotacao/propostaFornecedor?id=${itemCot.id}"/>"> <% out.println(listCotacaoFonecedor.size());%></a></span>
 				 <table style="width:80%;" align="center" class="table table-hover tablesorter" >
 						 <tr>
 						 	<th>Cod. Produto</th>
 						 	<th>Descrição</th>
 						 	<th>Quantidade</th>
 						 </tr>
-					<c:forEach items="${listaCotacaos}" var="lista" varStatus="l">
+					<c:forEach items="${listaCotacaos}" var="lista" varStatus="l">	   
 				    <c:choose>
 					     <c:when test="${lista.cotacao.id == itemCot.id}">															
 						 <tr>
@@ -99,7 +99,7 @@ $( document ).ready(function() {
 						<c:otherwise>
 								<c:choose>
 								<c:when test="${l.count == 1 }">	
-							 		  <tr> <td colspan="3"><center><h5>Nenhum produto para esta cotação </h5></center></td> </tr>
+							 		  <tr> <td colspan="3"><center> <h5> Nenhum produto para esta cotação </h5></center></td> </tr>
 							   </c:when>
 							   </c:choose>				
 						</c:otherwise>
