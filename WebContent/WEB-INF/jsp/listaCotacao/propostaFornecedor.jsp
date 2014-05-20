@@ -50,9 +50,9 @@ $( document ).ready(function() {
 				
 				<c:set var="idcot" value="<%=idCodigo%>"/>
 		<%          	
-		   List propFornecedor = HibernateUtilTest.executarConsultaHQL("from ListaCotacaoFornecedor where cotacao="+pageContext.getAttribute("idcot")+" GROUP BY idFornecedor");
+		   List propFornecedor = HibernateUtilTest.executarConsultaHQL("from ListaCotacaoFornecedor GROUP BY idFornecedor");
 		 %>
-		  <% out.println(propFornecedor.size());
+		  <% out.println(propFornecedor.size());	  
 		  %>
 		<table class="table table-striped table-bordered tablesorter" >
 			<tr>

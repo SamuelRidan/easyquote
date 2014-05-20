@@ -72,6 +72,7 @@ public class ListaCotacaoController {
 		result.forwardTo(this).listarListaCotacaos(null, null);
 	}
 
+	
 	@Funcionalidade(filhaDe = "criarEditarListaCotacao")
 	public void salvarListaCotacao(ListaCotacao listaCotacao) {
 
