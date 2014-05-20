@@ -38,6 +38,8 @@
 	  <mapping class="scada.modelo.TipoContrato" />
 	  <mapping class="scada.modelo.Fornecedor" />
 	  <mapping class="scada.modelo.Comprador" />
+	  <mapping class="scada.modelo.ListaCotacaoFornecedor" />
+	  <mapping class="scada.modelo.PesquisaPedido" />
 	  
 </session-factory>
 </hibernate-configuration>

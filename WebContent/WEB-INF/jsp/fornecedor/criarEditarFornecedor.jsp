@@ -1,12 +1,23 @@
-<%@ include file="/base.jsp" %> 
+<%@page import="scada.controller.ListaCotacaoController"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="/EQbase.jsp" %> 
+<%@ page import="java.util.*, scada.modelo.*, scada.hibernate.*, teste.*" %>
 
 <form class="form-horizontal" action="<c:url value="/fornecedor/salvarFornecedor"/>" method="post">
   <fieldset>
     <legend>Criar/editar fornecedor</legend>
     <div class="control-group">
-      <label class="control-label">Id</label>
+      <label class="control-label">Operador</label>
       <div class="controls">
-        <input type="text" class="input-xlarge numero-inteiro" name="fornecedor.id" value="${fornecedor.id}">
+      	<%
+		    List operador = HibernateUtilTest.RetornaUmValorEmConsultaHQL("from Operador order by id desc");    		
+		    for (Object obj: operador) {
+		    	Operador op = (Operador)obj;
+		%>      	
+		    	<input type="text" class="input-xlarge numero-decimal" name="fornecedor.operador.id" value="<%= op.getId() %>">   	
+		<%  		
+		  	}		
+		%>
       </div>
     </div>
     <div class="control-group">
@@ -45,26 +56,10 @@
         <input type="text" class="input-xlarge" name="fornecedor.reputacao" value="${fornecedor.reputacao}">
       </div>
     </div>
-    <div class="control-group">
-		      <label class="control-label">Login</label>
-		      <div class="controls">
-		        <input type="text" class="input-xlarge" name="fornecedor.operador.login" value="${fornecedor.operador.login}">
-		      </div>
-		    </div>
-		    <div class="control-group">
-		      <label class="control-label">Senha</label>
-		      <div class="controls">
-		        <input type="text" class="input-xlarge" name="fornecedor.operador.senha" value="${fornecedor.operador.senha}">
-		      </div>
-		    </div>
-		    <div class="control-group">
-		      <label class="control-label">Ativo</label>
-		      <div class="controls">
-		        <input type="checkbox" <c:if test="${fornecedor.operador.ativo}"> checked="checked" </c:if> class="input-xlarge" name="fornecedor.operador.ativo">
-		      </div>
-		    </div>
 
     <button type="submit" class="btn btn-primary">Salvar</button>
     <a class="btn btn-danger" href="<c:url value="/fornecedor/listarFornecedors"/>" > Cancelar </a>
   </fieldset>
 </form>
+
+<%@ include file="/EQbaseFim.jsp" %> 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import scada.anotacoes.Funcionalidade;
 import scada.modelo.Comprador;
+import scada.modelo.Operador;
 import scada.hibernate.HibernateUtil;
 import scada.sessao.SessaoGeral;
 import scada.util.Util;
@@ -29,7 +30,7 @@ public class CompradorController {
 	}
 
 	@Funcionalidade(filhaDe = "criarEditarComprador")
-	public void criarComprador() {
+	public void criarComprador(Operador operador) {
 
 		sessaoGeral.adicionar("idComprador", null);
 		result.forwardTo(this).criarEditarComprador();
@@ -69,7 +70,10 @@ public class CompradorController {
 
 		hibernateUtil.salvarOuAtualizar(comprador);
 		result.include("sucesso", "Comprador salvo(a) com sucesso");
-		result.redirectTo(this).listarCompradors(new Comprador(), null);
+//		result.redirectTo(this).listarCompradors(new Comprador(), null);
+		
+		OperadorController op = new OperadorController(result,sessaoGeral,hibernateUtil);
+		result.redirectTo(op).criarOperador();
 	}
 
 	@Funcionalidade(nome = "Compradores", modulo = "Relatórios")

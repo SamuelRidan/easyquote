@@ -2,12 +2,12 @@ package scada.modelo;
 
 import java.math.BigDecimal;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import scada.hibernate.Entidade;
-
-
 
 @Entity
 public class ListaCotacaoFornecedor implements Entidade {
@@ -18,9 +18,15 @@ public class ListaCotacaoFornecedor implements Entidade {
 
     private BigDecimal preco;
     private BigDecimal precoTotal;
-    private Integer idListaCotacao;
-    private Integer cotacao;
-    private Integer idFornecedor;
+    
+    @ManyToOne (fetch = FetchType.LAZY)
+    private ListaCotacao listaCotacao;
+    
+    @ManyToOne (fetch = FetchType.LAZY)
+    private Cotacao cotacao;
+    
+    @ManyToOne (fetch = FetchType.LAZY)
+    private Fornecedor fornecedor;
 
 	public ListaCotacaoFornecedor() {
 	}
@@ -54,27 +60,23 @@ public class ListaCotacaoFornecedor implements Entidade {
         this.precoTotal = precoTotal;
     }
 
-    public Integer getIdListaCotacao() {
-        return idListaCotacao;
-    }
-
-    public void setIdListaCotacao(Integer idListaCotacao){
-        this.idListaCotacao = idListaCotacao;
-    }
-
-    public Integer getIdFornecedor() {
-        return idFornecedor;
-    }
-
-    public void setIdFornecedor(Integer idFornecedor){
-        this.idFornecedor = idFornecedor;
-    }
-
-	public Integer getCotacao() {
-		return cotacao;
+    public ListaCotacao getListaCotacao() {
+		return listaCotacao;
 	}
 
-	public void setCotacao(Integer cotacao) {
+	public void setListaCotacao(ListaCotacao listaCotacao) {
+		this.listaCotacao = listaCotacao;
+	}
+
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+
+	public void setCotacao(Cotacao cotacao) {
 		this.cotacao = cotacao;
 	}
     

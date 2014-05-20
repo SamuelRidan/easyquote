@@ -4,6 +4,7 @@ import java.util.List;
 
 import scada.anotacoes.Funcionalidade;
 import scada.modelo.Fornecedor;
+import scada.modelo.Operador;
 import scada.hibernate.HibernateUtil;
 import scada.sessao.SessaoGeral;
 import scada.util.Util;
@@ -30,7 +31,7 @@ public class FornecedorController {
 	}
 
 	@Funcionalidade(filhaDe = "criarEditarFornecedor")
-	public void criarFornecedor() {
+	public void criarFornecedor(Operador operador) {
 
 		sessaoGeral.adicionar("idFornecedor", null);
 		result.forwardTo(this).criarEditarFornecedor();
@@ -70,7 +71,11 @@ public class FornecedorController {
 
 		hibernateUtil.salvarOuAtualizar(fornecedor);
 		result.include("sucesso", "Fornecedor salvo(a) com sucesso");
-		result.redirectTo(this).listarFornecedors(new Fornecedor(), null);
+//		result.redirectTo(this).listarFornecedors(new Fornecedor(), null);
+		
+		OperadorController op = new OperadorController(result,sessaoGeral,hibernateUtil);
+		result.redirectTo(op).criarOperador();
+		
 	}
 
 	@Funcionalidade(nome = "Fornecedores", modulo="Acesso")

@@ -6,11 +6,10 @@ import scada.anotacoes.Funcionalidade;
 import scada.hibernate.HibernateUtil;
 import scada.modelo.GrupoOperador;
 import scada.modelo.Operador;
-import scada.modelo.Status;
 import scada.sessao.SessaoGeral;
+import scada.util.GeradorDeMd5;
 import scada.util.Util;
 import scada.util.UtilController;
-
 
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
@@ -72,22 +71,25 @@ public class OperadorController {
 
 			operador.setId((Integer) sessaoGeral.getValor("idOperador"));
 		}
-
+		
+		String senha = GeradorDeMd5.converter(operador.getSenha());
+		System.out.println(senha);
+		operador.setSenha(senha);		
+		
 		hibernateUtil.salvarOuAtualizar(operador);
 		result.include("sucesso", "Operador salvo(a) com sucesso");
 		
 		if (operador.getGrupoOperador().getId() == 2){
 			CompradorController compradorController = new CompradorController(result,sessaoGeral,hibernateUtil);
-			result.redirectTo(compradorController).criarComprador();
-		} 
-		
-		if (operador.getGrupoOperador().getId() == 3){
-			FornecedorController fornecedorController = new FornecedorController(result,sessaoGeral,hibernateUtil);
-			result.redirectTo(fornecedorController).criarFornecedor();
+			result.redirectTo(compradorController).criarComprador(operador);
 		} else {
-			result.redirectTo(this).listarOperadors(new Operador(), null);
+			if (operador.getGrupoOperador().getId() == 3){
+				FornecedorController fc = new FornecedorController(result,sessaoGeral,hibernateUtil);
+				result.redirectTo(fc).criarFornecedor(operador);
+			} else {
+				result.redirectTo(this).listarOperadors(new Operador(), null);
+			}
 		}
-		
 	}
 
 	@Funcionalidade(nome = "Operadores", modulo = "Acesso")
