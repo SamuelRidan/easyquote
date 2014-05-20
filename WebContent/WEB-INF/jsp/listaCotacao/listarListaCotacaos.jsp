@@ -3,10 +3,26 @@
 
 <%@ page import="java.util.*, scada.modelo.*, scada.hibernate.*, teste.*" %>
 
+<script LANGUAGE="JavaScript">
+
+		function excluir(idListaCotacao,linha){
+		    	
+		    	$.ajax({
+		      	  url: "<c:url value='/listaCotacao/excluirProduto'/>",
+		      	  data: {
+		      		id: idListaCotacao,
+		      	  },
+		      	  success: function( data ) {
+		      		  $("#"+linha.id).remove();
+		      	  }
+		      	}); 
+		}
+</script>
+
    <div id="page-wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h1><small><span style="color:#31708F">//</span> Listar Cotação </small></h1>
+            <h1><small><span style="color:#31708F">//</span> Lista de produtos da cotação </small></h1>
           </div>
         </div>    
 
@@ -19,7 +35,7 @@
 		<h3> Produtos cotados </h3>
 		
 		<c:choose>
-			<c:when test="${!empty contratos}">
+			<c:when test="${!empty listaCotacaos}">
 			
 				<c:set var="link" value="listacotacao/listarListaCotacaos" scope="request" />
 				<%@ include file="/paginacao.jsp" %> 
@@ -35,7 +51,7 @@
 						</tr>
 					</thead>
 					<tbody>
-								<c:forEach items="${ListaCotacao}" var="item">
+								<c:forEach items="${listaCotacaos}" var="item">
 									<tr id="produto_${item.id}">
 										<td> ${item.id} </td>
 										<c:forEach items="${tipoProduto}" var="tipoproduto">
@@ -43,7 +59,7 @@
 										</c:forEach>
 										<td> ${item.quantidade} </td>
 										<td> <a href="<c:url value='/listaCotacao/criarListaCotacao'/>" >Editar</a></td>
-										<td> <a href="#" onclick="excluir()">Excluir</a> </td>
+										<td> <a href="#" onclick="excluir(${item.id},produto_${item.id})">Excluir</a> </td>
 									</tr>									
 								</c:forEach>
 					</tbody>

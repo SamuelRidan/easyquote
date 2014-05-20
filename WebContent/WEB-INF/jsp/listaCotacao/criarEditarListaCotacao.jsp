@@ -33,7 +33,7 @@
 		      	 
 		      	        novaCelula = novaLinha.insertCell(0);
 		      	        novaCelula.align = "left";
-		      	        novaCelula.setAttribute("id", "listaCotacao_" + totals);
+		      	        novaLinha.setAttribute("id", "listaCotacao_" + totals);
 		      	        novaCelula.innerHTML = totals;
 		      	 
 		      	        novaCelula = novaLinha.insertCell(1);
@@ -46,7 +46,7 @@
 		      	        
 		      	        novaCelula = novaLinha.insertCell(3);
 		      	        novaCelula.align = "left";
-		      	        novaCelula.innerHTML = '<a href="#" onclick="deleta(' + idProduto +',' + totals + ')">Excluir</a>';
+		      	        novaCelula.innerHTML = '<a href="#" onclick="deleta(' + idProduto +',listaCotacao_' + totals + ')">Excluir</a>';
 		      	  }
 		      }); 
         
@@ -58,9 +58,6 @@
     	idCotacao = document.getElementById("listaCotacao.cotacao.id").value;
     	idProduto = id;
     	
-    	console.log(idProduto);
-    	console.log(idCotacao);
-    	
     	$.ajax({
       	  url: "<c:url value='/listaCotacao/excluirProdutoLista'/>",
       	  data: {
@@ -68,7 +65,7 @@
       		idCot: idCotacao
       	  },
       	  success: function( data ) {
-
+      		  $("#"+linha.id).remove();
       	  }
       	}); 
     	

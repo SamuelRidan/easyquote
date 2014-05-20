@@ -89,14 +89,9 @@ public class ListaCotacaoController {
 	@Path("/listaCotacao/listarListaCotacaos/{cotacao.id}")
 	public void listarListaCotacaos(Cotacao cotacao, Integer pagina) {
 		
-		ListaCotacao listaCotacao = (ListaCotacao) UtilController.preencherFiltros(cotacao, "cotacao.id", sessaoGeral);
-		
-		if (Util.vazio(listaCotacao)) {
-			listaCotacao = new ListaCotacao();
-		}
-		
-		List<ListaCotacao> lc = hibernateUtil.buscar(listaCotacao, pagina);
-		result.include("ListaCotacao",lc);
+		cotacao = (Cotacao) UtilController.preencherFiltros(cotacao, "cotacao.id", sessaoGeral);
+		List lista = HibernateUtilTest.executarConsultaHQL("from ListaCotacao where cotacao.id = :idCotacao", "idCotacao", cotacao.getId());
+		result.include("listaCotacaos", lista);
 		
 		List<Produto> produto = hibernateUtil.buscar(new Produto());
 		result.include("tipoProduto", produto);
@@ -138,21 +133,19 @@ public class ListaCotacaoController {
 	}
 	
 	@Funcionalidade(filhaDe = "criarEditarListaCotacao")
-	public void excluirProdutoLista(Integer prod, Integer idCot) {
-		
-		ListaCotacao listaCotacao = new ListaCotacao();
-		
-		List produtoCotacao = HibernateUtilTest.executarConsultaHQL("from ListaCotacao");
-		
-		for (Object obj: produtoCotacao) {
-			ListaCotacao pc = (ListaCotacao)obj;            
-            if ((pc.getProduto().getId() == prod) && (pc.getCotacao().getId() == idCot) ){
-            	listaCotacao.setId(pc.getId());
-            }            
-		}
+	public void excluirProdutoLista(Integer prod, Integer idCot) {       
 
-		hibernateUtil.deletar(listaCotacao);
+		HibernateUtilTest.executarHQL("delete ListaCotacao where cotacao.id = :idCotacao and produto.id = :idProduto","idCotacao",idCot,"idProduto",prod);
 		result.use(Results.json()).from("ok").serialize();
+	
+	}
+	
+	@Funcionalidade(filhaDe = "criarEditarListaCotacao")
+	public void excluirProduto(Integer id) {       
+
+		HibernateUtilTest.executarHQL("delete ListaCotacao where id = :idListaCotacao","idListaCotacao",id);
+		result.use(Results.json()).from("ok").serialize();
+	
 	}
 	
 	@Funcionalidade(nome = "Cotação", modulo = "Relatórios")
