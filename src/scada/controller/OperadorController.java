@@ -4,7 +4,9 @@ import java.util.List;
 
 import scada.anotacoes.Funcionalidade;
 import scada.hibernate.HibernateUtil;
+import scada.modelo.GrupoOperador;
 import scada.modelo.Operador;
+import scada.modelo.Status;
 import scada.sessao.SessaoGeral;
 import scada.util.Util;
 import scada.util.UtilController;
@@ -46,8 +48,12 @@ public class OperadorController {
 		result.forwardTo(this).criarEditarOperador();
 	}
 
-	@Funcionalidade(nome = "Criar e editar operadors")
+	@Funcionalidade(nome = "Criar e editar operadores")
 	public void criarEditarOperador() {
+		
+		List<GrupoOperador> grupoOperador = hibernateUtil.buscar(new GrupoOperador());
+		result.include("grupoOperador", grupoOperador);
+		
 	}
 
 	@Path("/operador/excluirOperador/{operador.id}")
@@ -69,7 +75,19 @@ public class OperadorController {
 
 		hibernateUtil.salvarOuAtualizar(operador);
 		result.include("sucesso", "Operador salvo(a) com sucesso");
-		result.redirectTo(this).listarOperadors(new Operador(), null);
+		
+		if (operador.getGrupoOperador().getId() == 2){
+			CompradorController compradorController = new CompradorController(result,sessaoGeral,hibernateUtil);
+			result.redirectTo(compradorController).criarComprador();
+		} 
+		
+		if (operador.getGrupoOperador().getId() == 3){
+			FornecedorController fornecedorController = new FornecedorController(result,sessaoGeral,hibernateUtil);
+			result.redirectTo(fornecedorController).criarFornecedor();
+		} else {
+			result.redirectTo(this).listarOperadors(new Operador(), null);
+		}
+		
 	}
 
 	@Funcionalidade(nome = "Operadores", modulo = "Acesso")

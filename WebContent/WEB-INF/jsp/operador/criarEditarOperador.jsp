@@ -1,3 +1,5 @@
+<%@page import="scada.controller.ListaCotacaoController"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/EQbase.jsp" %> 
 
       <div id="page-wrapper">
@@ -28,11 +30,23 @@
 		        <input type="checkbox" <c:if test="${operador.ativo}"> checked="checked" </c:if> class="input-xlarge" name="operador.ativo">
 		      </div>
 		    </div>
+		    
+		    <div class="control-group">
+		      <label class="control-label">Grupo de Operador</label>
+		      <div class="controls">
+		        <select name="operador.grupoOperador.id">
+		        	<option selected="selected" disabled="disabled"> Selecione o grupo </option>
+					<c:forEach items="${grupoOperador}" var="grupoOperador">
+						<option <c:if test="${operador.grupoOperador.id == grupoOperador.id}"> </c:if> value="${grupoOperador.id}">${grupoOperador.id} - ${grupoOperador.nome} </option>
+					</c:forEach>
+				</select>
+		      </div>
+		    </div> 
 		
 		    <button type="submit" class="btn btn-primary">Salvar</button>
 		    <a class="btn btn-danger" href="<c:url value="/operador/listarOperadors"/>" > Cancelar </a>
 		  </fieldset>
 		</form>
-
+	</div>
 
 <%@ include file="/EQbaseFim.jsp" %> 

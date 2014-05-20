@@ -27,7 +27,7 @@ public class Cotacao implements Entidade {
     private Double valorTotal;
     
     @ManyToOne(fetch = FetchType.LAZY)
-	private Comprador responsavel;
+	private Operador responsavel;
 
 	public Cotacao() {
 	}
@@ -101,11 +101,11 @@ public class Cotacao implements Entidade {
         this.valorTotal = valorTotal;
     }
     
-    public Comprador getResponsavel() {
+    public Operador getResponsavel() {
 		return responsavel;
 	}
 
-	public void setResponsavel(Comprador responsavel) {
+	public void setResponsavel(Operador responsavel) {
 		this.responsavel = responsavel;
 	}
 }

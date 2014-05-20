@@ -2,6 +2,7 @@ package scada.modelo;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,7 +10,8 @@ import javax.persistence.ManyToOne;
 
 import scada.hibernate.Entidade;
 
-public class Fornecedor extends Operador implements Entidade {
+@Entity
+public class Fornecedor implements Entidade {
 
 	@Id
 	@GeneratedValue
@@ -52,7 +54,7 @@ public class Fornecedor extends Operador implements Entidade {
 		return razao_social;
 	}
 
-	public void setRazao_soacial(String razao_soacial) {
+	public void setRazao_soacial(String razao_social) {
 		this.razao_social = razao_social;
 	}
 

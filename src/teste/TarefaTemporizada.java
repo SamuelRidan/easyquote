@@ -58,9 +58,8 @@ class TarefaTemporizada extends TimerTask {
 	            Cotacao c = (Cotacao)obj;
 	            if (c.getDataLimiteResposta().getTime().before(data.getTime()) && c.getStatus() == 1) {
 	            	
-	            	comprador.setEmail(c.getResponsavel().getEmail());
-	            	comprador.setNome(c.getResponsavel().getNome());
-	            	// TODO o relatório de cotações e enviar por email	            	
+	            	comprador.setEmail("");
+	            	//comprador.setNome(c.getResponsavel().getNome());	            	
 	            	
 	            } 
 	            
@@ -69,7 +68,7 @@ class TarefaTemporizada extends TimerTask {
 	            
 			}
 			
-			CommonsMail.enviaEmailFormatoHtml(comprador.getEmail(), comprador.getNome(), "Cotações pendentes!", textoHTML, txt);
+			CommonsMail.enviaEmailFormatoHtml(comprador.getEmail(), comprador.getOperador().getNome(), "Cotações pendentes!", textoHTML, txt);
 			
 			System.out.println("Tarefa executada.");
 			

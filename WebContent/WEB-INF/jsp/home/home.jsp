@@ -1,5 +1,5 @@
 <%@ include file="/EQbase.jsp" %> 
-
+<%@ page import="java.util.*, scada.modelo.*, scada.hibernate.*, teste.*" %>
       <div id="page-wrapper">
         <div class="row">
           <div class="col-lg-12">
@@ -23,7 +23,8 @@
                     <i class="fa fa-comments fa-5x"></i>
                   </div>
                   <div class="col-xs-6 text-right">
-                    <p class="announcement-heading">4</p>
+                    <% List contratoAditivo = HibernateUtilTest.executarConsultaHQL("from Aditivo");%>
+                    <p class="announcement-heading"><% out.println(contratoAditivo.size());%></p>
                     <p class="announcement-text">Contratos Ativos</p>
                   </div>
                 </div>
@@ -49,7 +50,8 @@
                     <i class="fa fa-check fa-5x"></i>
                   </div>
                   <div class="col-xs-6 text-right">
-                    <p class="announcement-heading">12</p>
+                   <% List cotacaoAndamento = HibernateUtilTest.executarConsultaHQL("from Cotacao where status=4");%>
+                    <p class="announcement-heading"><% out.println(cotacaoAndamento.size());%></p>
                     <p class="announcement-text">Cotações Andamento</p>
                   </div>
                 </div>
@@ -68,7 +70,6 @@
               </a>
             </div>
           </div>
-          
           <div class="col-lg-3">
             <div class="panel panel-danger">
               <div class="panel-heading">
@@ -77,7 +78,8 @@
                     <i class="fa fa-tasks fa-5x"></i>
                   </div>
                   <div class="col-xs-6 text-right">
-                    <p class="announcement-heading">18</p>
+                    <% List cotacaoPendente = HibernateUtilTest.executarConsultaHQL("from Cotacao where status=5");%>
+                    <p class="announcement-heading"><% out.println(cotacaoPendente.size());%></p>
                     <p class="announcement-text">Cotações Pendentes</p>
                   </div>
                 </div>
@@ -104,7 +106,8 @@
                     <i class="fa fa-comments fa-5x"></i>
                   </div>
                   <div class="col-xs-6 text-right">
-                    <p class="announcement-heading">7</p>
+                   <% List pedidos = HibernateUtilTest.executarConsultaHQL("from Pedido");%>
+                    <p class="announcement-heading"><% out.println(pedidos.size());%></p>
                     <p class="announcement-text">Pedidos</p>
                   </div>
                 </div>

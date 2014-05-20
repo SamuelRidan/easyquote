@@ -227,21 +227,13 @@ public class LoginController {
 
 		return true;
 	}
+
 	
-	public static Comprador RetornaComprador() {
+	public static Operador RetornaComprador() {
 
-		Comprador comprador = null;
-		
-		List compradores = HibernateUtilTest.executarConsultaHQL("from Comprador");
-		
-		for (Object obj: compradores){
-			Comprador c = (Comprador)obj;
-			
-				if (c.getLogin() == so.getOperador().getLogin()){
-					comprador = new Comprador(so.getOperador().getId());
-				}
-		}
+		Operador operador = so.getOperador();
 
-		return comprador;
+		return operador;
 	}
+	
 }

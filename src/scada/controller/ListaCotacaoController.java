@@ -3,9 +3,11 @@ package scada.controller;
 import java.util.List;
 
 import scada.anotacoes.Funcionalidade;
+import scada.hibernate.Entidade;
 import scada.hibernate.HibernateUtil;
 import scada.modelo.Cotacao;
 import scada.modelo.ListaCotacao;
+import scada.modelo.ListaCotacaoFornecedor;
 import scada.modelo.Pagamento;
 import scada.modelo.Produto;
 import scada.modelo.Setor;
@@ -14,6 +16,7 @@ import scada.sessao.SessaoGeral;
 import scada.util.Util;
 import scada.util.UtilController;
 import teste.HibernateUtilTest;
+import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
@@ -66,7 +69,7 @@ public class ListaCotacaoController {
 
 		hibernateUtil.deletar(listaCotacao);
 		result.include("sucesso", "ListaCotacao excluído(a) com sucesso");
-		result.forwardTo(this).listarListaCotacaos(null, null);
+		//result.forwardTo(this).listarListaCotacaos(null, null);
 	}
 
 	@Funcionalidade(filhaDe = "criarEditarListaCotacao")
@@ -79,50 +82,31 @@ public class ListaCotacaoController {
 
 		hibernateUtil.salvarOuAtualizar(listaCotacao);
 		result.include("sucesso", "Cotação salva com sucesso");
-		result.redirectTo(this).listarListaCotacaos(null, null);
+		//result.redirectTo(this).listarListaCotacaos(null, null);
 		
 	}
 
-	@Funcionalidade(nome = "ListaCotacaos", modulo = "New")
-	public void listarListaCotacaos(ListaCotacao listaCotacao, Integer pagina) {
-
-		listaCotacao = (ListaCotacao) UtilController.preencherFiltros(listaCotacao, "listaCotacao", sessaoGeral);
+	@Path("/listaCotacao/listarListaCotacaos/{cotacao.id}")
+	public void listarListaCotacaos(Cotacao cotacao, Integer pagina) {
+		
+		ListaCotacao listaCotacao = (ListaCotacao) UtilController.preencherFiltros(cotacao, "cotacao.id", sessaoGeral);
+		
 		if (Util.vazio(listaCotacao)) {
 			listaCotacao = new ListaCotacao();
 		}
-
-		List<ListaCotacao> listaCotacaos = hibernateUtil.buscar(listaCotacao, pagina);
-		result.include("listaCotacaos", listaCotacaos);
 		
-		List<Cotacao> cotacao = hibernateUtil.buscar(new Cotacao());
-		result.include("tipoCotacao", cotacao);
+		List<ListaCotacao> lc = hibernateUtil.buscar(listaCotacao, pagina);
+		result.include("ListaCotacao",lc);
 		
 		List<Produto> produto = hibernateUtil.buscar(new Produto());
 		result.include("tipoProduto", produto);
-
+		
 	}
 	
-	@Path("/listaCotacao/listarListaCotacaos/{listaCotacao.Cotacao.id}")
-	public void listarListaCotacao(ListaCotacao listaCotacao, Integer pagina) {
-
-		listaCotacao = (ListaCotacao) UtilController.preencherFiltros(listaCotacao, "listaCotacao.Cotacao.id", sessaoGeral);
-		
-		System.out.println(listaCotacao.getId());
-		
-		if (Util.vazio(listaCotacao)) {
-			listaCotacao = new ListaCotacao();
-		}
-
-		List<ListaCotacao> listaCotacaos = hibernateUtil.buscar(listaCotacao, pagina);
-		result.include("listaCotacaos", listaCotacaos);
-		
-		List<Cotacao> cotacao = hibernateUtil.buscar(new Cotacao());
-		result.include("tipoCotacao", cotacao);
-		
-		List<Produto> produto = hibernateUtil.buscar(new Produto());
-		result.include("tipoProduto", produto);
-
-		
+	@Get
+	@Path("/listaCotacao/propostaFornecedor1/{ListaCotacaoFornecedor.id}")
+	public void propostaFornecedor1(ListaCotacaoFornecedor listaCotacaoFornecedor) {
+	 // TODO
 	}
 	
 	@Funcionalidade(filhaDe = "criarEditarListaCotacao")
@@ -156,10 +140,6 @@ public class ListaCotacaoController {
 	@Funcionalidade(filhaDe = "criarEditarListaCotacao")
 	public void excluirProdutoLista(Integer prod, Integer idCot) {
 		
-		System.out.println("idProduto: " + prod);
-		System.out.println("idCotação: " + idCot);
-		
-		/*
 		ListaCotacao listaCotacao = new ListaCotacao();
 		
 		List produtoCotacao = HibernateUtilTest.executarConsultaHQL("from ListaCotacao");
@@ -173,7 +153,6 @@ public class ListaCotacaoController {
 
 		hibernateUtil.deletar(listaCotacao);
 		result.use(Results.json()).from("ok").serialize();
-		*/
 	}
 	
 	@Funcionalidade(nome = "Cotação", modulo = "Relatórios")

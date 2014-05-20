@@ -55,11 +55,11 @@
     
     function deleta(id,linha){
     	
-    	tbl = document.getElementById("tabela");
-    	idCotacao = document.getElementById("listaCotacao.cotacao.id");
+    	idCotacao = document.getElementById("listaCotacao.cotacao.id").value;
     	idProduto = id;
     	
-    	alert('idProduto: ' + idProduto + ", linha: " + linha);
+    	console.log(idProduto);
+    	console.log(idCotacao);
     	
     	$.ajax({
       	  url: "<c:url value='/listaCotacao/excluirProdutoLista'/>",
