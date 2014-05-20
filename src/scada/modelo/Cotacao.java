@@ -101,7 +101,7 @@ public class Cotacao implements Entidade {
         this.valorTotal = valorTotal;
     }
     
-    public Pessoa getResponsavel() {
+    public Operador getResponsavel() {
 		return responsavel;
 	}
 

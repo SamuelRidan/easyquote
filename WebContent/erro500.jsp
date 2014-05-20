@@ -1,4 +1,4 @@
-<%@ include file="/base.jsp" %> 
+<%@ include file="/EQbase.jsp" %> 
 
 <style>
 
@@ -18,13 +18,14 @@
 
 </style>
 
+<br><br><br>
 
-<h3 style="color: red"> &nbsp;  Ocorreu um erro no servidor </h3>
+<h3 style="color: red"> &nbsp;&nbsp;  Ocorreu um erro no servidor </h3>
 
 
 <br><br><br><br><br><br><br><br>
 
-<a id="mostrarException">  Mostrar erro   </a>
+<a id="mostrarException"> &nbsp;&nbsp;  Mostrar erro   </a>
 
 <div id="exception" >
 	${exception}

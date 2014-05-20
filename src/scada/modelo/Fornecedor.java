@@ -6,6 +6,7 @@ import javax.persistence.Id;
 
 import scada.hibernate.Entidade;import java.math.BigDecimal;
 
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,7 +14,8 @@ import javax.persistence.ManyToOne;
 
 import scada.hibernate.Entidade;
 
-public class Fornecedor extends Pessoa implements Entidade {
+@Entity
+public class Fornecedor implements Entidade {
 
 
 	@Id
@@ -24,9 +26,14 @@ public class Fornecedor extends Pessoa implements Entidade {
     private String segmento;
     private String reputacao;
 	private BigDecimal cnpj;
+<<<<<<< HEAD
+=======
+	private String razao_social;
+	private String telefone;
+>>>>>>> 0d43bc937057fa412b9f7a90fdd55a3969517de9
 	private String email;
 	@ManyToOne(fetch = FetchType.LAZY)
-    private Pessoa pessoa;
+    private Operador operador;
 
 	public Fornecedor() {
 	}
@@ -43,7 +50,15 @@ public class Fornecedor extends Pessoa implements Entidade {
 		return razao_social;
 	}
 
+<<<<<<< HEAD
 	public void setRazao_social(String razao_social) {
+=======
+	public String getRazao_soacial() {
+		return razao_social;
+	}
+
+	public void setRazao_soacial(String razao_social) {
+>>>>>>> 0d43bc937057fa412b9f7a90fdd55a3969517de9
 		this.razao_social = razao_social;
 	}
 
@@ -71,6 +86,7 @@ public class Fornecedor extends Pessoa implements Entidade {
 		this.reputacao = reputacao;
 	}
 
+<<<<<<< HEAD
 	public BigDecimal getCnpj() {
 		return cnpj;
 	}
@@ -89,10 +105,14 @@ public class Fornecedor extends Pessoa implements Entidade {
 
 	public Pessoa getPessoa() {
 		return pessoa;
+=======
+	public Operador getPessoa() {
+		return operador;
+>>>>>>> 0d43bc937057fa412b9f7a90fdd55a3969517de9
 	}
 
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
+	public void setPessoa(Operador operador) {
+		this.operador = operador;
 	}
 
 

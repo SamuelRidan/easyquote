@@ -3,6 +3,7 @@ package scada.controller;
 import java.util.List;
 
 import scada.anotacoes.Funcionalidade;
+import scada.hibernate.Entidade;
 import scada.hibernate.HibernateUtil;
 import scada.modelo.Cotacao;
 import scada.modelo.Fornecedor;
@@ -69,7 +70,7 @@ public class ListaCotacaoController {
 
 		hibernateUtil.deletar(listaCotacao);
 		result.include("sucesso", "ListaCotacao excluído(a) com sucesso");
-		result.forwardTo(this).listarListaCotacaos(null, null);
+		//result.forwardTo(this).listarListaCotacaos(null, null);
 	}
 
 	
@@ -83,21 +84,14 @@ public class ListaCotacaoController {
 
 		hibernateUtil.salvarOuAtualizar(listaCotacao);
 		result.include("sucesso", "Cotação salva com sucesso");
-		result.redirectTo(this).listarListaCotacaos(null, null);
+		//result.redirectTo(this).listarListaCotacaos(null, null);
 		
 	}
 
-	@Funcionalidade(nome = "ListaCotacaos", modulo = "New")
-	public void listarListaCotacaos(ListaCotacao listaCotacao, Integer pagina) {
-
-		listaCotacao = (ListaCotacao) UtilController.preencherFiltros(listaCotacao, "listaCotacao", sessaoGeral);
-		if (Util.vazio(listaCotacao)) {
-			listaCotacao = new ListaCotacao();
-		}
-
-		List<ListaCotacao> listaCotacaos = hibernateUtil.buscar(listaCotacao, pagina);
-		result.include("listaCotacaos", listaCotacaos);
+	@Path("/listaCotacao/listarListaCotacaos/{cotacao.id}")
+	public void listarListaCotacaos(Cotacao cotacao, Integer pagina) {
 		
+<<<<<<< HEAD
 		List<Cotacao> cotacao = hibernateUtil.buscar(new Cotacao());
 		result.include("tipoCotacao", cotacao);
 		
@@ -113,20 +107,27 @@ public class ListaCotacaoController {
 	public void listarListaCotacaos(ListaCotacao listaCotacao1, Integer pagina, Integer i) {
 
 		listaCotacao1 = (ListaCotacao) UtilController.preencherFiltros(listaCotacao1, "listaCotacao.Cotacao.id", sessaoGeral);
+=======
+		ListaCotacao listaCotacao = (ListaCotacao) UtilController.preencherFiltros(cotacao, "cotacao.id", sessaoGeral);
+>>>>>>> 0d43bc937057fa412b9f7a90fdd55a3969517de9
 		
 		if (Util.vazio(listaCotacao1)) {
 			listaCotacao1 = new ListaCotacao();
 		}
+<<<<<<< HEAD
 
 		List<ListaCotacao> listaCotacaos = hibernateUtil.buscar(listaCotacao1, pagina);
 		result.include("listaCotacaos", listaCotacaos);
+=======
+>>>>>>> 0d43bc937057fa412b9f7a90fdd55a3969517de9
 		
-		List<Cotacao> cotacao = hibernateUtil.buscar(new Cotacao());
-		result.include("tipoCotacao", cotacao);
+		List<ListaCotacao> lc = hibernateUtil.buscar(listaCotacao, pagina);
+		result.include("ListaCotacao",lc);
 		
 		List<Produto> produto = hibernateUtil.buscar(new Produto());
 		result.include("tipoProduto", produto);
 		
+<<<<<<< HEAD
 		List<Pagamento> pagamento= hibernateUtil.buscar(new Pagamento());
 		result.include("tipoPagamento", pagamento);		
 		
@@ -138,10 +139,14 @@ public class ListaCotacaoController {
 		
 	
 	}	
+=======
+	}
+>>>>>>> 0d43bc937057fa412b9f7a90fdd55a3969517de9
 	
 	@Get
 	@Path("/listaCotacao/propostaFornecedor1/{ListaCotacaoFornecedor.id}")
 	public void propostaFornecedor1(ListaCotacaoFornecedor listaCotacaoFornecedor) {
+<<<<<<< HEAD
 
 		
 		List propFornecedor = HibernateUtilTest.executarConsultaHQL("from ListaCotacaoFornecedor");	
@@ -156,6 +161,9 @@ public class ListaCotacaoController {
 		List<Fornecedor> fornecedor = hibernateUtil.buscar(new Fornecedor());
 		result.include("tipoFornecedor", fornecedor);
 		
+=======
+	 // TODO
+>>>>>>> 0d43bc937057fa412b9f7a90fdd55a3969517de9
 	}
 	
 	public void propostaFornecedor(ListaCotacaoFornecedor listaCotacaoFornecedor) {
@@ -194,10 +202,6 @@ public class ListaCotacaoController {
 	@Funcionalidade(filhaDe = "criarEditarListaCotacao")
 	public void excluirProdutoLista(Integer prod, Integer idCot) {
 		
-		System.out.println("idProduto: " + prod);
-		System.out.println("idCotação: " + idCot);
-		
-		/*
 		ListaCotacao listaCotacao = new ListaCotacao();
 		
 		List produtoCotacao = HibernateUtilTest.executarConsultaHQL("from ListaCotacao");
@@ -211,7 +215,6 @@ public class ListaCotacaoController {
 
 		hibernateUtil.deletar(listaCotacao);
 		result.use(Results.json()).from("ok").serialize();
-		*/
 	}
 	
 	@Funcionalidade(nome = "Cotação", modulo = "Relatórios")

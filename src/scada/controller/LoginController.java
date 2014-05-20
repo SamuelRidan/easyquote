@@ -11,6 +11,7 @@ import org.hibernate.criterion.MatchMode;
 
 import scada.anotacoes.Public;
 import scada.hibernate.HibernateUtil;
+import scada.modelo.Comprador;
 import scada.modelo.FuncionalidadeGrupoOperador;
 import scada.modelo.GrupoOperador;
 import scada.modelo.Operador;
@@ -18,6 +19,7 @@ import scada.sessao.SessaoFuncionalidades;
 import scada.sessao.SessaoOperador;
 import scada.util.GeradorDeMd5;
 import scada.util.Util;
+import teste.HibernateUtilTest;
 
 
 import br.com.caelum.vraptor.Path;
@@ -41,7 +43,7 @@ public class LoginController {
 	public LoginController(Result result, SessaoOperador sessaoOperador, SessaoFuncionalidades sessaoFuncionalidades, Validator validator, HibernateUtil hibernateUtil) {
 		this.result = result;
 		this.sessaoOperador = sessaoOperador;
-		so = sessaoOperador;
+		this.so = sessaoOperador;
 		this.validator = validator;
 		this.sessaoFuncionalidades = sessaoFuncionalidades;
 		this.hibernateUtil = hibernateUtil;
@@ -225,8 +227,13 @@ public class LoginController {
 
 		return true;
 	}
+
 	
-	public static Operador RetornaOperador() {
-		return so.getOperador();
+	public static Operador RetornaComprador() {
+
+		Operador operador = so.getOperador();
+
+		return operador;
 	}
+	
 }

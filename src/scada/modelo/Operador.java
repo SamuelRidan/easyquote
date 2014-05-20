@@ -5,7 +5,6 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-
 @Entity
 public class Operador extends Pessoa {
 
@@ -21,7 +20,6 @@ public class Operador extends Pessoa {
 	}
 
 	public Operador(Integer id) {
-
 		this.setId(id);
 	}
 

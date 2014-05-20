@@ -21,7 +21,7 @@
       <property name="hibernate.c3p0.max_statements">50</property>
       <property name="hibernate.c3p0.idle_test_period">3000</property>
       
-      <mapping class="scada.modelo.Operador" />
+      <mapping class="scada.modelo.Operador"/>
       <mapping class="scada.modelo.GrupoOperador" />
       <mapping class="scada.modelo.FuncionalidadeGrupoOperador" />
       <mapping class="scada.modelo.Configuracao" />
@@ -37,10 +37,15 @@
       <mapping class="scada.modelo.Status" />
 	  <mapping class="scada.modelo.TipoContrato" />
 	  <mapping class="scada.modelo.Fornecedor" />
+<<<<<<< HEAD
 	  <mapping class="scada.modelo.ListaCotacaoFornecedor" />
 	  <mapping class="scada.modelo.PesquisaPedido" />
 	   
 
 
+=======
+	  <mapping class="scada.modelo.Comprador" />
+	  
+>>>>>>> 0d43bc937057fa412b9f7a90fdd55a3969517de9
 </session-factory>
 </hibernate-configuration>

@@ -73,7 +73,7 @@ public class FornecedorController {
 		result.redirectTo(this).listarFornecedors(new Fornecedor(), null);
 	}
 
-	@Funcionalidade(nome = "Fornecedor", modulo="Relatórios")
+	@Funcionalidade(nome = "Fornecedores", modulo="Acesso")
 	public void listarFornecedors(Fornecedor fornecedor, Integer pagina) {
 
 		fornecedor = (Fornecedor) UtilController.preencherFiltros(fornecedor, "fornecedor", sessaoGeral);
