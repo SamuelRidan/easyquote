@@ -4,7 +4,7 @@
 
 <%@ page import="java.util.*, scada.modelo.*, scada.hibernate.*, teste.*" %>
 
-<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+ 
  
 <script type="text/javascript">
 
@@ -72,26 +72,28 @@ $( document ).ready(function() {
 					<td id="${itemCot.id}" onclick="btnProd(this)" style="cursor:pointer;"> <i class="fa fa-angle-down"></i> </td>
 			</tr>		
 			<tr class="prod" id="Prod${itemCot.id}">
-			  <td colspan="8" style="background:#E5E5E5;">	
-		           	
-		           	<c:set var="idcot" value="${itemCot.id}"/>
-		           	<%
-		           	
-		    		List listCotacaoFonecedor = HibernateUtilTest.TesteexecutarConsultaHQL("from ListaCotacaoFornecedor where cotacao="+pageContext.getAttribute("idcot"));
-		           %> <span> Quantidade de Proposta:<a href="<c:url value="/listaCotacao/propostaFornecedor?id=${itemCot.id}"/>"> <% out.println(listCotacaoFonecedor.size());%></a></span>
+			  <td colspan="8" style="background:#E5E5E5;">       	
+		         <c:set var="idcot" value="${itemCot.id}"/>
+		           <%    	
+		    		List listCotacaoFonecedor = HibernateUtilTest.executarConsultaHQL("from ListaCotacaoFornecedor where cotacao="+pageContext.getAttribute("idcot"));
+		           %><span> Quantidade de Proposta:<a href="<c:url value="/listaCotacao/propostaFornecedor"/>"> <% out.println(listCotacaoFonecedor.size());%></a></span>
 				 <table style="width:80%;" align="center" class="table table-hover tablesorter" >
-						 <tr>
+				   <tr>
 						 	<th>Cod. Produto</th>
 						 	<th>Descrição</th>
 						 	<th>Quantidade</th>
-						 </tr>
+				   </tr>
 					<c:forEach items="${listaCotacaos}" var="lista" varStatus="l">	   
 				    <c:choose>
-					     <c:when test="${lista.cotacao.id == itemCot.id}">															
+					     <c:when test="${lista.cotacao.id == itemCot.id}">					     															
 						 <tr>
-						 	<td> ${lista.produto}</td>
+						 	<td>${lista.produto.id }</td>
 			                 <c:forEach items="${tipoProduto}" var="itemProd">
-										<c:if test="${lista.produto == itemProd.id}"> <td> ${itemProd.descricao} </td> </c:if> 
+							     <c:choose>
+						          <c:when test="${lista.produto.id == itemProd.id}">
+						          	<td> ${itemProd.descricao} </td>
+						          </c:when>
+						         </c:choose>              
 						     </c:forEach>	
 						 	<td> ${lista.quantidade}</td>
 						 </tr>						 	
@@ -116,7 +118,5 @@ $( document ).ready(function() {
 				<br>  <br>  <h4> Nenhum registro foi encontrado </h4>
 			</c:otherwise>
 		</c:choose>      		
-
- 		
 		
 <%@ include file="/EQbaseFim.jsp" %> 		

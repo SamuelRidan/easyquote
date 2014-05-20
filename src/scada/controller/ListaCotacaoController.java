@@ -5,19 +5,18 @@ import java.util.List;
 import scada.anotacoes.Funcionalidade;
 import scada.hibernate.HibernateUtil;
 import scada.modelo.Cotacao;
+import scada.modelo.Fornecedor;
 import scada.modelo.ListaCotacao;
+import scada.modelo.ListaCotacaoFornecedor;
 import scada.modelo.Pagamento;
 import scada.modelo.Produto;
 import scada.modelo.Setor;
 import scada.modelo.Status;
-<<<<<<< HEAD
-import scada.hibernate.HibernateUtil;
-=======
->>>>>>> e94adacabe1998ff8a6abdbbf02deda203db1bea
 import scada.sessao.SessaoGeral;
 import scada.util.Util;
 import scada.util.UtilController;
 import teste.HibernateUtilTest;
+import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
@@ -106,23 +105,19 @@ public class ListaCotacaoController {
 
 	}
 	
-<<<<<<< HEAD
-	@Funcionalidade(nome = "Cotação", modulo = "Relatórios")
-	public void relatorioCotacao(ListaCotacao listaCotacao, Integer pagina) {
+	
 
-		listaCotacao = (ListaCotacao) UtilController.preencherFiltros(listaCotacao, "listaCotacao", sessaoGeral);
-=======
+
 	@Path("/listaCotacao/listarListaCotacaos/{listaCotacao.Cotacao.id}")
-	public void listarListaCotacaos(ListaCotacao listaCotacao, Integer pagina, Integer i) {
+	public void listarListaCotacaos(ListaCotacao listaCotacao1, Integer pagina, Integer i) {
 
-		listaCotacao = (ListaCotacao) UtilController.preencherFiltros(listaCotacao, "listaCotacao.Cotacao.id", sessaoGeral);
+		listaCotacao1 = (ListaCotacao) UtilController.preencherFiltros(listaCotacao1, "listaCotacao.Cotacao.id", sessaoGeral);
 		
->>>>>>> e94adacabe1998ff8a6abdbbf02deda203db1bea
-		if (Util.vazio(listaCotacao)) {
-			listaCotacao = new ListaCotacao();
+		if (Util.vazio(listaCotacao1)) {
+			listaCotacao1 = new ListaCotacao();
 		}
 
-		List<ListaCotacao> listaCotacaos = hibernateUtil.buscar(listaCotacao, pagina);
+		List<ListaCotacao> listaCotacaos = hibernateUtil.buscar(listaCotacao1, pagina);
 		result.include("listaCotacaos", listaCotacaos);
 		
 		List<Cotacao> cotacao = hibernateUtil.buscar(new Cotacao());
@@ -130,7 +125,6 @@ public class ListaCotacaoController {
 		
 		List<Produto> produto = hibernateUtil.buscar(new Produto());
 		result.include("tipoProduto", produto);
-<<<<<<< HEAD
 		
 		List<Pagamento> pagamento= hibernateUtil.buscar(new Pagamento());
 		result.include("tipoPagamento", pagamento);		
@@ -141,14 +135,32 @@ public class ListaCotacaoController {
 		List<Setor> setor = hibernateUtil.buscar(new Setor());
 		result.include("tipoSetor", setor);
 		
-		
-
+	
 	}	
+	
+	@Get
+	@Path("/listaCotacao/propostaFornecedor1/{ListaCotacaoFornecedor.id}")
+	public void propostaFornecedor1(ListaCotacaoFornecedor listaCotacaoFornecedor) {
 
-	public void propostaFornecedor(ListaCotacao listaCotacao, Integer pagina) {
-=======
-
+		
+		List propFornecedor = HibernateUtilTest.executarConsultaHQL("from ListaCotacaoFornecedor");	
+        result.use(Results.json()).from(propFornecedor).serialize();
+		
+        List<Cotacao> cotacao = hibernateUtil.buscar(new Cotacao());
+		result.include("tipoCotacao", cotacao);
+	
+		List<Produto> produto = hibernateUtil.buscar(new Produto());
+		result.include("tipoProduto", produto);
+		
+		List<Fornecedor> fornecedor = hibernateUtil.buscar(new Fornecedor());
+		result.include("tipoFornecedor", fornecedor);
+		
 	}
+	
+	public void propostaFornecedor(ListaCotacaoFornecedor listaCotacaoFornecedor) {
+	
+	}
+
 	
 	@Funcionalidade(filhaDe = "criarEditarListaCotacao")
 	public void salvarProdutoLista(Integer prod, Integer quantidade, Integer idCot) {
@@ -203,7 +215,7 @@ public class ListaCotacaoController {
 	
 	@Funcionalidade(nome = "Cotação", modulo = "Relatórios")
 	public void relatorioCotacao(ListaCotacao listaCotacao, Integer pagina) {
->>>>>>> e94adacabe1998ff8a6abdbbf02deda203db1bea
+
 
 		listaCotacao = (ListaCotacao) UtilController.preencherFiltros(listaCotacao, "listaCotacao", sessaoGeral);
 		if (Util.vazio(listaCotacao)) {
@@ -227,14 +239,11 @@ public class ListaCotacaoController {
 		
 		List<Setor> setor = hibernateUtil.buscar(new Setor());
 		result.include("tipoSetor", setor);
-<<<<<<< HEAD
-		
-		
 
-	}	
+
 	
-=======
+
 
 	}	
->>>>>>> e94adacabe1998ff8a6abdbbf02deda203db1bea
+
 }

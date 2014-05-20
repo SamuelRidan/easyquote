@@ -97,11 +97,9 @@ public class FornecedorController {
 		List<Fornecedor> fornecedors = hibernateUtil.buscar(fornecedor, pagina);
 		result.include("fornecedor", fornecedors);
 		
-<<<<<<< HEAD
-		List<Fornecedor> fornecedores = HibernateUtilTest.TesteexecutarConsultaHQL("from Fornecedor order by reputacao desc");
-=======
+
 		List<Fornecedor> fornecedores = HibernateUtilTest.executarConsultaHQL("from Fornecedor order by reputacao desc");
->>>>>>> e94adacabe1998ff8a6abdbbf02deda203db1bea
+
 		result.include("fornecedorOrd", fornecedores);
 
 	}	

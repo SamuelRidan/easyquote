@@ -22,12 +22,20 @@ function btnProd2(r){
 
 $( document ).ready(function() {
 	$(".prod").hide();
- 
- });
+    
+	$.getJSON('<c:url value="/listaCotacao/propostaFornecedor1/2"/>' , function (json) {
+ 		alert(json);
+    });	
+	
+	
+   // alert("oiiii");
+ }); 
 </script>
 
 <%
-        out.println("Hello <b>"+request.getParameter("id")+"</b>!");  
+          
+           out.println("Hello <b>"+request.getParameter("id")+"</b>!");
+           String idCodigo = request.getParameter("id");
 %>
       <div id="page-wrapper">
         <div class="row">
@@ -40,7 +48,27 @@ $( document ).ready(function() {
 				<c:set var="link" value="listaCotacao/listarListaCotacaos" scope="request" />
 				<%@ include file="/paginacao.jsp" %> 	
 				
+				<c:set var="idcot" value="<%=idCodigo%>"/>
 		<%          	
-		   List propFornecedor = HibernateUtilTest.TesteexecutarConsultaHQL("FROM listacotacaofornecedor GROUP BY idfornecedor, cotacao where cotacao="+request.getParameter("id"));
+		   List propFornecedor = HibernateUtilTest.executarConsultaHQL("from ListaCotacaoFornecedor where cotacao="+pageContext.getAttribute("idcot")+" GROUP BY idFornecedor");
 		 %>
+		  <% out.println(propFornecedor.size());
+		  %>
+		<table class="table table-striped table-bordered tablesorter" >
+			<tr>
+				<th>Cod. Fornecedor</th>
+				<th>Razão Social</th>
+				<th>Qualificação</th>	
+				<th>Valor Total</th>		
+			</tr>	
+			<c:forEach items="${propostaFornecedor}" var="itemFor">
+			<tr>
+			    <td>${itemFor.id}</td>
+			    <td>${itemFor.preco}</td>
+			    <td>${itemFor.id}</td>
+			    <td>a</td>
+			</tr>
+			</c:forEach>							
+		</table>	
+			 
 <%@ include file="/EQbaseFim.jsp" %> 		

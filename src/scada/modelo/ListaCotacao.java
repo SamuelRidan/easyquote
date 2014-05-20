@@ -5,7 +5,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-
 import scada.hibernate.Entidade;
 
 
@@ -19,7 +18,6 @@ public class ListaCotacao implements Entidade {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     private Produto produto;	
-	
     private Integer quantidade;
     
     @ManyToOne(fetch = FetchType.LAZY)
