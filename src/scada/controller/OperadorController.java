@@ -29,9 +29,8 @@ public class OperadorController {
 	private Validator validator;
 	private HibernateUtil hibernateUtil;
 
-	public OperadorController(Result result, Validator validator, SessaoGeral sessaoGeral, HibernateUtil hibernateUtil) {
+	public OperadorController(Result result, SessaoGeral sessaoGeral, HibernateUtil hibernateUtil) {
 		this.result = result;
-		this.validator = validator;
 		this.sessaoGeral = sessaoGeral;
 		this.hibernateUtil = hibernateUtil;
 		this.hibernateUtil.setResult(result);

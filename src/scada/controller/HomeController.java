@@ -8,7 +8,16 @@ public class HomeController {
 
 	@Public
 	public void home() {
-
+	}
+	
+	@Public
+	public void homeFornecedor(){
+		
+	}
+	
+	@Public
+	public void homeComprador(){
+		
 	}
 
 	@Public

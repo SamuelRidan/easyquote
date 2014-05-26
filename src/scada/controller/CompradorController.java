@@ -72,7 +72,7 @@ public class CompradorController {
 		result.include("sucesso", "Comprador salvo(a) com sucesso");
 //		result.redirectTo(this).listarCompradors(new Comprador(), null);
 		
-		OperadorController op = new OperadorController(result,sessaoGeral,hibernateUtil);
+		OperadorController op = new OperadorController(result, sessaoGeral,hibernateUtil);
 		result.redirectTo(op).criarOperador();
 	}
 

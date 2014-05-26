@@ -12,6 +12,7 @@ import org.hibernate.criterion.MatchMode;
 import scada.anotacoes.Public;
 import scada.hibernate.HibernateUtil;
 import scada.modelo.Comprador;
+import scada.modelo.Fornecedor;
 import scada.modelo.FuncionalidadeGrupoOperador;
 import scada.modelo.GrupoOperador;
 import scada.modelo.Operador;
@@ -62,7 +63,7 @@ public class LoginController {
 		tentarEfetuarLogin(operador);
 		colocarOperadorNaSessao(operador);
 		colocarFuncionalidadesNaSessao(operador);
-		result.redirectTo(HomeController.class).home();
+		result.redirectTo(HomeController.class).home();		
 	}
 
 	private void verificaExistenciaAdministrador(Operador operador) {
