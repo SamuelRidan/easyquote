@@ -14,7 +14,6 @@ class TarefaTemporizada extends TimerTask {
 	private Timer temporizador;
 	private long tempo = 1;
 	private long vezes = 0;
-	private Comprador comprador;
 	
 	public TarefaTemporizada(long tempo, long vezes) {
 		this.tempo = tempo;
@@ -35,6 +34,8 @@ class TarefaTemporizada extends TimerTask {
 		List cotacoes;
 		String textoHTML;
 		String txt;
+		String emailComprador = null;
+		String nomeComprador = null;
 		
 		try {
 			
@@ -56,11 +57,15 @@ class TarefaTemporizada extends TimerTask {
 			
 			for (Object obj: cotacoes) {
 	            Cotacao c = (Cotacao)obj;
-	            if (c.getDataLimiteResposta().getTime().before(data.getTime()) && c.getStatus() == 1) {
-	            	
-	            	comprador.setEmail("");
-	            	//comprador.setNome(c.getResponsavel().getNome());	            	
-	            	
+	            if (c.getDataLimiteResposta().getTime().before(data.getTime()) && c.getStatus().getId() == 1) {	            	
+	            	List comp = HibernateUtilTest.executarConsultaHQL("from Comprador where operador.id = :idOperador", "idOperador", c.getResponsavel().getId());
+	            	for (Object ob: comp){
+	            		Comprador comprador = (Comprador)ob;		            	
+	            			emailComprador = comprador.getEmail();
+	            			nomeComprador = comprador.getOperador().getNome();	            			
+	            	}
+	            	textoHTML += "#" + c.getId() + " tendo como requisitante o setor: " + c.getSetor().getDescricao() + "<br>";	  
+	            	txt += "#" + c.getId() + " tendo como requisitante o setor: " + c.getSetor().getDescricao() + " ";	
 	            } 
 	            
 	        textoHTML += AuxiliarEmail.rodapeHTML();
@@ -68,7 +73,7 @@ class TarefaTemporizada extends TimerTask {
 	            
 			}
 			
-			CommonsMail.enviaEmailFormatoHtml(comprador.getEmail(), comprador.getOperador().getNome(), "Cotações pendentes!", textoHTML, txt);
+			CommonsMail.enviaEmailFormatoHtml(emailComprador, nomeComprador, "Cotações pendentes!", textoHTML, txt);
 			
 			System.out.println("Tarefa executada.");
 			

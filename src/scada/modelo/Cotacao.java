@@ -21,8 +21,13 @@ public class Cotacao implements Entidade {
     private GregorianCalendar dataAbertura;
     private GregorianCalendar dataLimiteResposta;
     private Integer formaPgto;
-    private Integer status;
-    private Integer setor;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Status status;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Setor setor;
+    
     private String obs;
     private Double valorTotal;
     
@@ -69,19 +74,19 @@ public class Cotacao implements Entidade {
         this.formaPgto = formaPgto;
     }
 
-    public Integer getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status){
+    public void setStatus(Status status){
         this.status = status;
     }
     
-    public Integer getSetor() {
+    public Setor getSetor() {
         return setor;
     }
 
-    public void setSetor(Integer setor){
+    public void setSetor(Setor setor){
         this.setor = setor;
     }
 

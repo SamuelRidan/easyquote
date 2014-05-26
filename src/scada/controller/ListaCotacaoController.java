@@ -3,12 +3,12 @@ package scada.controller;
 import java.util.List;
 
 import scada.anotacoes.Funcionalidade;
-import scada.hibernate.Entidade;
 import scada.hibernate.HibernateUtil;
 import scada.modelo.Cotacao;
 import scada.modelo.ListaCotacao;
 import scada.modelo.ListaCotacaoFornecedor;
 import scada.modelo.Pagamento;
+import scada.modelo.PesquisaPedido;
 import scada.modelo.Produto;
 import scada.modelo.Setor;
 import scada.modelo.Status;
@@ -98,11 +98,62 @@ public class ListaCotacaoController {
 		
 	}
 	
+	@Get	
+	@Path("/listaCotacao/propostaFornecedor1")		
+	public void propostaFornecedor1(Integer cotacao) {			
+			
+			String str ="";
+			Integer nl,i,idcot; 
+			i=0;
+			idcot = cotacao;
+	        		
+			List propFornecedor = HibernateUtilTest.executarConsultaHQL("from ListaCotacaoFornecedor where cotacao_id=" +idcot+ "group by fornecedor_id");
+			nl = propFornecedor.size();
+			
+			if( nl <= 1){
+				for (Object obj: propFornecedor){
+					ListaCotacaoFornecedor p = (ListaCotacaoFornecedor)obj;			
+					
+					str = str + "{ " +'"'+ "fornecedor"+'"'+ ":" + '"' +"Cod: "+p.getFornecedor().getRazao_soacial() + '"' + "," +  '"' +"reputacao" +  '"' + ":"+  ( Integer.parseInt(p.getFornecedor().getReputacao())* 10)+" }";
+				}				
+			}else{
+				for (Object obj: propFornecedor){
+					ListaCotacaoFornecedor p = (ListaCotacaoFornecedor)obj;				
+						i++;
+					    if(nl == i){	
+					    	str = str + "{ " +'"'+ "fornecedor"+'"'+ ":" + '"' +"Cod: "+ p.getFornecedor().getId() + '"' + "," +  '"' +"reputacao" +  '"' + ":"+ ( Integer.parseInt(p.getFornecedor().getReputacao())* 10) +" }";
+					    }else{
+					    	str = str + "{ " +'"'+ "fornecedor"+'"'+ ":" + '"' +"Cod: "+ p.getFornecedor().getId()+ '"' + "," +  '"' +"reputacao" +  '"' + ":"+  ( Integer.parseInt(p.getFornecedor().getReputacao())* 10)+" },";
+					    }
+				}
+			}
+	        result.use(Results.http()).body(str);
+	        
+
+		}
+	
 	@Get
-	@Path("/listaCotacao/propostaFornecedor1/{ListaCotacaoFornecedor.id}")
-	public void propostaFornecedor1(ListaCotacaoFornecedor listaCotacaoFornecedor) {
-	 // TODO
-	}
+	@Path("/listaCotacao/propostaFornecedor")		
+	public void propostaFornecedor(ListaCotacaoFornecedor listaCotacaoFornecedor) {
+	        List<Cotacao> cotacao = hibernateUtil.buscar(new Cotacao());
+			result.include("tipoCotacao", cotacao);
+				
+			List<Produto> produto = hibernateUtil.buscar(new Produto());
+			result.include("tipoProduto", produto);
+			
+			List<Pagamento> pagamento= hibernateUtil.buscar(new Pagamento());
+			result.include("tipoPagamento", pagamento);		
+			
+			List<Status> status = hibernateUtil.buscar(new Status());
+			result.include("tipoStatus", status);
+			
+			List<Setor> setor = hibernateUtil.buscar(new Setor());
+			result.include("tipoSetor", setor);		
+			
+			List<PesquisaPedido> pespedido = hibernateUtil.buscar(new PesquisaPedido());
+			result.include("tipopedido", pespedido);		
+		}
+
 	
 	@Funcionalidade(filhaDe = "criarEditarListaCotacao")
 	public void salvarProdutoLista(Integer prod, Integer quantidade, Integer idCot) {
@@ -148,31 +199,45 @@ public class ListaCotacaoController {
 	
 	}
 	
-	@Funcionalidade(nome = "Cotação", modulo = "Relatórios")
+	@Funcionalidade(nome = "Cotação", modulo = "Relatórios")	
 	public void relatorioCotacao(ListaCotacao listaCotacao, Integer pagina) {
 
-		listaCotacao = (ListaCotacao) UtilController.preencherFiltros(listaCotacao, "listaCotacao", sessaoGeral);
-		if (Util.vazio(listaCotacao)) {
-			listaCotacao = new ListaCotacao();
-		}
+			listaCotacao = (ListaCotacao) UtilController.preencherFiltros(listaCotacao, "listaCotacao", sessaoGeral);
+			if (Util.vazio(listaCotacao)) {
+				listaCotacao = new ListaCotacao();
+			}
 
-		List<ListaCotacao> listaCotacaos = hibernateUtil.buscar(listaCotacao, pagina);
-		result.include("listaCotacaos", listaCotacaos);
-		
-		List<Cotacao> cotacao = hibernateUtil.buscar(new Cotacao());
-		result.include("tipoCotacao", cotacao);
-		
-		List<Produto> produto = hibernateUtil.buscar(new Produto());
-		result.include("tipoProduto", produto);
-		
-		List<Pagamento> pagamento= hibernateUtil.buscar(new Pagamento());
-		result.include("tipoPagamento", pagamento);		
-		
-		List<Status> status = hibernateUtil.buscar(new Status());
-		result.include("tipoStatus", status);
-		
-		List<Setor> setor = hibernateUtil.buscar(new Setor());
-		result.include("tipoSetor", setor);
+			List<ListaCotacao> listaCotacaos = hibernateUtil.buscar(listaCotacao, pagina);
+			result.include("listaCotacaos", listaCotacaos);
+			
+			List<Cotacao> cotacao = hibernateUtil.buscar(new Cotacao());
+			result.include("tipoCotacao", cotacao);
+			
+			List<Produto> produto = hibernateUtil.buscar(new Produto());
+			result.include("tipoProduto", produto);
+			
+			List<Pagamento> pagamento= hibernateUtil.buscar(new Pagamento());
+			result.include("tipoPagamento", pagamento);		
+			
+			List<Status> status = hibernateUtil.buscar(new Status());
+			result.include("tipoStatus", status);
+			
+			List<Setor> setor = hibernateUtil.buscar(new Setor());
+			result.include("tipoSetor", setor);
 
-	}	
+		}	
+		
+	@Get		
+	@Path("/listaCotacao/contaReputacaoFornecedor")
+	@Funcionalidade(filhaDe = "criarEditarListaCotacao")
+	public void contaReputacaoFornecedor( Integer idCot) {
+
+		List propFornecedor = HibernateUtilTest.executarConsultaHQL("from ListaCotacaoFornecedor group by fornecedor_id");	
+		//for (Object obj: propFornecedor) {
+	    //   ListaCotacaoFornecedor c = (ListaCotacaoFornecedor)obj;            
+	    //   System.out.println(c.getId());
+		//}		
+		result.use(Results.json()).from(propFornecedor).serialize();		
+	}		
+	
 }

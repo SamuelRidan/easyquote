@@ -21,7 +21,7 @@
 		    <div class="control-group">
 		      <label class="control-label">Senha</label>
 		      <div class="controls">
-		        <input type="text" class="input-xlarge" name="operador.senha" value="${operador.senha}">
+		        <input type="password" class="input-xlarge" name="operador.senha" value="${operador.senha}">
 		      </div>
 		    </div>
 		    <div class="control-group">

@@ -58,7 +58,6 @@
     </div>
 
     <button type="submit" class="btn btn-primary">Salvar</button>
-    <a class="btn btn-danger" href="<c:url value="/fornecedor/listarFornecedors"/>" > Cancelar </a>
   </fieldset>
 </form>
 

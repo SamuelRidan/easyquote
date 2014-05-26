@@ -1,7 +1,5 @@
 package scada.modelo;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,7 +14,7 @@ public class Comprador implements Entidade {
 	@GeneratedValue
 	private Integer id;
 
-	private BigDecimal cpf;
+	private String cpf;
 	private String telefone;
 	private String email;
 	
@@ -39,11 +37,11 @@ public class Comprador implements Entidade {
 		this.id = id;
 	}
 
-	public BigDecimal getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(BigDecimal cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 

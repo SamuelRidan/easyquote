@@ -50,8 +50,7 @@ a.navbar-brand{
 }
 
 .nav > li {
-  border-top: 1px solid #54677A;
-    border-bottom: 1px solid #142638;
+
 }
 
 
@@ -99,6 +98,9 @@ a.navbar-brand{
 }
 .navbar-inverse .navbar-nav > li > a {
   color: #F2F2F2;
+      border-top: 1px solid #54677A;
+    border-bottom: 1px solid #142638;
+  
 }
 
 .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
@@ -181,6 +183,7 @@ a.navbar-brand{
     border-bottom: 1px solid #54677a;
     font-size: 13px;
     background-color: #34495e;
+
 }
 
 .navbar-side .navbar-nav>li>a,
@@ -197,6 +200,7 @@ a.navbar-brand{
 .navbar-side .side-nav li.panel {
     border-top: 1px solid #54677a;
     border-bottom: 1px solid #142638;
+
 }
 
 .navbar-side .side-nav li.panel ul li {

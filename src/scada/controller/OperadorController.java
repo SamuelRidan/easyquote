@@ -2,8 +2,12 @@ package scada.controller;
 
 import java.util.List;
 
+import javax.servlet.jsp.tagext.ValidationMessage;
+
 import scada.anotacoes.Funcionalidade;
 import scada.hibernate.HibernateUtil;
+import scada.modelo.Comprador;
+import scada.modelo.Fornecedor;
 import scada.modelo.GrupoOperador;
 import scada.modelo.Operador;
 import scada.sessao.SessaoGeral;
@@ -14,16 +18,20 @@ import scada.util.UtilController;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.validator.Message;
 
 @Resource
 public class OperadorController {
 
 	private final Result result;
 	private SessaoGeral sessaoGeral;
+	private Validator validator;
 	private HibernateUtil hibernateUtil;
 
-	public OperadorController(Result result, SessaoGeral sessaoGeral, HibernateUtil hibernateUtil) {
+	public OperadorController(Result result, Validator validator, SessaoGeral sessaoGeral, HibernateUtil hibernateUtil) {
 		this.result = result;
+		this.validator = validator;
 		this.sessaoGeral = sessaoGeral;
 		this.hibernateUtil = hibernateUtil;
 		this.hibernateUtil.setResult(result);
@@ -59,6 +67,17 @@ public class OperadorController {
 	@Funcionalidade(nome = "Excluir operador")
 	public void excluirOperador(Operador operador) {
 
+		Comprador comprador = new Comprador();
+		comprador.setOperador(operador);
+		
+		Fornecedor fornecedor = new Fornecedor();
+		fornecedor.setPessoa(operador);
+		
+		if ((hibernateUtil.contar(comprador) > 0) || (hibernateUtil.contar(fornecedor) > 0)){
+			validator.add((Message) new ValidationMessage("Não é possível excluir este operador!", "Erro!"));
+			validator.onErrorForwardTo(this).listarOperadors(null, null);
+		}
+		
 		hibernateUtil.deletar(operador);
 		result.include("sucesso", "Operador excluído(a) com sucesso");
 		result.forwardTo(this).listarOperadors(null, null);
