@@ -42,7 +42,7 @@ public class Fornecedor implements Entidade {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	public String getCnpj() {
 		return cnpj;
 	}
@@ -51,11 +51,11 @@ public class Fornecedor implements Entidade {
 		this.cnpj = cnpj;
 	}
 
-	public String getRazao_soacial() {
+	public String getRazao_social() {
 		return razao_social;
 	}
 
-	public void setRazao_soacial(String razao_social) {
+	public void setRazao_social(String razao_social) {
 		this.razao_social = razao_social;
 	}
 
@@ -66,21 +66,21 @@ public class Fornecedor implements Entidade {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
 
-	public void getEmail(String email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	public Seguimento getSegmento() {
+	public Seguimento getSeguimento() {
 		return seguimento;
 	}
 
-	public void setSegmento(Seguimento segmento) {
-		this.seguimento = segmento;
+	public void setSeguimento(Seguimento seguimento) {
+		this.seguimento = seguimento;
 	}
 
 	public String getReputacao() {
@@ -91,12 +91,13 @@ public class Fornecedor implements Entidade {
 		this.reputacao = reputacao;
 	}
 
-	public Operador getPessoa() {
+	public Operador getOperador() {
 		return operador;
 	}
 
-	public void setPessoa(Operador operador) {
+	public void setOperador(Operador operador) {
 		this.operador = operador;
 	}
+
 
 }

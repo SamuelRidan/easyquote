@@ -70,7 +70,7 @@ public class OperadorController {
 		comprador.setOperador(operador);
 		
 		Fornecedor fornecedor = new Fornecedor();
-		fornecedor.setPessoa(operador);
+		fornecedor.setOperador(operador);
 		
 		if ((hibernateUtil.contar(comprador) > 0) || (hibernateUtil.contar(fornecedor) > 0)){
 			validator.add((Message) new ValidationMessage("Não é possível excluir este operador!", "Erro!"));

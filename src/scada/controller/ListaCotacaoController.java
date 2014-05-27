@@ -1,5 +1,6 @@
 package scada.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import scada.anotacoes.Funcionalidade;
@@ -145,7 +146,7 @@ public class ListaCotacaoController {
 				for (Object obj: propFornecedor){
 					ListaCotacaoFornecedor p = (ListaCotacaoFornecedor)obj;			
 					
-					str = str + "{ " +'"'+ "fornecedor"+'"'+ ":" + '"' +"Cod: "+p.getFornecedor().getRazao_soacial() + '"' + "," +  '"' +"reputacao" +  '"' + ":"+  ( Integer.parseInt(p.getFornecedor().getReputacao())* 10)+" }";
+					str = str + "{ " +'"'+ "fornecedor"+'"'+ ":" + '"' +"Cod: "+p.getFornecedor().getRazao_social() + '"' + "," +  '"' +"reputacao" +  '"' + ":"+  ( Integer.parseInt(p.getFornecedor().getReputacao())* 10)+" }";
 				}				
 			}else{
 				for (Object obj: propFornecedor){
@@ -271,4 +272,54 @@ public class ListaCotacaoController {
 		result.use(Results.json()).from(propFornecedor).serialize();		
 	}		
 	
+	@Path("/listaCotacao/salvarListaFornecedor")
+	@Funcionalidade(filhaDe = "listarListaCotFornecedor")
+	public void salvarListaFornecedor(Integer cotacao, Integer op, Integer formaPgto, Integer prod, BigDecimal preco) {
+		
+		System.out.println("Operador: " + op);
+		
+		ListaCotacaoFornecedor listaCotacaoFornecedor = new ListaCotacaoFornecedor();
+
+		if (Util.preenchido(sessaoGeral.getValor("idListaCotacaoFornecedor"))) {
+
+			listaCotacaoFornecedor.setId((Integer) sessaoGeral.getValor("idListaCotacaoFornecedor"));
+		}
+		
+		List cot = hibernateUtil.buscar(new Cotacao());		
+		for (Object obj: cot) {
+            Cotacao c = (Cotacao)obj;            
+            if (c.getId() == cotacao){
+            	listaCotacaoFornecedor.setCotacao(c);
+            }            
+		}
+		
+		List forn = HibernateUtilTest.executarConsultaHQL("from Fornecedor where operador.id = :idOperador", "idOperador", op);
+		for (Object obj: forn){
+			Fornecedor f = (Fornecedor)obj;
+			listaCotacaoFornecedor.setFornecedor(f);
+		}
+		
+		List pagamento = hibernateUtil.buscar(new Pagamento());
+		for (Object obj: pagamento){
+			Pagamento pgto = (Pagamento)obj;
+			if (pgto.getId()==formaPgto){
+				listaCotacaoFornecedor.setFormPgto(pgto);
+			}
+		}
+		
+		List produto = hibernateUtil.buscar(new ListaCotacao());		
+		for (Object obj: produto){
+			ListaCotacao p = (ListaCotacao)obj;			
+			if (p.getId() == prod){
+				listaCotacaoFornecedor.setListaCotacao(p);
+			}			
+		}
+		
+		listaCotacaoFornecedor.setPreco(preco);
+
+		hibernateUtil.salvarOuAtualizar(listaCotacaoFornecedor);
+		result.include("sucesso", "Informações salvas com sucesso");
+		result.use(Results.json()).from("ok").serialize();
+	}
+
 }

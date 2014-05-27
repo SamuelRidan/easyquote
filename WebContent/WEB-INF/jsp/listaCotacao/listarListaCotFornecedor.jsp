@@ -1,4 +1,5 @@
 <%@page import="scada.controller.LoginController"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/EQbase.jsp" %> 
 <%@ taglib uri="/tags/tags" prefix="tags"%>
 
@@ -7,7 +8,8 @@
 	int i = 1;
 %>
 <script type="text/javascript">
-	function salvaOuAtualizaCotFornecedor(){
+
+	function salvarPrecoLista(){
 		sequencialCotacao = document.getElementById("SequencialCotacao");
 		operador = document.getElementById("operador");
 		formaPagamento = document.getElementById("formaPagamento");
@@ -20,20 +22,23 @@
 			for (i=1; i<=linhas.length; i++){
 				
 				produto = document.getElementById(i);
-				precoProduto = document.getElementById("valor_"+i).value;
-				
+				precoProduto = document.getElementById("valor_"+i);
+
 				$.ajax({
-		      	  url: "<c:url value='/listaCotacao/salvarProdutoLista'/>",
+		      	  url: "<c:url value='/listaCotacao/salvarListaFornecedor'/>",
 		      	  data: {
-		      		cotacao: sequencialCotacao.innerHTML,
-		      		op: operador.innerHTML,
-		      		formaPgto: pagamento.value,
-		      		prod: produto.innerHTML,
-		      		preco: precoProduto
-		      	},
-		      	  success: function( data ) {
-		      	  }
+			      		cotacao: sequencialCotacao.innerHTML,
+			      		op: operador.innerHTML,
+			      		formaPgto: pagamento.value,
+			      		prod: produto.innerHTML,
+			      		preco: precoProduto.value
+		      	  },
+		      	  	success: function( data ) {
+		      	  		alert("Informações salvas com sucesso!");
+		      	  	}
+				});
 			}
+				
 		} else {
 			alert("Escolha a forma de pagamento!");
 		}		
@@ -66,7 +71,8 @@
 											op = LoginController.RetornaOperador();
 										%>
 										<td width="50px"> <b>Operador:</b> </td>
-										<td id="operador"><%= op.getLogin() %></td>
+										<td id="operador" width="5px"><%= op.getId() %></td>
+										<td><%=op.getLogin() %>
 									</c:forEach>
 								</c:when>
 							</c:choose>	
@@ -116,7 +122,7 @@
 								</c:forEach>
 					</tbody>
 				</table>
-				<a class="btn btn-primary" href="#" onclick="salvaOuAtualizaCotFornecedor()">Salvar</a>
+				<a class="btn btn-primary" href="#" onclick="salvarPrecoLista()">Salvar</a>
 			</c:when>
 			<c:otherwise>
 				<br><br><h4> Nenhum registro foi encontrado </h4>

@@ -4,7 +4,7 @@
 
 <%@ page import="java.util.*, scada.modelo.*, scada.hibernate.*, teste.*" %>
 
-<script LANGUAGE="JavaScript">
+<script type="text/javascript">
     totals = 0;
     
     function adiciona(){
@@ -210,7 +210,7 @@
   </fieldset>
 </form>
 
-
+</div>
 
 		
 <%@ include file="/EQbaseFim.jsp" %> 

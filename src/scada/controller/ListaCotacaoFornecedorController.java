@@ -1,9 +1,15 @@
 package scada.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import scada.anotacoes.Funcionalidade;
+import scada.modelo.Cotacao;
+import scada.modelo.Fornecedor;
+import scada.modelo.ListaCotacao;
 import scada.modelo.ListaCotacaoFornecedor;
+import scada.modelo.Pagamento;
+import scada.modelo.Produto;
 import scada.hibernate.HibernateUtil;
 import scada.sessao.SessaoGeral;
 import scada.util.Util;
@@ -13,6 +19,7 @@ import scada.util.UtilController;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.view.Results;
 
 @Resource
 public class ListaCotacaoFornecedorController {
@@ -84,4 +91,5 @@ public class ListaCotacaoFornecedorController {
 		result.include("listaCotacaoFornecedors", listaCotacaoFornecedors);
 
 	}
+	
 }

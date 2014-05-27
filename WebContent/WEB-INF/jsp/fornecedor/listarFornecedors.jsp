@@ -18,7 +18,6 @@
 		<form class="well form-inline" action="<c:url value="/fornecedor/listarFornecedors"/>" method="post" >
 		    <input type="text" class="input-small" name="fornecedor.cnpj" value="${sessaoGeral.valor.get('fornecedor').cnpj}" placeholder="Cnpj">
 		    <input type="text" class="input-small" name="fornecedor.razao_social" value="${sessaoGeral.valor.get('fornecedor').razao_social}" placeholder="Razao_social">
-		    <input type="text" class="input-small" name="fornecedor.telefone" value="${sessaoGeral.valor.get('fornecedor').telefone}" placeholder="Telefone">
 		    <input type="text" class="input-small" name="fornecedor.segmento" value="${sessaoGeral.valor.get('fornecedor').segmento}" placeholder="Segmento">
 		    <input type="text" class="input-small" name="fornecedor.reputacao" value="${sessaoGeral.valor.get('fornecedor').reputacao}" placeholder="Reputacao">
 			<button type="submit" class="btn btn-info">Pesquisar</button>

@@ -34,7 +34,6 @@ public class FornecedorController {
 
 	@Funcionalidade(filhaDe = "criarEditarFornecedor")
 	public void criarFornecedor(Operador operador) {
-
 		sessaoGeral.adicionar("idFornecedor", null);
 		result.forwardTo(this).criarEditarFornecedor();
 	}
@@ -69,13 +68,11 @@ public class FornecedorController {
 	public void salvarFornecedor(Fornecedor fornecedor) {
 
 		if (Util.preenchido(sessaoGeral.getValor("idFornecedor"))) {
-
 			fornecedor.setId((Integer) sessaoGeral.getValor("idFornecedor"));
 		}
-
+		
 		hibernateUtil.salvarOuAtualizar(fornecedor);
 		result.include("sucesso", "Fornecedor salvo(a) com sucesso");
-//		result.redirectTo(this).listarFornecedors(new Fornecedor(), null);
 		
 		OperadorController op = new OperadorController(result,sessaoGeral,hibernateUtil);
 		result.redirectTo(op).criarOperador();

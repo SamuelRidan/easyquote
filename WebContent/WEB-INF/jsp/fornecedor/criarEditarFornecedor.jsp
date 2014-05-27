@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="control-group">
-      <label class="control-label">Razao_social</label>
+      <label class="control-label">Razao Social</label>
       <div class="controls">
         <input type="text" class="input-xlarge" name="fornecedor.razao_social" value="${fornecedor.razao_social}">
       </div>
@@ -38,18 +38,21 @@
         <input type="text" class="input-xlarge" name="fornecedor.telefone" value="${fornecedor.telefone}">
       </div>
     </div>
-        <div class="control-group">
+    <div class="control-group">
       <label class="control-label">Email</label>
       <div class="controls">
         <input type="text" class="input-xlarge" name="fornecedor.email" value="${fornecedor.email}">
       </div>
     </div>
     <div class="control-group">
-      <label class="control-label">Segmento</label>
+      <label class="control-label">Seguimento</label>
       <div class="controls">
-			<c:forEach items="${tipoSeg}" var="itemSeg">
-				<option <c:if test="${fornecedor.seguimento.id == itemSeg.id}"> selected="selected" </c:if> value="${itemSeg.id}"> ${itemSeg.id} - ${itemSeg.descricao} </option>
-			</c:forEach>      
+      		<select name="fornecedor.seguimento.id">
+      			<option disabled="disabled" selected="selected">Selecione o segmento</option>
+				<c:forEach items="${tipoSeg}" var="itemSeg">
+					<option <c:if test="${fornecedor.seguimento.id == itemSeg.id}"> selected="selected" </c:if> value="${itemSeg.id}"> ${itemSeg.id} - ${itemSeg.descricao} </option>
+				</c:forEach>  
+			</select>    
 	  </div>
     </div>
     <div class="control-group">
