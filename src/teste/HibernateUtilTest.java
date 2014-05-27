@@ -208,6 +208,26 @@ public class HibernateUtilTest {
     }
 	
 	@Test
+	static public List executarConsultaHQL(String hql,String param1,Integer ValorParam1, String param2, Integer Valorparam2) {
+        List resultList = null;
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            
+            Query query = session.createQuery(hql);
+            query.setParameter(param1, ValorParam1);
+            query.setParameter(param2, Valorparam2);
+            resultList = query.list();
+            
+            session.getTransaction().commit();
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            throw he;
+        }
+        return resultList;
+    }
+	
+	@Test
 	static public void executarHQL(String hql,String param1,Integer ValorParam1) {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();

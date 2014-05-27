@@ -98,7 +98,7 @@ public class CotacaoController {
 			cotacao.setId((Integer) sessaoGeral.getValor("idCotacao"));
 		}
 
-		cotacao.setResponsavel(LoginController.RetornaComprador());
+		cotacao.setResponsavel(LoginController.RetornaOperador());
 		
 		hibernateUtil.salvarOuAtualizar(cotacao);
 		result.include("sucesso", "Cotação salva com sucesso");
@@ -112,6 +112,25 @@ public class CotacaoController {
 
 	@Funcionalidade(nome = "Cotação", modulo = "Novo")
 	public void listarCotacaos(Cotacao cotacao, Integer pagina) {
+
+		cotacao = (Cotacao) UtilController.preencherFiltros(cotacao, "cotacao", sessaoGeral);
+		if (Util.vazio(cotacao)) {
+			cotacao = new Cotacao();
+		}
+
+		List<Cotacao> cotacaos = hibernateUtil.buscar(cotacao, pagina);
+		result.include("cotacaos", cotacaos);
+		
+		List<Status> tipoStatus = hibernateUtil.buscar(new Status());
+		result.include("tipoStatus", tipoStatus);
+		
+		List<Setor> tipoSetor = hibernateUtil.buscar(new Setor());
+		result.include("tipoSetor", tipoSetor);
+
+	}
+	
+	@Funcionalidade(nome = "Cotação para Fornecedores", modulo = "Cotações em aberto")
+	public void listarCotFornecedor(Cotacao cotacao, Integer pagina) {
 
 		cotacao = (Cotacao) UtilController.preencherFiltros(cotacao, "cotacao", sessaoGeral);
 		if (Util.vazio(cotacao)) {

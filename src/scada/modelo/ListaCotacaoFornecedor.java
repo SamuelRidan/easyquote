@@ -27,6 +27,12 @@ public class ListaCotacaoFornecedor implements Entidade {
     
     @ManyToOne (fetch = FetchType.LAZY)
     private Fornecedor fornecedor;
+    
+    @ManyToOne (fetch = FetchType.LAZY)
+    private ListaCotacao produto;
+    
+    @ManyToOne (fetch = FetchType.LAZY)
+    private Pagamento formPgto;
 
 	public ListaCotacaoFornecedor() {
 	}
@@ -42,7 +48,6 @@ public class ListaCotacaoFornecedor implements Entidade {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 
     public BigDecimal getPreco() {
         return preco;
@@ -76,8 +81,27 @@ public class ListaCotacaoFornecedor implements Entidade {
 		this.fornecedor = fornecedor;
 	}
 
+	public Cotacao getCotacao() {
+		return cotacao;
+	}
+
 	public void setCotacao(Cotacao cotacao) {
 		this.cotacao = cotacao;
 	}
+	
+	public ListaCotacao getProduto() {
+		return produto;
+	}
+
+	public void setProduto(ListaCotacao produto) {
+		this.produto = produto;
+	}
     
+	public Pagamento getFormPgto() {
+		return formPgto;
+	}
+
+	public void setFormPgto(Pagamento formPgto) {
+		this.formPgto = formPgto;
+	}
 }

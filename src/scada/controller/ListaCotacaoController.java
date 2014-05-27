@@ -5,8 +5,10 @@ import java.util.List;
 import scada.anotacoes.Funcionalidade;
 import scada.hibernate.HibernateUtil;
 import scada.modelo.Cotacao;
+import scada.modelo.Fornecedor;
 import scada.modelo.ListaCotacao;
 import scada.modelo.ListaCotacaoFornecedor;
+import scada.modelo.Operador;
 import scada.modelo.Pagamento;
 import scada.modelo.PesquisaPedido;
 import scada.modelo.Produto;
@@ -15,6 +17,7 @@ import scada.modelo.Status;
 import scada.sessao.SessaoGeral;
 import scada.util.Util;
 import scada.util.UtilController;
+import sun.invoke.empty.Empty;
 import teste.HibernateUtilTest;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -96,6 +99,34 @@ public class ListaCotacaoController {
 		List<Produto> produto = hibernateUtil.buscar(new Produto());
 		result.include("tipoProduto", produto);
 		
+	}
+	
+	@Path("/listaCotacao/listarListaFornecedor/{cotacao.id}")
+	@Funcionalidade(nome = "Lista de Produtos da Cotação para Fornecedores")
+	public void listarListaCotFornecedor(Cotacao cotacao, Integer pagina) {
+		
+		cotacao = (Cotacao) UtilController.preencherFiltros(cotacao, "cotacao.id", sessaoGeral);
+		List lista = HibernateUtilTest.executarConsultaHQL("from ListaCotacao where cotacao.id = :idCotacao", "idCotacao", cotacao.getId());
+		result.include("listaCotacaos", lista);
+		
+		List<Produto> produto = hibernateUtil.buscar(new Produto());
+		result.include("tipoProduto", produto);
+		
+		Operador operador = new Operador();
+		operador = LoginController.RetornaOperador();
+		List lcf = null;
+		List fornecedor = HibernateUtilTest.executarConsultaHQL("from Fornecedor where operador.id = :idFornecedor", "idFornecedor", operador.getId());
+		for (Object obj: fornecedor){
+			Fornecedor f = (Fornecedor)obj;
+				lcf = HibernateUtilTest.executarConsultaHQL("from ListaCotacaoFornecedor where cotacao.id = :idCotacao and fornecedor.id = :idFornecedor", "idCotacao", cotacao.getId(), "idFornecedor", f.getId());
+		}
+		result.include("tipoLCF", lcf);
+		
+		List<Cotacao> cot = hibernateUtil.buscar(cotacao);
+		result.include("tipoCotacao", cot);
+		
+		List<Pagamento> pagamento = hibernateUtil.buscar(new Pagamento());
+		result.include("tipoPagamento", pagamento);
 	}
 	
 	@Get	
@@ -199,7 +230,7 @@ public class ListaCotacaoController {
 	
 	}
 	
-	@Funcionalidade(nome = "Cotação", modulo = "Relatórios")	
+	@Funcionalidade(nome = "Produtos da Cotação", modulo = "Relatórios")	
 	public void relatorioCotacao(ListaCotacao listaCotacao, Integer pagina) {
 
 			listaCotacao = (ListaCotacao) UtilController.preencherFiltros(listaCotacao, "listaCotacao", sessaoGeral);

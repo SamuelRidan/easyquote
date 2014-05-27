@@ -230,7 +230,7 @@ public class LoginController {
 	}
 
 	
-	public static Operador RetornaComprador() {
+	public static Operador RetornaOperador() {
 
 		Operador operador = so.getOperador();
 

@@ -5,6 +5,8 @@ import java.util.List;
 import scada.anotacoes.Funcionalidade;
 import scada.modelo.Fornecedor;
 import scada.modelo.Operador;
+import scada.modelo.Seguimento;
+import scada.modelo.Status;
 import scada.hibernate.HibernateUtil;
 import scada.sessao.SessaoGeral;
 import scada.util.Util;
@@ -50,6 +52,8 @@ public class FornecedorController {
 
 	@Funcionalidade(nome = "Criar e editar fornecedors")
 	public void criarEditarFornecedor() {
+		List<Seguimento> tipoSeg = hibernateUtil.buscar(new Seguimento());
+		result.include("tipoSeg", tipoSeg);
 	}
 
 	@Path("/fornecedor/excluirFornecedor/{fornecedor.id}")

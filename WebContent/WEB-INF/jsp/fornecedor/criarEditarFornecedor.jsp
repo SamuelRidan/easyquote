@@ -47,8 +47,10 @@
     <div class="control-group">
       <label class="control-label">Segmento</label>
       <div class="controls">
-        <input type="text" class="input-xlarge" name="fornecedor.segmento" value="${fornecedor.segmento}">
-      </div>
+			<c:forEach items="${tipoSeg}" var="itemSeg">
+				<option <c:if test="${fornecedor.seguimento.id == itemSeg.id}"> selected="selected" </c:if> value="${itemSeg.id}"> ${itemSeg.id} - ${itemSeg.descricao} </option>
+			</c:forEach>      
+	  </div>
     </div>
     <div class="control-group">
       <label class="control-label">Reputacao</label>

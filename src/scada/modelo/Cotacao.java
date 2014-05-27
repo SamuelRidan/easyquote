@@ -20,7 +20,9 @@ public class Cotacao implements Entidade {
 
     private GregorianCalendar dataAbertura;
     private GregorianCalendar dataLimiteResposta;
-    private Integer formaPgto;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Pagamento formaPgto;
     
     @ManyToOne(fetch = FetchType.LAZY)
     private Status status;
@@ -66,11 +68,11 @@ public class Cotacao implements Entidade {
         this.dataLimiteResposta = dataLimiteResposta;
     }
 
-    public Integer getFormaPgto() {
+    public Pagamento getFormaPgto() {
         return formaPgto;
     }
 
-    public void setFormaPgto(Integer formaPgto){
+    public void setFormaPgto(Pagamento formaPgto){
         this.formaPgto = formaPgto;
     }
 

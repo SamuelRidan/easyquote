@@ -40,6 +40,7 @@
 	  <mapping class="scada.modelo.Comprador" />
 	  <mapping class="scada.modelo.ListaCotacaoFornecedor" />
 	  <mapping class="scada.modelo.PesquisaPedido" />
+	  <mapping class="scada.modelo.Seguimento" />
 	  
 </session-factory>
 </hibernate-configuration>

@@ -20,7 +20,7 @@
 				  	</c:forEach>  	
 				  </tbody>
 				</table>
-		    <button type="submit" class="btn">Salvar</button>
+		    <button type="submit" class="btn btn-primary">Salvar</button>
 		  </fieldset>
 		</form>
 

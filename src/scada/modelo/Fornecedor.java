@@ -19,7 +19,10 @@ public class Fornecedor implements Entidade {
 	private String razao_social;
 	private String telefone;
 	private String email;
-	private String segmento;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Seguimento seguimento;
+	
 	private String reputacao;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -72,12 +75,12 @@ public class Fornecedor implements Entidade {
 		this.email = email;
 	}
 
-	public String getSegmento() {
-		return segmento;
+	public Seguimento getSegmento() {
+		return seguimento;
 	}
 
-	public void setSegmento(String segmento) {
-		this.segmento = segmento;
+	public void setSegmento(Seguimento segmento) {
+		this.seguimento = segmento;
 	}
 
 	public String getReputacao() {
