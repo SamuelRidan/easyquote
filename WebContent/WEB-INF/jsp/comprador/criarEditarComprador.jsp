@@ -97,6 +97,14 @@
 		return v
 	}
 </script>
+
+<div id="page-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1><small><span style="color:#31708F">//</span> Criar comprador </small></h1>
+    </div>
+  </div><!-- /.row -->
+
 <form class="form-horizontal" action="<c:url value="/comprador/salvarComprador"/>" method="post">
   <fieldset>
     <legend>Criar/editar comprador</legend>
@@ -136,5 +144,6 @@
     <button type="submit" class="btn btn-primary">Salvar</button>
   </fieldset>
 </form>
+</div>
 
 <%@ include file="/EQbaseFim.jsp" %> 

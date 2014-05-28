@@ -29,6 +29,17 @@
 		        <input type="text" class="input-xlarge numero-inteiro" name="produto.codSAP" value="${produto.codSAP}">
 		      </div>
 		    </div>
+		    <div class="control-group">
+		      <label class="control-label">Segmento</label>
+		      <div class="controls">
+		      		<select name="produto.seguimento.id">
+		      			<option disabled="disabled" selected="selected">Selecione o segmento</option>
+						<c:forEach items="${tipoSeg}" var="itemSeg">
+							<option <c:if test="${produto.seguimento.id == itemSeg.id}"> selected="selected" </c:if> value="${itemSeg.id}"> ${itemSeg.id} - ${itemSeg.descricao} </option>
+						</c:forEach>  
+					</select>    
+			  </div>
+		    </div>
 		
 		    <button type="submit" class="btn btn-primary">Salvar</button>
 		    <a class="btn btn-danger" href="<c:url value="/produto/listarProdutos"/>" > Cancelar </a>

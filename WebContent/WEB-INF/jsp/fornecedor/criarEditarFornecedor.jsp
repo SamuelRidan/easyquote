@@ -3,9 +3,15 @@
 <%@ include file="/EQbase.jsp" %> 
 <%@ page import="java.util.*, scada.modelo.*, scada.hibernate.*, teste.*" %>
 
+<div id="page-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1><small><span style="color:#31708F">//</span> Criar fornecedor </small></h1>
+    </div>
+  </div><!-- /.row -->
+
 <form class="form-horizontal" action="<c:url value="/fornecedor/salvarFornecedor"/>" method="post">
   <fieldset>
-    <legend>Criar/editar fornecedor</legend>
     <div class="control-group">
       <label class="control-label">Operador</label>
       <div class="controls">
@@ -45,7 +51,7 @@
       </div>
     </div>
     <div class="control-group">
-      <label class="control-label">Seguimento</label>
+      <label class="control-label">Segmento</label>
       <div class="controls">
       		<select name="fornecedor.seguimento.id">
       			<option disabled="disabled" selected="selected">Selecione o segmento</option>
@@ -65,5 +71,5 @@
     <button type="submit" class="btn btn-primary">Salvar</button>
   </fieldset>
 </form>
-
+</div>
 <%@ include file="/EQbaseFim.jsp" %> 

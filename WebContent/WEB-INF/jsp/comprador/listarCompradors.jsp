@@ -1,14 +1,19 @@
 <%@ include file="/EQbase.jsp" %> 
 <%@ taglib uri="/tags/tags" prefix="tags"%>
 
-<br><br>
+<div id="page-wrapper">
+   <div class="row">
+     <div class="col-lg-12">
+       <h1><small><span style="color:#31708F">//</span> Listar compradores </small></h1>
+     </div>
+   </div><!-- /.row -->
 
 <form class="well form-inline" action="<c:url value="/comprador/listarCompradors"/>" method="post" >
-    <input type="text" class="input-small numero-decimal" name="comprador.cpf" value="${sessaoGeral.valor.get('comprador').cpf}" placeholder="Cpf">
+    <input type="text" class="input-small numero-decimal" name="comprador.cpf" value="${sessaoGeral.valor.get('comprador').cpf}" placeholder="CPF">
 	<button type="submit" class="btn btn-info">Pesquisar</button>
 </form>
 
-<h3> Compradors </h3>
+<h3> Compradores </h3>
 
 <c:choose>
 	<c:when test="${!empty compradors}">
@@ -19,7 +24,7 @@
 		<table class="table table-striped table-bordered tablesorter">
 			<thead>
 		    	<tr>
-                    <th> Cpf </th>
+                    <th> CPF </th>
                     <th> Telefone </th>
                     <th> Email </th>
 				</tr>
@@ -39,3 +44,7 @@
 		<br>  <br>  <h4> Nenhum registro foi encontrado </h4>
 	</c:otherwise>
 </c:choose>
+
+</div>
+
+<%@ include file="/EQbaseFim.jsp" %> 

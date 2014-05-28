@@ -72,7 +72,7 @@ public class SeguimentoController {
 		result.redirectTo(this).listarSeguimentos(new Seguimento(), null);
 	}
 
-	@Funcionalidade(nome = "Seguimentos de Compra/Aluguel", modulo = "SAP")
+	@Funcionalidade(nome = "Seguimentos de Compra/Aluguel", modulo = "Informações")
 	public void listarSeguimentos(Seguimento seguimento, Integer pagina) {
 
 		seguimento = (Seguimento) UtilController.preencherFiltros(seguimento, "seguimento", sessaoGeral);

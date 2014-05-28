@@ -5,6 +5,7 @@ import java.util.List;
 import scada.anotacoes.Funcionalidade;
 import scada.hibernate.HibernateUtil;
 import scada.modelo.Produto;
+import scada.modelo.Seguimento;
 import scada.sessao.SessaoGeral;
 import scada.util.Util;
 import scada.util.UtilController;
@@ -48,6 +49,8 @@ public class ProdutoController {
 
 	@Funcionalidade(nome = "Criar e editar produtos")
 	public void criarEditarProduto() {
+		List<Seguimento> tipoSeg = hibernateUtil.buscar(new Seguimento());
+		result.include("tipoSeg", tipoSeg);
 	}
 
 	@Path("/produto/excluirProduto/{produto.id}")
@@ -72,7 +75,7 @@ public class ProdutoController {
 		result.redirectTo(this).listarProdutos(new Produto(), null);
 	}
 
-	@Funcionalidade(nome = "Produtos", modulo = "SAP")
+	@Funcionalidade(nome = "Produtos", modulo = "Informações")
 	public void listarProdutos(Produto produto, Integer pagina) {
 
 		produto = (Produto) UtilController.preencherFiltros(produto, "produto", sessaoGeral);
@@ -82,6 +85,9 @@ public class ProdutoController {
 
 		List<Produto> produtos = hibernateUtil.buscar(produto, pagina);
 		result.include("produtos", produtos);
+		
+		List<Seguimento> tipoSeg = hibernateUtil.buscar(new Seguimento());
+		result.include("tipoSeg", tipoSeg);
 
 	}
 }

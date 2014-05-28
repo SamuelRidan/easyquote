@@ -45,7 +45,7 @@ $( document ).ready(function() {
 			 				  xkey: 'fornecedor',
 			 				  labels: ['Fornecedor'],
 			 				  ykeys: ['reputacao'],
-			 				  labels: ['Reputação Fornecedor'],
+			 				  labels: ['Reputaï¿½ï¿½o Fornecedor'],
 			 				  barRatio: 0.4,
 			 				  xLabelAngle: 35,
 			 				  hideHover: 'auto'
@@ -76,9 +76,9 @@ $( document ).ready(function() {
           
         <div class="row">
           <div class="col-lg-12">
-            <h1>Propostas Fornecedor <small>Cotações</small></h1>
+            <h1>Propostas Fornecedor <small>Cotaï¿½ï¿½es</small></h1>
             <ol class="breadcrumb">
-              <li><a href="#"><i class="icon-dashboard"></i> Cotações</a></li>
+              <li><a href="#"><i class="icon-dashboard"></i> Cotaï¿½ï¿½es</a></li>
               <li class="active"><i class="icon-file-alt"></i> Propostas</li>
             </ol>
           </div>
@@ -88,7 +88,7 @@ $( document ).ready(function() {
       <div class="col-lg-8">
 		       <div class="panel panel-primary" style="height:417px;">
 		              <div class="panel-heading">
-		                <h3 class="panel-title">Detalhes Cotação</h3>
+		                <h3 class="panel-title">Detalhes Cotaï¿½ï¿½o</h3>
 		              </div>
 				     <c:choose>
 					  <c:when test="${!empty tipoCotacao}">
@@ -97,7 +97,7 @@ $( document ).ready(function() {
 					            <c:when test="${itemCot.id == idcot}">
 				              <div class="panel-body">
 						          <div class="col-lg-4">
-						            <p><strong>Código da Cotação: </strong> ${itemCot.id}</p>
+						            <p><strong>Cï¿½digo da Cotaï¿½ï¿½o: </strong> ${itemCot.id}</p>
 						            <p><strong> Data da Abertura:</strong> <fmt:formatDate value="${itemCot.dataAbertura.time}"/></p>
 						            <p><strong> Data Limite de Resposta:</strong>  <fmt:formatDate value="${itemCot.dataLimiteResposta.time}"/></p>
 						            <p><strong>Forma de Pagamento:</strong> 
@@ -113,7 +113,7 @@ $( document ).ready(function() {
 										<c:if test="${itemCot.setor == itemSetor.id}"><td>${itemSetor.descricao}</td></c:if>							
 									</c:forEach>			            
 						            </p>
-						            <p> <strong> Observação: </strong>${itemCot.obs}</p>
+						            <p> <strong> Observaï¿½ï¿½o: </strong>${itemCot.obs}</p>
 						          </div>                
 				              </div>
 				               </c:when>
@@ -127,7 +127,7 @@ $( document ).ready(function() {
           <div class="col-lg-4" style="margin-left:-20px;">
             <div class="panel panel-primary">
               <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Reputação Fornecedor</h3>
+                <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Reputaï¿½ï¿½o Fornecedor</h3>
               </div>
               <div class="panel-body">
                 <div id="morris-chart-bar"></div>
@@ -142,16 +142,16 @@ $( document ).ready(function() {
 		 %>
          <div class="alert alert-info alert-dismissable">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-              Nº de Proposta(s) para cotação : <% out.println(propFornecedor.size());%>
+              Nï¿½ de Proposta(s) para cotaï¿½ï¿½o : <% out.println(propFornecedor.size());%>
          </div>		  
         
  
 		<table  class="table table-hover tablesorter"  >
 			<tr>
 				<th>Cod. Fornecedor</th>
-				<th>Razão Social</th>
-				<th>Qualificação</th>	
-				<th>Valor Total Cotação</th>		
+				<th>Razï¿½o Social</th>
+				<th>Qualificaï¿½ï¿½o</th>	
+				<th>Valor Total Cotaï¿½ï¿½o</th>		
 				<th> </th>
 			</tr>	
 		<%
@@ -165,7 +165,7 @@ $( document ).ready(function() {
 		%>		
 						<tr>
 						    <td><%= lc.getFornecedor().getId() %></td>
-						    <td><%= lc.getFornecedor().getRazao_soacial() %></td>
+						    <td><%= lc.getFornecedor().getRazao_social() %></td>
 						    <td><%= lc.getFornecedor().getReputacao() %></td>
 						    <td><%= Formatacao.formatarNumero(total) %> </td>
 						    <td id="<%=lc.getId()%>" onclick="btnProd(this)" style="cursor:pointer;"> <i class="fa fa-angle-down"></i> </td>
@@ -176,7 +176,7 @@ $( document ).ready(function() {
 				            <div class="bs-example">
 				              <ul class="nav nav-tabs" style="margin-bottom: -1px;">
 				                <li class="active"><a href="#produtos<%=lc.getFornecedor().getId()%>" data-toggle="tab">Produtos Cotados</a></li>
-				                <li><a href="#historico<%=lc.getFornecedor().getId()%>" data-toggle="tab">Histórico do Fornecedor</a></li>
+				                <li><a href="#historico<%=lc.getFornecedor().getId()%>" data-toggle="tab">Histï¿½rico do Fornecedor</a></li>
 				              </ul>
 				              
 				              <div id="myTabContent" class="tab-content">
@@ -185,9 +185,9 @@ $( document ).ready(function() {
 								   		<table style="width:80%;" align="center" class="table table-striped table-bordered tablesorter" >
 								   		<tr>
 								   		 	<th>Item</th>
-								   		 	<th>Descrição Produto</th>
+								   		 	<th>Descriï¿½ï¿½o Produto</th>
 								   		 	<th>Quantidade </th>
-								   		 	<th>Valor Unitário </th>
+								   		 	<th>Valor Unitï¿½rio </th>
 								   		 	<th>Valor Total </th>						   		 							   		 	
 								   		</tr>
 								   		<%
@@ -222,9 +222,9 @@ $( document ).ready(function() {
 						                <span class="list-group-item">
 						                  <h4 class="list-group-item-heading">Cod. Pedido: ${itemped.pedido.id} </h4>
 						                  <p class="list-group-item-text"><strong> Tempo de Entrega:</strong> ${itemped.pergunta1}    </p>
-						                  <p class="list-group-item-text"><strong> Qualidade dos Produtos/Serviços no Setor:</strong> ${itemped.pergunta2}  </p>
-						                  <p class="list-group-item-text"><strong> Comunicação do Fornecedor:</strong> ${itemped.pergunta3}</p>
-						                  <p class="list-group-item-text"><strong> Observação:</strong> ${itemped.obs} </p>
+						                  <p class="list-group-item-text"><strong> Qualidade dos Produtos/Serviï¿½os no Setor:</strong> ${itemped.pergunta2}  </p>
+						                  <p class="list-group-item-text"><strong> Comunicaï¿½ï¿½o do Fornecedor:</strong> ${itemped.pergunta3}</p>
+						                  <p class="list-group-item-text"><strong> Observaï¿½ï¿½o:</strong> ${itemped.obs} </p>
 						                </span>            
 						           </c:when>
 						      <c:otherwise>

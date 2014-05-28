@@ -44,7 +44,7 @@
     <div class="control-group warning">
         <label class="control-label">Status</label>
         <div class="controls">
-          <select name="cotacao.status" >
+          <select name="cotacao.status.id" >
 			<c:forEach items="${tipoStatus}" var="itemStatus">
 				<option <c:if test="${cotacao.status == itemStatus.id}"> selected="selected" </c:if> value="${itemStatus.id}"> ${itemStatus.id} - ${itemStatus.descricao} </option>
 			</c:forEach>
@@ -56,7 +56,7 @@
     <div class="control-group">
       <label class="control-label">Setor Requerente</label>
       <div class="controls">
-        <select name="cotacao.setor">
+        <select name="cotacao.setor.id">
         	<option selected="selected" disabled="disabled"> Selecione o setor </option>
 			<c:forEach items="${tipoSetor}" var="itemSetor">
 				<option <c:if test="${cotacao.setor == itemSetor.id}"> </c:if> value="${itemSetor.id}">${itemSetor.id} - ${itemSetor.descricao} </option>
@@ -76,6 +76,7 @@
     <a class="btn btn-danger" href="<c:url value="/cotacao/listarCotacaos"/>" > Cancelar </a>
   </fieldset>
 </form>
+</div>
 
 <%@ include file="/EQbaseFim.jsp" %> 
 		

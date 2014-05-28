@@ -22,16 +22,12 @@ public class Cotacao implements Entidade {
     private GregorianCalendar dataLimiteResposta;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    private Pagamento formaPgto;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
     private Status status;
     
     @ManyToOne(fetch = FetchType.LAZY)
     private Setor setor;
     
     private String obs;
-    private Double valorTotal;
     
     @ManyToOne(fetch = FetchType.LAZY)
 	private Operador responsavel;
@@ -68,14 +64,6 @@ public class Cotacao implements Entidade {
         this.dataLimiteResposta = dataLimiteResposta;
     }
 
-    public Pagamento getFormaPgto() {
-        return formaPgto;
-    }
-
-    public void setFormaPgto(Pagamento formaPgto){
-        this.formaPgto = formaPgto;
-    }
-
     public Status getStatus() {
         return status;
     }
@@ -98,14 +86,6 @@ public class Cotacao implements Entidade {
 
     public void setObs(String obs){
         this.obs = obs;
-    }
-
-    public Double getValorTotal() {
-        return valorTotal;
-    }
-
-    public void setValorTotal(Double valorTotal){
-        this.valorTotal = valorTotal;
     }
     
     public Operador getResponsavel() {

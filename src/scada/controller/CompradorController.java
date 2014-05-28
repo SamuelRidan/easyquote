@@ -74,7 +74,7 @@ public class CompradorController {
 		result.redirectTo(op).criarOperador();
 	}
 
-	@Funcionalidade(nome = "Compradores", modulo = "Relatórios")
+	@Funcionalidade(nome = "Compradores", modulo = "Informações")
 	public void listarCompradors(Comprador comprador, Integer pagina) {
 
 		comprador = (Comprador) UtilController.preencherFiltros(comprador, "comprador", sessaoGeral);

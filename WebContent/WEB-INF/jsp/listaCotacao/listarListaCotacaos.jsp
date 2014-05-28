@@ -3,7 +3,7 @@
 
 <%@ page import="java.util.*, scada.modelo.*, scada.hibernate.*, teste.*" %>
 
-<script LANGUAGE="JavaScript">
+<script type="text/javascript">
 
 		function excluir(idListaCotacao,linha){
 		    	
@@ -25,6 +25,10 @@
             <h1><small><span style="color:#31708F">//</span> Lista de produtos da cotação </small></h1>
           </div>
         </div>    
+        
+        <a class="btn" href="<c:url value="/listaCotacao/criarListaCotacao"/>" > Incluir produto </a>
+
+<br><br>
 
 		<form class="well form-inline" action="<c:url value="/listaCotacao/listarListaCotacaos"/>" method="post" >
 		    <input type="text" class="input-small numero-inteiro" name="listaCotacao.produto" value="${sessaoGeral.valor.get('listaCotacao').produto.descricao}" placeholder="Produto">

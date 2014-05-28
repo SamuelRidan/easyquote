@@ -79,7 +79,7 @@ public class FornecedorController {
 		
 	}
 
-	@Funcionalidade(nome = "Fornecedores", modulo="Acesso")
+	@Funcionalidade(nome = "Fornecedores", modulo="Informações")
 	public void listarFornecedors(Fornecedor fornecedor, Integer pagina) {
 
 		fornecedor = (Fornecedor) UtilController.preencherFiltros(fornecedor, "fornecedor", sessaoGeral);
@@ -89,6 +89,9 @@ public class FornecedorController {
 
 		List<Fornecedor> fornecedors = hibernateUtil.buscar(fornecedor, pagina);
 		result.include("fornecedors", fornecedors);
+		
+		List<Seguimento> tipoSeg = hibernateUtil.buscar(new Seguimento());
+		result.include("tipoSeg", tipoSeg);
 
 	}
 	

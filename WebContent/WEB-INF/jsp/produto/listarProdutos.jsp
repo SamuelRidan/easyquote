@@ -17,9 +17,6 @@
 
 <form class="well form-inline" action="<c:url value="/produto/listarProdutos"/>" method="post" >
     <input type="text" class="input-small" name="produto.descricao" value="${sessaoGeral.valor.get('produto').descricao}" placeholder="Descricao">
-    <input type="text" class="input-small numero-inteiro" name="produto.preco" value="${sessaoGeral.valor.get('produto').preco}" placeholder="Preco">
-    <input type="text" class="input-small numero-inteiro" name="produto.codSAP" value="${sessaoGeral.valor.get('produto').codSAP}" placeholder="CodSAP">
-
 	<button type="submit" class="btn btn-info">Pesquisar</button>
 </form>
 
@@ -37,6 +34,7 @@
                     <th> Descricao </th>
                     <th> Preco </th>
                     <th> CodSAP </th>
+                    <th> Segmento </th>
 		            <th> Editar </th>
 		            <th> Remover </th>	                    
 				</tr>
@@ -47,6 +45,11 @@
                         <td> ${item.descricao} </td>
                         <td> ${item.preco} </td>
                         <td> ${item.codSAP} </td>
+                        <td> 
+	                        <c:forEach items="${tipoSeg}" var="itemSeg">
+								<c:if test="${item.seguimento.id == itemSeg.id}">  ${itemSeg.descricao} </c:if> 
+							</c:forEach>
+						</td>
 			            <td> <a href="<c:url value="/produto/editarProduto/${item.id}"/>" ><i class="fa fa-edit"></i> Editar </a> </td>
 			            <td> <a href="<c:url value="/produto/excluirProduto/${item.id}"/>" ><i class="fa fa-trash-o"></i> Remover</a></td>		                                                
 					</tr>

@@ -12,6 +12,7 @@ import scada.modelo.Status;
 import scada.sessao.SessaoGeral;
 import scada.util.Util;
 import scada.util.UtilController;
+import teste.HibernateUtilTest;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
@@ -137,7 +138,7 @@ public class CotacaoController {
 			cotacao = new Cotacao();
 		}
 
-		List<Cotacao> cotacaos = hibernateUtil.buscar(cotacao, pagina);
+		List cotacaos = HibernateUtilTest.executarConsultaHQL("from cotacao where status.id = :idStatus", "idStatus", 1);
 		result.include("cotacaos", cotacaos);
 		
 		List<Status> tipoStatus = hibernateUtil.buscar(new Status());

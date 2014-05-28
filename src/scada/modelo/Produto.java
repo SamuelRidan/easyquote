@@ -1,8 +1,10 @@
 package scada.modelo;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import scada.hibernate.Entidade;
 
@@ -19,6 +21,9 @@ public class Produto implements Entidade {
 	private Double preco;
 	private Integer quantidade;
     private Integer codSAP;
+    
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Seguimento seguimento;
     
 	public Produto() {
 	}
@@ -66,6 +71,14 @@ public class Produto implements Entidade {
 
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
+	}
+
+	public Seguimento getSeguimento() {
+		return seguimento;
+	}
+
+	public void setSeguimento(Seguimento seguimento) {
+		this.seguimento = seguimento;
 	}
     
 }

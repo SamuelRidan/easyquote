@@ -1,18 +1,14 @@
 <%@ include file="/EQbase.jsp" %> 
 <%@ taglib uri="/tags/tags" prefix="tags"%>
 
-      <div id="page-wrapper">
-        <div class="row">
-          <div class="col-lg-12">
-            <h1><small><span style="color:#31708F">//</span> Listar cotação </small></h1>
-          </div>
-        </div><!-- /.row -->   
+<div id="page-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1><small><span style="color:#31708F">//</span> Listar cotação </small></h1>
+    </div>
+  </div><!-- /.row -->   
 
 
-<ul id="cotacao" class="dropdown-menu">
-	<li><a href="javascript:gerarLinkCompleto('<c:url value="/cotacao/editarCotacao"/>')">Editar</a></li>
-	<li><a href="javascript:deletar('<c:url value="/cotacao/excluirCotacao"/>')">Excluir</a></li>
-</ul>
 
 <a class="btn" href="<c:url value="/cotacao/criarCotacao"/>" > Criar cotação </a>
 
@@ -24,7 +20,6 @@
     <input type="text" class="input-small numero-inteiro" name="cotacao.formaPgto" value="${sessaoGeral.valor.get('cotacao').formaPgto}" placeholder="Forma de Pagamento">
     <input type="text" class="input-small numero-inteiro" name="cotacao.status" value="${sessaoGeral.valor.get('cotacao').status}" placeholder="Status">
     <input type="text" class="input-small numero-inteiro" name="cotacao.setor" value="${sessaoGeral.valor.get('cotacao').setor}" placeholder="Setor">
-    <input type="text" class="input-small" name="cotacao.obs" value="${sessaoGeral.valor.get('cotacao').obs}" placeholder="Obs">
 
 	<button type="submit" class="btn btn-info">Pesquisar</button>
 </form>
@@ -58,12 +53,12 @@
                         <td> <fmt:formatDate value="${item.dataLimiteResposta.time}" /> </td>
                         <td>
                         <c:forEach items="${tipoStatus}" var="itemStatus">
-							<c:if test="${item.status == itemStatus.id}">  ${itemStatus.descricao}  </c:if>
+							<c:if test="${item.status.id == itemStatus.id}">  ${itemStatus.descricao}  </c:if>
 						</c:forEach>
 						</td>
 						<td>						
                         <c:forEach items="${tipoSetor}" var="itemSetor">
-							<c:if test="${item.setor == itemSetor.id}">  ${itemSetor.descricao} </c:if> 
+							<c:if test="${item.setor.id == itemSetor.id}">  ${itemSetor.descricao} </c:if> 
 						</c:forEach>
 						</td> 						
                         <td> ${item.valorTotal} </td>
@@ -81,6 +76,6 @@
 	</c:otherwise>
 </c:choose>
 
-		
+</div>
 <%@ include file="/EQbaseFim.jsp" %> 
 		
