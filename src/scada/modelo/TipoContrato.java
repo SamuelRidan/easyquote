@@ -15,6 +15,13 @@ public class TipoContrato implements Entidade {
 
     private String descricao;
 
+	public TipoContrato() {
+	}
+
+	public TipoContrato(Integer id) {
+		this.id = id;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -23,12 +30,12 @@ public class TipoContrato implements Entidade {
 		this.id = id;
 	}
 
-	public String getDescricao() {
-		return descricao;
-	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+    public String getDescricao() {
+        return descricao;
+    }
 
+    public void setDescricao(String descricao){
+        this.descricao = descricao;
+    }
 }

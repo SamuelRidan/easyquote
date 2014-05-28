@@ -24,6 +24,6 @@
 		  </fieldset>
 		</form>
 
-
+</div>
 		
 <%@ include file="/EQbaseFim.jsp" %> 		

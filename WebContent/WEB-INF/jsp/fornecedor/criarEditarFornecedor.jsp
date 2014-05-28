@@ -47,7 +47,7 @@
     <div class="control-group">
       <label class="control-label">Email</label>
       <div class="controls">
-        <input type="text" class="input-xlarge" name="fornecedor.email" value="${fornecedor.email}">
+        <input type="email" class="input-xlarge" name="fornecedor.email" value="${fornecedor.email}">
       </div>
     </div>
     <div class="control-group">

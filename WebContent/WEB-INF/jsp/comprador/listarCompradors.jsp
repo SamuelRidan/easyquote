@@ -27,14 +27,16 @@
                     <th> CPF </th>
                     <th> Telefone </th>
                     <th> Email </th>
+                    <th> Editar </th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${compradors}" var="item">
 					<tr id="comprador_${item.id}">
-                        <td> <fmt:formatNumber value="${item.cpf}" /> </td>
+                        <td> ${item.cpf} </td>
                         <td> ${item.telefone} </td>
                         <td> ${item.email} </td>
+                        <td> <a href="<c:url value="/comprador/editarComprador/${item.id}"/>" ><i class="fa fa-edit"></i> Editar </a> </td>
 					</tr>
 				</c:forEach>
 			</tbody>

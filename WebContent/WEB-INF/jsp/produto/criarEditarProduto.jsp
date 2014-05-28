@@ -45,6 +45,6 @@
 		    <a class="btn btn-danger" href="<c:url value="/produto/listarProdutos"/>" > Cancelar </a>
 		  </fieldset>
 		</form>
-
+</div>
 
 <%@ include file="/EQbaseFim.jsp" %> 

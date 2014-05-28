@@ -9,7 +9,6 @@
 
 		<form class="form-horizontal" action="<c:url value="/contrato/salvarContrato"/>" method="post">
 		  <fieldset>
-		    <legend>Criar/editar contrato</legend>
 		    <div class="control-group">
 		      <label class="control-label">Inicio de Vigência</label>
 		      <div class="controls">
@@ -26,7 +25,7 @@
 		    <div class="control-group warning">
         		<label class="control-label">Tipo do Contrato</label>
         		<div class="controls">
-          			<select name="contrato.tipocontrato" >
+          			<select name="contrato.tipoContrato.id" >
 						<c:forEach items="${tipoContrato}" var="tipocontrato">
 							<option <c:if test="${contrato.tipocontrato == tipocontrato.id}"> selected="selected" </c:if> value="${tipocontrato.id}"> ${tipocontrato.id} - ${tipocontrato.descricao} </option>
 						</c:forEach>
@@ -41,9 +40,10 @@
 		      </div>
 		    </div>
 		
-            <button type="submit" class="btn btn-default">Salvar</button>
-		    <a class="btn btn-default"  href="<c:url value="/contrato/listarContratos"/>" > Cancelar </a>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+		    <a class="btn btn-danger"  href="<c:url value="/contrato/listarContratos"/>" > Cancelar </a>
 		  </fieldset>
 		</form>
+		</div>
 
 <%@ include file="/EQbaseFim.jsp" %> 		

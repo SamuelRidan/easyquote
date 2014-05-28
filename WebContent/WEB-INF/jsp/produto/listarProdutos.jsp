@@ -62,5 +62,5 @@
 	</c:otherwise>
 </c:choose>
 
-
+</div>
 <%@ include file="/EQbaseFim.jsp" %> 

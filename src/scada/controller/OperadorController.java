@@ -91,7 +91,6 @@ public class OperadorController {
 		}
 		
 		String senha = GeradorDeMd5.converter(operador.getSenha());
-		System.out.println(senha);
 		operador.setSenha(senha);		
 		
 		hibernateUtil.salvarOuAtualizar(operador);

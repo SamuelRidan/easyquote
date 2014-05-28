@@ -125,7 +125,7 @@
     <div class="control-group">
       <label class="control-label">CPF</label>
       <div class="controls">
-        <input type="text" class="input-xlarge numero-decimal" name="comprador.cpf" id="comprador.cpf" onblur="javascript: validarCPF(this.value);" onkeypress="javascript: mascara(this, cpf_mask);"  maxlength="14" value="<fmt:formatNumber value="${comprador.cpf}"/>">
+        <input type="text" class="input-xlarge numero-decimal" name="comprador.cpf" id="comprador.cpf" onblur="javascript: validarCPF(this.value);" onkeypress="javascript: mascara(this, cpf_mask);"  maxlength="14" value="${comprador.cpf}">
       </div>
     </div>
     <div class="control-group">
@@ -137,7 +137,7 @@
     <div class="control-group">
       <label class="control-label">Email</label>
       <div class="controls">
-        <input type="text" class="input-xlarge" name="comprador.email" value="${comprador.email}">
+        <input type="email" class="input-xlarge" name="comprador.email" value="${comprador.email}">
       </div>
     </div>
 

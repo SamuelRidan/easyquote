@@ -38,6 +38,7 @@
 		                    <th> Email </th>
 		                    <th> Segmento </th>
 		                    <th> Reputação </th>
+		                    <th> Editar </th>
 						</tr>
 					</thead>
 					<tbody>
@@ -48,8 +49,9 @@
 		                        <td> ${item.razao_social} </td>
 		                        <td> ${item.telefone} </td>
 		                        <td> ${item.email} </td>
-		                        <td> ${item.segmento} </td>
+		                        <td> ${item.seguimento} </td>
 		                        <td> ${item.reputacao} </td>
+		                        <td> <a href="<c:url value="/fornecedor/editarFornecedor/${item.id}"/>" ><i class="fa fa-edit"></i> Editar </a> </td>
 							</tr>
 						</c:forEach>
 			 	

@@ -46,7 +46,7 @@ public class CompradorController {
 		result.forwardTo(this).criarEditarComprador();
 	}
 
-	@Funcionalidade(nome = "Criar e editar compradors")
+	@Funcionalidade(nome = "Criar e editar comprador")
 	public void criarEditarComprador() {
 	}
 

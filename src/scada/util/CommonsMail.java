@@ -92,7 +92,7 @@ public class CommonsMail {
      * @throws EmailException  
      * @throws MalformedURLException  
      */  
-    public static void enviaEmailFormatoHtml(String destinatario, String nomeDestinatario, String assuntoEmail, String html, String txt) throws EmailException, MalformedURLException {  
+    public static void enviaEmailFormatoHtml(String destinatario, String nomeDestinatario, String assuntoEmail, String html) throws EmailException, MalformedURLException {  
           
         try {
         	
@@ -104,8 +104,7 @@ public class CommonsMail {
 			email.addTo(destinatario, nomeDestinatario); //destinatário  
 			email.setFrom(usuario, "EasyQuote - Sistemas de Cotação"); // remetente  
 			email.setSubject(assuntoEmail); // assunto do e-mail   
-			email.setHtmlMsg(html); // configura a mensagem para o formato HTML 
-			email.setTextMsg(txt); // configure uma mensagem alternativa caso o servidor não suporte HTML   
+			email.setHtmlMsg(html); // configura a mensagem para o formato HTML    
 			email.setAuthentication(usuario, senha);  
 			email.setSmtpPort(465);  
 			email.setSSL(true);  

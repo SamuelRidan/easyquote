@@ -17,7 +17,6 @@
 <form class="well form-inline" action="<c:url value="/cotacao/listarCotacaos"/>" method="post" >
     <input type="text" class="input-small data" name="cotacao.dataAbertura" value="<fmt:formatDate value="${sessaoGeral.valor.get('cotacao').dataAbertura.time}" />" placeholder="Abertura">
     <input type="text" class="input-small data" name="cotacao.dataLimiteResposta" value="<fmt:formatDate value="${sessaoGeral.valor.get('cotacao').dataLimiteResposta.time}" />" placeholder="Limite de Resposta">
-    <input type="text" class="input-small numero-inteiro" name="cotacao.formaPgto" value="${sessaoGeral.valor.get('cotacao').formaPgto}" placeholder="Forma de Pagamento">
     <input type="text" class="input-small numero-inteiro" name="cotacao.status" value="${sessaoGeral.valor.get('cotacao').status}" placeholder="Status">
     <input type="text" class="input-small numero-inteiro" name="cotacao.setor" value="${sessaoGeral.valor.get('cotacao').setor}" placeholder="Setor">
 
@@ -39,7 +38,6 @@
                     <th> Limite para Resposta </th>
                     <th> Status </th>
                     <th> Setor </th>
-                    <th> Valor Total </th>
                     <th> Observações </th>
                     <th> Lista de produtos </th>
 		            <th> Editar </th>
@@ -61,7 +59,6 @@
 							<c:if test="${item.setor.id == itemSetor.id}">  ${itemSetor.descricao} </c:if> 
 						</c:forEach>
 						</td> 						
-                        <td> ${item.valorTotal} </td>
                         <td> ${item.obs} </td>
                         <td> <a href="<c:url value="/listaCotacao/listarListaCotacaos/${item.id}"/>" ><i class="fa fa-edit"></i> Visualizar lista </a> </td>
 			            <td> <a href="<c:url value="/cotacao/editarCotacao/${item.id}"/>" ><i class="fa fa-edit"></i> Editar </a> </td>

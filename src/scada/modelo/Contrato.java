@@ -2,8 +2,10 @@ package scada.modelo;
 
 import java.util.GregorianCalendar;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import scada.hibernate.Entidade;
 
@@ -18,8 +20,10 @@ public class Contrato implements Entidade {
 
     private GregorianCalendar inicioVigencia;
     private GregorianCalendar fimVigencia;
-    private Integer tipo;
     private Integer periodicidadeReajuste;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    private TipoContrato tipoContrato;
 
 	public Contrato() {
 	}
@@ -49,12 +53,12 @@ public class Contrato implements Entidade {
         return fimVigencia;
     }
 
-    public Integer getTipo() {
-    	return tipo;
-    }
-    
-    public void setTipo(Integer tipo) {
-		this.tipo = tipo;
+	public TipoContrato getTipoContrato() {
+		return tipoContrato;
+	}
+
+	public void setTipoContrato(TipoContrato tipoContrato) {
+		this.tipoContrato = tipoContrato;
 	}
     
     public void setFimVigencia(GregorianCalendar fimVigencia){

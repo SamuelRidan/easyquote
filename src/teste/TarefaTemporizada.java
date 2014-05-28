@@ -1,6 +1,5 @@
 package teste;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import scada.auxiliar.AuxiliarEmail;
@@ -13,16 +12,14 @@ class TarefaTemporizada extends TimerTask {
 
 	private Timer temporizador;
 	private long tempo = 1;
-	private long vezes = 0;
 	
-	public TarefaTemporizada(long tempo, long vezes) {
+	public TarefaTemporizada(long tempo) {
 		this.tempo = tempo;
-		this.vezes = vezes;
 		temporizador = new Timer();
 	}
 
     public void agendarTarefa(long segundos) {
-    	temporizador.schedule(new TarefaTemporizada(tempo, vezes), tempo*1000);
+    	temporizador.schedule(new TarefaTemporizada(tempo), tempo*1000);
     }
 
     public void cancelarAgendamentoTarefa() {
@@ -33,7 +30,6 @@ class TarefaTemporizada extends TimerTask {
 		
 		List cotacoes;
 		String textoHTML;
-		String txt;
 		String emailComprador = null;
 		String nomeComprador = null;
 		
@@ -48,14 +44,10 @@ class TarefaTemporizada extends TimerTask {
 			data.setTime(date);	
 			dataAtual.setTime(date);
 			data.add(Calendar.DAY_OF_MONTH, 7);	
-			SimpleDateFormat dataFormatada = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
-
-			System.out.println("--> Data de comparação: " + dataFormatada.format(data.getTime()));
 			
 			cotacoes = HibernateUtilTest.executarConsultaHQL("from Cotacao");
 			
 			textoHTML = AuxiliarEmail.cabecalhoHTML();
-			txt = AuxiliarEmail.cabecalhoTEXTO();
 			
 			for (Object obj: cotacoes) {
 	            Cotacao c = (Cotacao)obj;
@@ -66,9 +58,7 @@ class TarefaTemporizada extends TimerTask {
 	            			emailComprador = comprador.getEmail();
 	            			nomeComprador = comprador.getOperador().getNome();	            			
 	            	}
-	            	System.out.println("entrou nesse if");
-	            	textoHTML += "#" + c.getId() + " tendo como requisitante o setor: " + c.getSetor().getDescricao() + "<br>";	  
-	            	txt += "#" + c.getId() + " tendo como requisitante o setor: " + c.getSetor().getDescricao() + " ";	
+	            	textoHTML += "Cotação #" + c.getId() + " - setor requisitante: " + c.getSetor().getDescricao() + " que se encerrará dia " + c.getDataLimiteResposta().getTime() + "<br><br>";	  
 	            } 
 	            
 	            if (c.getDataLimiteResposta().getTime().before(dataAtual.getTime())){
@@ -76,15 +66,14 @@ class TarefaTemporizada extends TimerTask {
 	            }
 	            
 	        textoHTML += AuxiliarEmail.rodapeHTML();
-	        txt += AuxiliarEmail.rodapeTEXTO();
 	            
 			}
 			
-			CommonsMail.enviaEmailFormatoHtml(emailComprador, nomeComprador, "Cotações pendentes!", textoHTML, txt);
+			CommonsMail.enviaEmailFormatoHtml(emailComprador, nomeComprador, "Cotações pendentes!", textoHTML);
 			
 			System.out.println("Tarefa executada.");
 			
-			agendarTarefa(tempo);
+			agendarTarefa(86400);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

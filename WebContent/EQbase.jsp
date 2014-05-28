@@ -29,6 +29,10 @@
     <script src="<c:url value="/EQ-js/morris/chart-data-morris.js"/>"></script>
     <script src="<c:url value="/EQ-js/tablesorter/jquery.tablesorter.js"/>"></script>
     <script src="<c:url value="/EQ-js/tablesorter/tables.js"/>"></script>
+    
+    <script type="text/javascript" src="../js/jquery.js"></script>
+	<script type="text/javascript" src="../js/jquery.click-calendario-1.0-min.js"></script>
+	<link href="../css/jquery.click-calendario-1.0.css" rel="stylesheet" type="text/css"/>
   
   </head>
 
@@ -57,11 +61,11 @@
         
          
 		 <ul class="nav navbar-nav side-nav">
-		 <li class="side-user hidden-xs">
-                        <img class="img-circle" src="<c:url value="/imagens/profile-pic.jpg"/>" alt="">
-                        <p class="welcome"><i class="fa fa-key"></i> Logado como</p>
-                        <p class="name tooltip-sidebar-logout">${sessaoOperador.operador.postoGraduacao} <span class="last-name"> ${sessaoOperador.operador.login}</span> <a data-original-title="Logout" id="open_45009172" data-popup-ordinal="1" style="color: inherit" class="logout_open" href="<c:url value="/login/logout"/>" data-toggle="tooltip" data-placement="top" title=""><i class="fa fa-sign-out"></i></a></p>
-                        <div class="clearfix"></div>
+		 	<li class="side-user hidden-xs">
+              <img class="img-circle" src="<c:url value="/imagens/profile-pic.jpg"/>" alt="">
+              <p class="welcome"><i class="fa fa-key"></i> Logado como</p>
+              <p class="name tooltip-sidebar-logout">${sessaoOperador.operador.postoGraduacao} <span class="last-name"> ${sessaoOperador.operador.login}</span> <a data-original-title="Logout" id="open_45009172" data-popup-ordinal="1" style="color: inherit" class="logout_open" href="<c:url value="/login/logout"/>" data-toggle="tooltip" data-placement="top" title=""><i class="fa fa-sign-out"></i></a></p>
+              <div class="clearfix"></div>
            </li>         	   
           	<c:forEach var="modulo" items="${sessaoFuncionalidades.modulos}">       
             <li class="dropdown">
@@ -73,8 +77,10 @@
               </ul>
             </li>          
             </c:forEach>          
-          </ul>
+         </ul>
 
+			<a class="navbar-brand" href="<c:url value="/home/sobre"/>" style="color:white; font-family:Segoe UI; font-size: 15px">Quem somos</a>
+			
           <ul class="nav navbar-nav navbar-right navbar-user">
             <li class="dropdown user-dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> ${sessaoOperador.operador.postoGraduacao} ${sessaoOperador.operador.login}<b class="caret"></b></a>
