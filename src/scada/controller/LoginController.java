@@ -11,8 +11,6 @@ import org.hibernate.criterion.MatchMode;
 
 import scada.anotacoes.Public;
 import scada.hibernate.HibernateUtil;
-import scada.modelo.Comprador;
-import scada.modelo.Fornecedor;
 import scada.modelo.FuncionalidadeGrupoOperador;
 import scada.modelo.GrupoOperador;
 import scada.modelo.Operador;
@@ -20,9 +18,6 @@ import scada.sessao.SessaoFuncionalidades;
 import scada.sessao.SessaoOperador;
 import scada.util.GeradorDeMd5;
 import scada.util.Util;
-import teste.HibernateUtilTest;
-
-
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;

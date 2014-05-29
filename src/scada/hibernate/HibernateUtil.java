@@ -59,7 +59,6 @@ public class HibernateUtil {
         return sessionFactory;
     }
 
-	@SuppressWarnings("deprecation")
 	private void iniciarSessionFactory() {
 
 		if (sessionFactory == null) {

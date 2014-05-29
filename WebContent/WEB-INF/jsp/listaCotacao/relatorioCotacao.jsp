@@ -2,9 +2,7 @@
 <%@ taglib uri="/tags/tags" prefix="tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
 
-<%@ page import="java.util.*, scada.modelo.*, scada.hibernate.*, teste.*" %>
-
- 
+<%@ page import="java.util.*, scada.modelo.*, scada.hibernate.*, teste.*" %> 
  
 <script type="text/javascript">
 
@@ -48,7 +46,7 @@ $( document ).ready(function() {
 				<th>Cod. Cotação</th>
 				<th>Data de Abertura</th>
 				<th>Data Limite de Resposta</th>
-				<th>Forma de Pagamento</th>				
+<!-- 				<th>Forma de Pagamento</th>				 -->
 				<th>Status</th>
 				<th>Setor</th>								
 				<th>Observação</th>
@@ -59,14 +57,14 @@ $( document ).ready(function() {
 					<td>${itemCot.id}</td>
 					<td><fmt:formatDate value="${itemCot.dataAbertura.time}"/></td>
 					<td><fmt:formatDate value="${itemCot.dataLimiteResposta.time}"/></td>
-					<c:forEach items="${tipoPagamento}" var="itemPag">
-						<c:if test="${itemCot.formaPgto == itemPag.id}"> <td>${itemPag.descricao}</td></c:if>
-					</c:forEach>	
+<%-- 					<c:forEach items="${tipoPagamento}" var="itemPag"> --%>
+<%-- 						<c:if test="${itemCot.formaPgto == itemPag.id}"> <td>${itemPag.descricao}</td></c:if> --%>
+<%-- 					</c:forEach>	 --%>
 					<c:forEach items="${tipoStatus}" var="itemStatus">			
-						<c:if test="${itemCot.status == itemStatus.id}"> <td>${itemStatus.descricao}</td></c:if>
+						<c:if test="${itemCot.status.id == itemStatus.id}"> <td>${itemStatus.descricao}</td></c:if>
 					</c:forEach>
 					<c:forEach items="${tipoSetor}" var="itemSetor">	
-						<c:if test="${itemCot.setor == itemSetor.id}"><td>${itemSetor.descricao}</td></c:if>							
+						<c:if test="${itemCot.setor.id == itemSetor.id}"><td>${itemSetor.descricao}</td></c:if>							
 					</c:forEach>	
 					<td>${itemCot.obs}</td>
 					<td id="${itemCot.id}" onclick="btnProd(this)" style="cursor:pointer;"> <i class="fa fa-angle-down"></i> </td>
@@ -75,8 +73,8 @@ $( document ).ready(function() {
 			  <td colspan="8" style="background:#E5E5E5;">       	
 		         <c:set var="idcot" value="${itemCot.id}"/>
 		           <%    	
-		    		List listCotacaoFonecedor = HibernateUtilTest.executarConsultaHQL("from ListaCotacaoFornecedor where cotacao="+pageContext.getAttribute("idcot"));
-		           %><span> Quantidade de Proposta:<a href="<c:url value="/listaCotacao/propostaFornecedor"/>"> <% out.println(listCotacaoFonecedor.size());%></a></span>
+		    		List listCotacaoFonecedor = HibernateUtilTest.executarConsultaHQL("from ListaCotacaoFornecedor where cotacao_id="+pageContext.getAttribute("idcot")+"group by fornecedor_id");
+		           %><span> Quantidade de Proposta:<a href="<c:url value="/listaCotacao/propostaFornecedor?id=${itemCot.id}"/>"> <% out.println(listCotacaoFonecedor.size());%></a></span>
 				 <table style="width:80%;" align="center" class="table table-hover tablesorter" >
 				   <tr>
 						 	<th>Cod. Produto</th>

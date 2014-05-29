@@ -14,7 +14,6 @@ import org.hibernate.criterion.Restrictions;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import java.sql.Connection;
 import org.hibernate.Session;
 
 import scada.hibernate.HibernateUtil;

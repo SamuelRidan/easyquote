@@ -119,6 +119,9 @@ public class OperadorController {
 
 		List<Operador> operadors = hibernateUtil.buscar(operador, pagina);
 		result.include("operadors", operadors);
+		
+		List<GrupoOperador> grupo = hibernateUtil.buscar(new GrupoOperador());
+		result.include("grupooperador", grupo);
 
 	}
 }

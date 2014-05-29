@@ -4,16 +4,21 @@ import java.util.List;
 
 import scada.anotacoes.Funcionalidade;
 import scada.hibernate.HibernateUtil;
+import scada.modelo.ListaCotacao;
 import scada.modelo.Produto;
 import scada.modelo.Seguimento;
+import scada.modelo.Setor;
 import scada.sessao.SessaoGeral;
 import scada.util.Util;
 import scada.util.UtilController;
+import teste.HibernateUtilTest;
 
 
+import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.view.Results;
 
 @Resource
 public class ProdutoController {
@@ -90,4 +95,59 @@ public class ProdutoController {
 		result.include("tipoSeg", tipoSeg);
 
 	}
+	
+	@Funcionalidade(nome = "Produtos Solicitados", modulo = "Relatórios")
+	public void produtoSolicitados(Produto produto, Integer pagina) {
+
+		produto = (Produto) UtilController.preencherFiltros(produto, "produto", sessaoGeral);
+		if (Util.vazio(produto)) {
+			produto = new Produto();
+		}
+
+		List<Produto> produtos = hibernateUtil.buscar(produto, pagina);
+		result.include("produtos", produtos);
+		
+		List<Setor> setor = hibernateUtil.buscar(new Setor());
+		result.include("tipoSetor", setor);		
+	}
+	
+	@Get
+	@Path("/produto/produtosRealizados")
+	public void produtosRealizados() {
+ 	    String str ="";	
+ 	    Integer n, i;
+ 	    i = 0;
+		List prod = HibernateUtilTest.executarConsultaHQL("from ListaCotacao");
+		n = prod.size();
+		
+		
+		for (Object obj: prod){
+			ListaCotacao p = (ListaCotacao)obj;	
+			 i++;
+			 System.out.println(i +" "+ n);
+			if( n <= 1){	
+				str = str + "{" +'"' +"cod" + '"' + ":"+ p.getProduto().getId()+" , "
+				+'"'+"produto"+'"'+ ":" + '"'+p.getProduto().getDescricao().trim()+ '"' + "," 
+				+'"' +"Quantidade" +  '"' + ":"+ p.getQuantidade()
+			 +" }";
+			
+			}else if( n==i){
+				str = str + "{" +'"' +"cod" + '"' + ":"+ p.getProduto().getId()+" , "
+				+'"'+"produto"+'"'+ ":" + '"'+p.getProduto().getDescricao().trim()+ '"' + "," 
+				+'"' +"Quantidade" +  '"' + ":"+ p.getQuantidade()
+			 +" }";				
+				
+				str = "["+str+"]";
+			}
+			else{
+				str = str + "{" +'"' +"cod" +  '"' + ":"+ p.getProduto().getId()+" , "
+				+'"'+"produto"+'"'+ ":" + '"'+p.getProduto().getDescricao().trim()+ '"' + "," 
+				+'"' +"Quantidade" +  '"' + ":"+ p.getQuantidade()
+			 +" },";				
+			}
+		}
+		System.out.println(str);
+		result.use(Results.http()).body(str);
+	}	
+	
 }

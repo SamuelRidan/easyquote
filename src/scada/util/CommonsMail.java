@@ -1,8 +1,6 @@
 package scada.util;
 
 import java.net.MalformedURLException;  
-import java.net.URL;  
-  
 import org.apache.commons.mail.EmailAttachment;  
 import org.apache.commons.mail.EmailException;  
 import org.apache.commons.mail.HtmlEmail;  

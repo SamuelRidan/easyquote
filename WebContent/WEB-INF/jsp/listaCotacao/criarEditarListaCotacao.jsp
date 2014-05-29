@@ -19,7 +19,6 @@
         if (quant == 0){
         	alert('Por favor preencha o quantidade desejada!');
         } else {
-        
 		        $.ajax({
 		      	  url: "<c:url value='/listaCotacao/salvarProdutoLista'/>",
 		      	  data: {

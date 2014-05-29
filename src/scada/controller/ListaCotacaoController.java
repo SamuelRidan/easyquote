@@ -1,6 +1,5 @@
 package scada.controller;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import scada.anotacoes.Funcionalidade;
@@ -18,7 +17,6 @@ import scada.modelo.Status;
 import scada.sessao.SessaoGeral;
 import scada.util.Util;
 import scada.util.UtilController;
-import sun.invoke.empty.Empty;
 import teste.HibernateUtilTest;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -110,9 +108,6 @@ public class ListaCotacaoController {
 		List lista = HibernateUtilTest.executarConsultaHQL("from ListaCotacao where cotacao.id = :idCotacao", "idCotacao", cotacao.getId());
 		result.include("listaCotacaos", lista);
 		
-		List<Produto> produto = hibernateUtil.buscar(new Produto());
-		result.include("tipoProduto", produto);
-		
 		Operador operador = new Operador();
 		operador = LoginController.RetornaOperador();
 		List lcf = null;
@@ -128,6 +123,10 @@ public class ListaCotacaoController {
 		
 		List<Pagamento> pagamento = hibernateUtil.buscar(new Pagamento());
 		result.include("tipoPagamento", pagamento);
+		
+		List<Produto> produto = hibernateUtil.buscar(new Produto());
+		result.include("tipoProduto", produto);
+		
 	}
 	
 	@Get	
@@ -191,10 +190,9 @@ public class ListaCotacaoController {
 	public void salvarProdutoLista(Integer prod, Integer quantidade, Integer idCot) {
 
 		ListaCotacao listaCotacao = new ListaCotacao();
-		
-		List produto = hibernateUtil.buscar(new Produto());		
+		List produto = HibernateUtilTest.executarConsultaHQL("from Produto where id = :idProduto", "idProduto", prod);		
 		for (Object obj: produto){
-			Produto p = (Produto)obj;			
+			Produto p = (Produto)obj;	
 			if (p.getId() == prod){
 				listaCotacao.setProduto(p);
 			}			
@@ -274,7 +272,7 @@ public class ListaCotacaoController {
 	
 	@Path("/listaCotacao/salvarListaFornecedor")
 	@Funcionalidade(filhaDe = "listarListaCotFornecedor")
-	public void salvarListaFornecedor(Integer cotacao, Integer op, Integer formaPgto, Integer prod, BigDecimal preco) {
+	public void salvarListaFornecedor(Integer cotacao, Integer op, Integer formaPgto, Integer prod, Double preco) {
 		
 		System.out.println("Operador: " + op);
 		

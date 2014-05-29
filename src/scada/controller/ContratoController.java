@@ -5,7 +5,6 @@ import java.util.List;
 import scada.anotacoes.Funcionalidade;
 import scada.hibernate.HibernateUtil;
 import scada.modelo.Contrato;
-import scada.modelo.Status;
 import scada.modelo.TipoContrato;
 import scada.sessao.SessaoGeral;
 import scada.util.Util;

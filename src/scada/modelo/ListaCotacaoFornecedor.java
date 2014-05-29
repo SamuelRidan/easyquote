@@ -1,6 +1,5 @@
 package scada.modelo;
 
-import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,8 +15,8 @@ public class ListaCotacaoFornecedor implements Entidade {
 	@GeneratedValue
 	private Integer id;
 
-    private BigDecimal preco;
-    private BigDecimal precoTotal;
+    private Double preco;
+    private Double precoTotal;
     
     @ManyToOne (fetch = FetchType.LAZY)
     private ListaCotacao listaCotacao;
@@ -46,19 +45,19 @@ public class ListaCotacaoFornecedor implements Entidade {
 		this.id = id;
 	}
 
-    public BigDecimal getPreco() {
+    public Double getPreco() {
         return preco;
     }
 
-    public void setPreco(BigDecimal preco){
+    public void setPreco(Double preco){
         this.preco = preco;
     }
 
-    public BigDecimal getPrecoTotal() {
+    public Double getPrecoTotal() {
         return precoTotal;
     }
 
-    public void setPrecoTotal(BigDecimal precoTotal){
+    public void setPrecoTotal(Double precoTotal){
         this.precoTotal = precoTotal;
     }
 

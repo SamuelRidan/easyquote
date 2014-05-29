@@ -138,7 +138,7 @@ public class CotacaoController {
 			cotacao = new Cotacao();
 		}
 
-		List cotacaos = HibernateUtilTest.executarConsultaHQL("from cotacao where status.id = :idStatus", "idStatus", 1);
+		List cotacaos = HibernateUtilTest.executarConsultaHQL("from Cotacao where status.id = :idStatus", "idStatus", 1);
 		result.include("cotacaos", cotacaos);
 		
 		List<Status> tipoStatus = hibernateUtil.buscar(new Status());

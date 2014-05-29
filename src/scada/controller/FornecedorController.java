@@ -6,7 +6,6 @@ import scada.anotacoes.Funcionalidade;
 import scada.modelo.Fornecedor;
 import scada.modelo.Operador;
 import scada.modelo.Seguimento;
-import scada.modelo.Status;
 import scada.hibernate.HibernateUtil;
 import scada.sessao.SessaoGeral;
 import scada.util.Util;

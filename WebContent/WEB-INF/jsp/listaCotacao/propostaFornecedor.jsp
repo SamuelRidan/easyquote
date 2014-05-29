@@ -7,7 +7,6 @@
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
  
 <script type="text/javascript">
-
 function btnProd(r){	
     $("#Prod"+r.id).toggle("fast");
     $(r).html("<i class='fa fa-angle-up'></i>");
@@ -20,7 +19,6 @@ function btnProd2(r){
     $(r).attr("onclick", "btnProd(this);");	
 }
 
-
 $( document ).ready(function() {
 	$(".prod").hide();
 	
@@ -29,23 +27,21 @@ $( document ).ready(function() {
 	console.log("IDcot:"+idCotacao);
 	
 	// First Chart Example - Area Line Chart
-		        $.ajax({
+ $.ajax({
 		      	  url:"<c:url value='/listaCotacao/propostaFornecedor1'/>",
 		      	  data: {
 			      	cotacao: idCotacao,
 		      	  },
 		      	  success: function(dt){
-		      	    console.log(dt);
 		      		var obj = jQuery.parseJSON("["+dt+"]");
 		      		//alert( obj.fornecedor === '2' );
-		      		
 			 			Morris.Bar ({
 			 				  element: 'morris-chart-bar',
 			 				  data: obj ,
 			 				  xkey: 'fornecedor',
 			 				  labels: ['Fornecedor'],
 			 				  ykeys: ['reputacao'],
-			 				  labels: ['Reputaï¿½ï¿½o Fornecedor'],
+			 				  labels: ['Reputação Fornecedor'],
 			 				  barRatio: 0.4,
 			 				  xLabelAngle: 35,
 			 				  hideHover: 'auto'
@@ -53,16 +49,12 @@ $( document ).ready(function() {
 		      	  }
 		      	  });
 
-
-
 }); 
 
  function morris(dt){
-			alert(dt); 
+	        alert(dt); 
 			html = $.parseHTML(dt);
-
-
-			};
+	};
 </script>
 
 <%
@@ -76,9 +68,9 @@ $( document ).ready(function() {
           
         <div class="row">
           <div class="col-lg-12">
-            <h1>Propostas Fornecedor <small>Cotaï¿½ï¿½es</small></h1>
+            <h1>Propostas Fornecedor <small>Cotações</small></h1>
             <ol class="breadcrumb">
-              <li><a href="#"><i class="icon-dashboard"></i> Cotaï¿½ï¿½es</a></li>
+              <li><a href="#"><i class="icon-dashboard"></i> Cotações</a></li>
               <li class="active"><i class="icon-file-alt"></i> Propostas</li>
             </ol>
           </div>
@@ -88,7 +80,7 @@ $( document ).ready(function() {
       <div class="col-lg-8">
 		       <div class="panel panel-primary" style="height:417px;">
 		              <div class="panel-heading">
-		                <h3 class="panel-title">Detalhes Cotaï¿½ï¿½o</h3>
+		                <h3 class="panel-title">Detalhes Cotação</h3>
 		              </div>
 				     <c:choose>
 					  <c:when test="${!empty tipoCotacao}">
@@ -97,23 +89,23 @@ $( document ).ready(function() {
 					            <c:when test="${itemCot.id == idcot}">
 				              <div class="panel-body">
 						          <div class="col-lg-4">
-						            <p><strong>Cï¿½digo da Cotaï¿½ï¿½o: </strong> ${itemCot.id}</p>
+						            <p><strong>Código da Cotação: </strong> ${itemCot.id}</p>
 						            <p><strong> Data da Abertura:</strong> <fmt:formatDate value="${itemCot.dataAbertura.time}"/></p>
 						            <p><strong> Data Limite de Resposta:</strong>  <fmt:formatDate value="${itemCot.dataLimiteResposta.time}"/></p>
-						            <p><strong>Forma de Pagamento:</strong> 
-									<c:forEach items="${tipoPagamento}" var="itemPag">
-										<c:if test="${itemCot.formaPgto == itemPag.id}"> ${itemPag.descricao}</c:if>
-									</c:forEach></p>
+<!-- 						            <p><strong>Forma de Pagamento:</strong>  -->
+<%-- 									<c:forEach items="${tipoPagamento}" var="itemPag"> --%>
+<%-- 										<c:if test="${itemCot.formaPgto == itemPag.id}"> ${itemPag.descricao}</c:if> --%>
+<%-- 									</c:forEach></p> --%>
 						            <p><strong>Status:</strong> 
 									<c:forEach items="${tipoStatus}" var="itemStatus">			
-										<c:if test="${itemCot.status == itemStatus.id}">${itemStatus.descricao}</c:if>
+										<c:if test="${itemCot.status.id == itemStatus.id}">${itemStatus.descricao}</c:if>
 									</c:forEach></p>
 						            <p><strong> Setor:</strong>
 									<c:forEach items="${tipoSetor}" var="itemSetor">	
-										<c:if test="${itemCot.setor == itemSetor.id}"><td>${itemSetor.descricao}</td></c:if>							
+										<c:if test="${itemCot.setor.id == itemSetor.id}"><td>${itemSetor.descricao}</td></c:if>							
 									</c:forEach>			            
 						            </p>
-						            <p> <strong> Observaï¿½ï¿½o: </strong>${itemCot.obs}</p>
+						            <p> <strong> Observação: </strong>${itemCot.obs}</p>
 						          </div>                
 				              </div>
 				               </c:when>
@@ -127,7 +119,7 @@ $( document ).ready(function() {
           <div class="col-lg-4" style="margin-left:-20px;">
             <div class="panel panel-primary">
               <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Reputaï¿½ï¿½o Fornecedor</h3>
+                <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Reputação Fornecedor</h3>
               </div>
               <div class="panel-body">
                 <div id="morris-chart-bar"></div>
@@ -142,26 +134,28 @@ $( document ).ready(function() {
 		 %>
          <div class="alert alert-info alert-dismissable">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-              Nï¿½ de Proposta(s) para cotaï¿½ï¿½o : <% out.println(propFornecedor.size());%>
+              Nº de Proposta(s) para cotação : <% out.println(propFornecedor.size());%>
          </div>		  
         
  
 		<table  class="table table-hover tablesorter"  >
 			<tr>
 				<th>Cod. Fornecedor</th>
-				<th>Razï¿½o Social</th>
-				<th>Qualificaï¿½ï¿½o</th>	
-				<th>Valor Total Cotaï¿½ï¿½o</th>		
+				<th>Razão Social</th>
+				<th>Qualificação</th>	
+				<th>Valor Total Cotação</th>		
 				<th> </th>
 			</tr>	
 		<%
 		      for (Object obj: propFornecedor) {
 				ListaCotacaoFornecedor lc = (ListaCotacaoFornecedor)obj;            
 	            if(lc.getCotacao().getId() == idCodigo){
-	            	Double total;
-	            	total = 0.0;
-	                 List totalCotacao = HibernateUtilTest.RetornaUmValorEmConsultaHQL("SELECT SUM(precoTotal) FROM  ListaCotacaoFornecedor WHERE cotacao.id="+lc.getCotacao().getId()+"and fornecedor_id="+lc.getFornecedor().getId()); 
-	                 total = Double.parseDouble(totalCotacao.toString().replace("[", "").replace("]",""));
+	            	Double total = 0.0;
+	                 List totalCotacao = HibernateUtilTest.RetornaUmValorEmConsultaHQL("FROM ListaCotacaoFornecedor WHERE cotacao.id="+lc.getCotacao().getId()+"and fornecedor_id="+lc.getFornecedor().getId()); 
+						for (Object ob: totalCotacao){
+							ListaCotacaoFornecedor lcf = (ListaCotacaoFornecedor)ob;
+							total = total + lcf.getPreco();
+						}
 		%>		
 						<tr>
 						    <td><%= lc.getFornecedor().getId() %></td>
@@ -176,7 +170,7 @@ $( document ).ready(function() {
 				            <div class="bs-example">
 				              <ul class="nav nav-tabs" style="margin-bottom: -1px;">
 				                <li class="active"><a href="#produtos<%=lc.getFornecedor().getId()%>" data-toggle="tab">Produtos Cotados</a></li>
-				                <li><a href="#historico<%=lc.getFornecedor().getId()%>" data-toggle="tab">Histï¿½rico do Fornecedor</a></li>
+				                <li><a href="#historico<%=lc.getFornecedor().getId()%>" data-toggle="tab">Histórico do Fornecedor</a></li>
 				              </ul>
 				              
 				              <div id="myTabContent" class="tab-content">
@@ -185,10 +179,9 @@ $( document ).ready(function() {
 								   		<table style="width:80%;" align="center" class="table table-striped table-bordered tablesorter" >
 								   		<tr>
 								   		 	<th>Item</th>
-								   		 	<th>Descriï¿½ï¿½o Produto</th>
+								   		 	<th>Descrição Produto</th>
 								   		 	<th>Quantidade </th>
-								   		 	<th>Valor Unitï¿½rio </th>
-								   		 	<th>Valor Total </th>						   		 							   		 	
+								   		 	<th>Valor Unitário </th>						   		 							   		 	
 								   		</tr>
 								   		<%
 								   		Integer i; 
@@ -203,7 +196,6 @@ $( document ).ready(function() {
 						            			<td><%= lista.getListaCotacao().getProduto().getDescricao() %></td>
 						            			<td><%= lista.getListaCotacao().getQuantidade() %></td>
 						            			<td><%= Formatacao.formatarNumero(lista.getPreco()) %></td>
-						            			<td><%= Formatacao.formatarNumero(lista.getPrecoTotal()) %></td>
 						            		</tr> 
 						            	<%
 						            	}
@@ -222,9 +214,9 @@ $( document ).ready(function() {
 						                <span class="list-group-item">
 						                  <h4 class="list-group-item-heading">Cod. Pedido: ${itemped.pedido.id} </h4>
 						                  <p class="list-group-item-text"><strong> Tempo de Entrega:</strong> ${itemped.pergunta1}    </p>
-						                  <p class="list-group-item-text"><strong> Qualidade dos Produtos/Serviï¿½os no Setor:</strong> ${itemped.pergunta2}  </p>
-						                  <p class="list-group-item-text"><strong> Comunicaï¿½ï¿½o do Fornecedor:</strong> ${itemped.pergunta3}</p>
-						                  <p class="list-group-item-text"><strong> Observaï¿½ï¿½o:</strong> ${itemped.obs} </p>
+						                  <p class="list-group-item-text"><strong> Qualidade dos Produtos/Serviços no Setor:</strong> ${itemped.pergunta2}  </p>
+						                  <p class="list-group-item-text"><strong> Comunicação do Fornecedor:</strong> ${itemped.pergunta3}</p>
+						                  <p class="list-group-item-text"><strong> Observação:</strong> ${itemped.obs} </p>
 						                </span>            
 						           </c:when>
 						      <c:otherwise>

@@ -17,16 +17,6 @@
 
 <br><br>
 
-<form class="well form-inline" action="<c:url value="/operador/listarOperadors"/>" method="post" >
-    <input type="text" class="input-small" name="operador.login" value="${sessaoGeral.valor.get('operador').login}" placeholder="Login">
-    <input type="text" class="input-small" name="operador.senha" value="${sessaoGeral.valor.get('operador').senha}" placeholder="Senha">
-    <input type="checkbox" name="operador.ativo" value="${sessaoGeral.valor.get('operador').ativo}" >
-
-	<button type="submit" class="btn btn-info">Pesquisar</button>
-</form>
-
-<h3> Operadors </h3>
-
 <c:choose>
 	<c:when test="${!empty operadors}">
 		
@@ -39,6 +29,7 @@
                     <th> Login </th>
                     <th> Senha </th>
                     <th> Ativo </th>
+                    <th> Grupo </th>
 		            <th> Editar </th>
 		            <th> Remover </th>	                    
 				</tr>
@@ -49,6 +40,11 @@
                         <td> ${item.login} </td>
                         <td> ${item.senha} </td>
                         <td> <tags:simNao valor="${item.ativo}" /> </td>
+                        <td> 
+                        	<c:forEach items="${grupooperador}" var="grupo">
+								<c:if test="${item.grupoOperador.id == grupo.id}">  ${grupo.nome}  </c:if>
+							</c:forEach>
+                        </td>
                         <td> <a href="<c:url value="/operador/editarOperador/${item.id}"/>" ><i class="fa fa-edit"></i> Editar </a> </td>
 			            <td> <a href="<c:url value="/operador/excluirOperador/${item.id}"/>" ><i class="fa fa-trash-o"></i> Remover</a></td>		                         
 					</tr>

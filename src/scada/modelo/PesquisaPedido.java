@@ -1,12 +1,12 @@
 package scada.modelo;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import scada.hibernate.Entidade;
-
-
 
 @Entity
 public class PesquisaPedido implements Entidade {
@@ -15,6 +15,7 @@ public class PesquisaPedido implements Entidade {
 	@GeneratedValue
 	private Integer id;
 
+	private String obs;
     private String pergunta1;
     private String pergunta2;
     private String pergunta3;
@@ -23,6 +24,12 @@ public class PesquisaPedido implements Entidade {
     private Integer pontuacao2;
     private Integer pontuacao3;
     private Integer pontuacao4;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Fornecedor fornecedor;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Pedido pedido;
 
 	public PesquisaPedido() {
 	}
@@ -103,4 +110,29 @@ public class PesquisaPedido implements Entidade {
     public void setPontuacao4(Integer pontuacao4){
         this.pontuacao4 = pontuacao4;
     }
+
+	public String getObs() {
+		return obs;
+	}
+
+	public void setObs(String obs) {
+		this.obs = obs;
+	}
+
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+
+	public Pedido getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
+    
 }

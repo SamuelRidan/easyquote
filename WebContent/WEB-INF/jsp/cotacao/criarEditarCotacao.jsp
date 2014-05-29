@@ -37,7 +37,7 @@
     <div class="control-group">
       <label class="control-label">Data Limite de Resposta</label>
       <div class="controls">
-        <input type="date" class="input-xlarge data" name="cotacao.dataLimiteResposta" value="<fmt:formatDate value="${cotacao.dataLimiteResposta.time}"/>" required>
+        <input type="text" class="input-xlarge data" name="cotacao.dataLimiteResposta" value="<fmt:formatDate value="${cotacao.dataLimiteResposta.time}"/>" required>
       </div>
     </div>
     

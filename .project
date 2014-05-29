@@ -33,26 +33,4 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>WebContent/font-awesome/css</name>
-			<type>2</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Users/S/Documents/Easy%20Quote/sb-admin/font-awesome/css</locationURI>
-		</link>
-		<link>
-			<name>WebContent/font-awesome/fonts</name>
-			<type>2</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Users/S/Documents/Easy%20Quote/sb-admin/font-awesome/fonts</locationURI>
-		</link>
-		<link>
-			<name>WebContent/font-awesome/less</name>
-			<type>2</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Users/S/Documents/Easy%20Quote/sb-admin/font-awesome/less</locationURI>
-		</link>
-		<link>
-			<name>WebContent/font-awesome/scss</name>
-			<type>2</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Users/S/Documents/Easy%20Quote/sb-admin/font-awesome/scss</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>

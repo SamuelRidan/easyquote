@@ -58,8 +58,8 @@
 								<c:forEach items="${listaCotacaos}" var="item">
 									<tr id="produto_${item.id}">
 										<td> ${item.id} </td>
-										<c:forEach items="${tipoProduto}" var="tipoproduto">
-											<c:if test="${item.produto.id == tipoproduto.id}"> <td> ${tipoproduto.descricao} </td> </c:if>
+										<c:forEach items="${tipoProduto}" var="produto">
+											<c:if test="${item.produto.id == produto.id}"> <td> ${produto.descricao} </td> </c:if>
 										</c:forEach>
 										<td> ${item.quantidade} </td>
 										<td> <a href="<c:url value='/listaCotacao/criarListaCotacao'/>" >Editar</a></td>
