@@ -1,14 +1,23 @@
 package scada.controller;
 
+import java.util.List;
+
 import scada.anotacoes.Funcionalidade;
 import scada.hibernate.HibernateUtil;
 import scada.modelo.Contrato;
+import scada.modelo.Cotacao;
+import scada.modelo.Fornecedor;
 import scada.modelo.Indices;
+import scada.modelo.ListaCotacao;
+import scada.modelo.Produto;
 import scada.sessao.SessaoGeral;
 import scada.util.Util;
+import scada.util.UtilController;
+import teste.HibernateUtilTest;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.view.Results;
 
 @Resource
 public class IndicesController {
@@ -31,8 +40,53 @@ public class IndicesController {
 	
 	@Funcionalidade(filhaDe = "criarEditarIndices")
 	public void criarIndices() {		
-		sessaoGeral.adicionar("idIndices", null);
-		result.forwardTo(this).criarEditarIndices();
+	}
+	
+	@Path("/indices/reajustarIndices/{contrato.id}")
+	@Funcionalidade(nome = "Índices de reajuste dos produtos para Fornecedores")
+	public void reajustarIndices(Contrato contrato){
+		
+		List indices = null;
+		
+		contrato = (Contrato) UtilController.preencherFiltros(contrato, "contrato.id", sessaoGeral);
+		List<Contrato> contratos = hibernateUtil.buscar(contrato);
+		result.include("contrato", contratos);		
+		
+		List lista = HibernateUtilTest.executarConsultaHQL("from ListaCotacao where cotacao.id = :idCotacao", "idCotacao", contratos.get(0).getCotacao().getCotacao().getId());
+		result.include("listaCotacaos", lista);
+		for (Object obj: lista){
+			ListaCotacao lc = (ListaCotacao)obj;
+			indices = HibernateUtilTest.executarConsultaHQL("from Indices where produto.id = :idProduto", "idProduto", lc.getId());
+		}
+		result.include("indices", indices);
+		
+		List<Produto> produto = hibernateUtil.buscar(new Produto());
+		result.include("tipoProduto", produto);
+		
+		List<Fornecedor> fornecedor = hibernateUtil.buscar(new Fornecedor());
+		result.include("tipoFornecedor", fornecedor);
+	
+	}
+	
+	@Path("/indice/salvarListaIndice")
+	@Funcionalidade(filhaDe = "reajustarIndices")
+	public void salvarListaIndice(Integer forn, Integer produto, Double indice){
+		Indices i = new Indices();
+		i.setIndice(indice);
+		List listaCotacao = HibernateUtilTest.executarConsultaHQL("from ListaCotacao where id = "+produto);
+		for(Object obj: listaCotacao){
+			ListaCotacao lc = (ListaCotacao)obj;
+			i.setProduto(lc);
+		}
+		
+		List fornecedor = HibernateUtilTest.executarConsultaHQL("from Fornecedor where id = "+forn);
+		for (Object obj: fornecedor){
+			Fornecedor f = (Fornecedor)obj;
+			i.setFornecedor(f);
+		}
+		
+		hibernateUtil.salvarOuAtualizar(i);
+		result.use(Results.json()).from("ok").serialize();
 	}
 	
 	@Path("/indices/editarIndices/{indices.id}")

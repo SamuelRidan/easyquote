@@ -52,8 +52,6 @@
           </div>
         </div>    
 		
-		<h3> Produtos em cotação </h3>
-		
 		<c:choose>
 			<c:when test="${!empty listaCotacaos}">
 			

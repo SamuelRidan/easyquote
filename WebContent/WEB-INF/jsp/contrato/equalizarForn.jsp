@@ -51,7 +51,7 @@
 	                      <td> <%= df.format(c.getInicioVigencia().getTime()) %> </td>	
 	                      <td> <%= df.format(c.getFimVigencia().getTime()) %> </td>
 	                      <td> <%= df.format(data.getTime()) %> </td>	
-	                      <td> <a href="<c:url value="/indices/criarIndices?idContrato="/><%= c.getId() %>">Reajustar</a> </td>                                           
+	                      <td> <a href="<c:url value="/indices/reajustarIndices/"/><%=c.getId()%>">Reajustar</a> </td>                                           
 					</tr>
 		<%
 	            	}
