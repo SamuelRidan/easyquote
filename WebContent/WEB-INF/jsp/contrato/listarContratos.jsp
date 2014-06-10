@@ -6,11 +6,7 @@
           <div class="col-lg-12">
             <h1><small><span style="color:#31708F">//</span> Listar contratos </small></h1>
           </div>
-        </div><!-- /.row -->   
-
- 
-		<a class="btn" href="<c:url value="/contrato/criarContrato"/>" > Criar contrato </a>
-		
+        </div><!-- /.row -->   		
 		<br><br>
 		
 		<form class="well form-inline" action="<c:url value="/contrato/listarContratos"/>" method="post" >
@@ -21,8 +17,6 @@
 			<button type="submit" class="btn btn-info">Pesquisar</button>
 		</form>
 		
-		<h3> Contratos </h3>
-		
 		<c:choose>
 			<c:when test="${!empty contratos}">
 				
@@ -32,14 +26,11 @@
 				<table class="table table-striped table-bordered tablesorter">
 					<thead>
 				    	<tr>
-		                    <th> InicioVigencia </th>
-		                    <th> FimVigencia </th>
-		                    <th> PeriodicidadeReajuste </th>
-		                    <th> Editar </th>
-		                    <th> Remover </th>		                    
-		                    <th> Inicio de Vigência </th>
 		                    <th> Fim de Vigência </th>
+		                    <th> Inicio de Vigência </th>
+		                    <th> Periodicidade de Reajuste </th>		                    
 		                    <th> Tipo de Contrato </th>
+		                    <th> Editar </th>
 						</tr>
 					</thead>
 					<tbody>
@@ -48,11 +39,10 @@
 		                        <td> <fmt:formatDate value="${item.inicioVigencia.time}" /> </td>
 		                        <td> <fmt:formatDate value="${item.fimVigencia.time}" /> </td>
 		                        <td> ${item.periodicidadeReajuste} </td>
-			                    <td> <a href="<c:url value="/contrato/editarContrato/${item.id}"/>" ><i class="fa fa-edit"></i> Editar </a> </td>
-			                    <td> <a href="<c:url value="/contrato/excluirContrato/${item.id}"/>" ><i class="fa fa-trash-o"></i> Remover</a></td>
 		                        <c:forEach items="${tipoContrato}" var="tipocontrato">
-									<c:if test="${item.tipocontrato == tipocontrato.id}"> <td> ${tipocontrato.descricao} </td> </c:if>
+									<c:if test="${item.tipoContrato.id == tipocontrato.id}"> <td> ${tipocontrato.descricao} </td> </c:if>
 								</c:forEach>
+								<td> <a href="<c:url value="/contrato/edicaoContrato/${item.id}"/>" ><i class="fa fa-edit"></i> Editar </a> </td>
 							</tr>
 						</c:forEach>
 					</tbody>

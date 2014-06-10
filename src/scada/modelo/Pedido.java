@@ -19,7 +19,9 @@ public class Pedido implements Entidade {
 	private Integer id;
 
     private GregorianCalendar dataEntrega;
-    private String status;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    private StatusPedido status;
     
     @ManyToOne(fetch = FetchType.LAZY)
     private Fornecedor fornecedor;
@@ -42,20 +44,19 @@ public class Pedido implements Entidade {
 		this.id = id;
 	}
 
+	public GregorianCalendar getDataEntrega() {
+		return dataEntrega;
+	}
 
-    public GregorianCalendar getDataEntrega() {
-        return dataEntrega;
-    }
+	public void setDataEntrega(GregorianCalendar dataEntrega) {
+		this.dataEntrega = dataEntrega;
+	}
 
-    public void setDataEntrega(GregorianCalendar dataEntrega){
-        this.dataEntrega = dataEntrega;
-    }
-
-	public String getStatus() {
+	public StatusPedido getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(StatusPedido status) {
 		this.status = status;
 	}
 
@@ -74,4 +75,6 @@ public class Pedido implements Entidade {
 	public void setCotacao(Cotacao cotacao) {
 		this.cotacao = cotacao;
 	}
+
+
 }

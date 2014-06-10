@@ -41,6 +41,8 @@
 	  <mapping class="scada.modelo.ListaCotacaoFornecedor" />
 	  <mapping class="scada.modelo.PesquisaPedido" />
 	  <mapping class="scada.modelo.Seguimento" />
+	  <mapping class="scada.modelo.StatusPedido" />
+	  <mapping class="scada.modelo.Indices" />
 	  
 </session-factory>
 </hibernate-configuration>

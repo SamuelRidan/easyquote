@@ -43,43 +43,30 @@ public class CommonsMail {
 			e.printStackTrace();
 		}     
     }  
-      
-      
-    /** 
-     * envia email com arquivo anexo 
-     * @throws EmailException 
-     */  
-    public void enviaEmailComAnexo() throws EmailException{  
+       
+    public static void enviaEmailComAnexo(String caminhoAnexo, String destinatario, String nomeDestinatario, String assuntoEmail, String corpo) throws EmailException{  
           
         // cria o anexo 1.  
         EmailAttachment anexo1 = new EmailAttachment();  
-        anexo1.setPath("teste/teste.txt"); //caminho do arquivo (RAIZ_PROJETO/teste/teste.txt)  
+        anexo1.setPath(caminhoAnexo); //caminho do arquivo (RAIZ_PROJETO/teste/teste.txt)  
         anexo1.setDisposition(EmailAttachment.ATTACHMENT);  
         anexo1.setDescription("Exemplo de arquivo anexo");  
-        anexo1.setName("teste.txt");          
-          
-        // cria o anexo 2.  
-        EmailAttachment anexo2 = new EmailAttachment();  
-        anexo2.setPath("teste/teste2.jsp"); //caminho do arquivo (RAIZ_PROJETO/teste/teste2.jsp)  
-        anexo2.setDisposition(EmailAttachment.ATTACHMENT);  
-        anexo2.setDescription("Exemplo de arquivo anexo");  
-        anexo2.setName("teste2.jsp");         
+        anexo1.setName("contrato.pdf");                  
           
         // configura o email  
         MultiPartEmail email = new MultiPartEmail();  
-        email.setHostName("smtp.gmail.com"); // o servidor SMTP para envio do e-mail  
-        email.addTo("teste@gmail.com", "Guilherme"); //destinatário  
-        email.setFrom("teste@gmail.com", "Eu"); // remetente  
-        email.setSubject("Teste -> Email com anexos"); // assunto do e-mail  
-        email.setMsg("Teste de Email utilizando commons-email"); //conteudo do e-mail  
-        email.setAuthentication("teste", "xxxxx");  
-        email.setSmtpPort(465);  
-        email.setSSL(true);  
-        email.setTLS(true);  
+		email.setHostName("smtp.gmail.com"); // o servidor SMTP para envio do e-mail  
+		email.addTo(destinatario, nomeDestinatario); //destinatário  
+		email.setFrom(usuario, "EasyQuote - Sistemas de Cotação"); // remetente  
+		email.setSubject(assuntoEmail); // assunto do e-mail   
+		email.setMsg(corpo); // configura a mensagem para o formato HTML    
+		email.setAuthentication(usuario, senha);  
+		email.setSmtpPort(465);  
+		email.setSSL(true);  
+		email.setTLS(true);
           
         // adiciona arquivo(s) anexo(s)  
-        email.attach(anexo1);  
-        email.attach(anexo2);  
+        email.attach(anexo1);    
         // envia o email  
         email.send();  
     }  

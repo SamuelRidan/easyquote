@@ -30,12 +30,6 @@ $( document ).ready(function() {
             <h1><small><span style="color:#31708F">//</span> Relatórios Cotação </small></h1>
           </div>
         </div><!-- /.row -->     
-		<ul id="listaCotacao" class="dropdown-menu">
-			<li><a href="javascript:gerarLinkCompleto('<c:url value="/listaCotacao/editarListaCotacao"/>')">Editar</a></li>
-			<li><a href="javascript:deletar('<c:url value="/listaCotacao/excluirListaCotacao"/>')">Excluir</a></li>
-		</ul>
-		
-		<!--  <a class="btn" href="<c:url value="/listaCotacao/criarListaCotacao"/>" > Criar listaCotacao </a> -->
 
 				<c:set var="link" value="listaCotacao/listarListaCotacaos" scope="request" />
 				<%@ include file="/paginacao.jsp" %> 	
@@ -46,7 +40,6 @@ $( document ).ready(function() {
 				<th>Cod. Cotação</th>
 				<th>Data de Abertura</th>
 				<th>Data Limite de Resposta</th>
-<!-- 				<th>Forma de Pagamento</th>				 -->
 				<th>Status</th>
 				<th>Setor</th>								
 				<th>Observação</th>
@@ -57,9 +50,6 @@ $( document ).ready(function() {
 					<td>${itemCot.id}</td>
 					<td><fmt:formatDate value="${itemCot.dataAbertura.time}"/></td>
 					<td><fmt:formatDate value="${itemCot.dataLimiteResposta.time}"/></td>
-<%-- 					<c:forEach items="${tipoPagamento}" var="itemPag"> --%>
-<%-- 						<c:if test="${itemCot.formaPgto == itemPag.id}"> <td>${itemPag.descricao}</td></c:if> --%>
-<%-- 					</c:forEach>	 --%>
 					<c:forEach items="${tipoStatus}" var="itemStatus">			
 						<c:if test="${itemCot.status.id == itemStatus.id}"> <td>${itemStatus.descricao}</td></c:if>
 					</c:forEach>
@@ -74,7 +64,7 @@ $( document ).ready(function() {
 		         <c:set var="idcot" value="${itemCot.id}"/>
 		           <%    	
 		    		List listCotacaoFonecedor = HibernateUtilTest.executarConsultaHQL("from ListaCotacaoFornecedor where cotacao_id="+pageContext.getAttribute("idcot")+"group by fornecedor_id");
-		           %><span> Quantidade de Proposta:<a href="<c:url value="/listaCotacao/propostaFornecedor?id=${itemCot.id}"/>"> <% out.println(listCotacaoFonecedor.size());%></a></span>
+		           %><span> Quantidade de Propostas:<a href="<c:url value="/listaCotacao/propostaFornecedor?id=${itemCot.id}"/>"> <%= listCotacaoFonecedor.size() %></a></span>
 				 <table style="width:80%;" align="center" class="table table-hover tablesorter" >
 				   <tr>
 						 	<th>Cod. Produto</th>

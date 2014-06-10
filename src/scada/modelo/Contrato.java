@@ -24,6 +24,28 @@ public class Contrato implements Entidade {
     
     @ManyToOne(fetch = FetchType.LAZY)
     private TipoContrato tipoContrato;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    private ListaCotacao cotacao;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Fornecedor fornecedor;
+
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+
+	public ListaCotacao getCotacao() {
+		return cotacao;
+	}
+
+	public void setCotacao(ListaCotacao cotacao) {
+		this.cotacao = cotacao;
+	}
 
 	public Contrato() {
 	}

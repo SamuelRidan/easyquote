@@ -34,7 +34,6 @@ $( document ).ready(function() {
 		      	  },
 		      	  success: function(dt){
 		      		var obj = jQuery.parseJSON("["+dt+"]");
-		      		//alert( obj.fornecedor === '2' );
 			 			Morris.Bar ({
 			 				  element: 'morris-chart-bar',
 			 				  data: obj ,
@@ -55,6 +54,7 @@ $( document ).ready(function() {
 	        alert(dt); 
 			html = $.parseHTML(dt);
 	};
+	
 </script>
 
 <%
@@ -77,7 +77,7 @@ $( document ).ready(function() {
         </div><!-- /.row -->        
       
       <div class="row"> 
-      <div class="col-lg-8">
+      <div class="col-lg-8" style="width: 50%">
 		       <div class="panel panel-primary" style="height:417px;">
 		              <div class="panel-heading">
 		                <h3 class="panel-title">Detalhes Cotação</h3>
@@ -92,10 +92,6 @@ $( document ).ready(function() {
 						            <p><strong>Código da Cotação: </strong> ${itemCot.id}</p>
 						            <p><strong> Data da Abertura:</strong> <fmt:formatDate value="${itemCot.dataAbertura.time}"/></p>
 						            <p><strong> Data Limite de Resposta:</strong>  <fmt:formatDate value="${itemCot.dataLimiteResposta.time}"/></p>
-<!-- 						            <p><strong>Forma de Pagamento:</strong>  -->
-<%-- 									<c:forEach items="${tipoPagamento}" var="itemPag"> --%>
-<%-- 										<c:if test="${itemCot.formaPgto == itemPag.id}"> ${itemPag.descricao}</c:if> --%>
-<%-- 									</c:forEach></p> --%>
 						            <p><strong>Status:</strong> 
 									<c:forEach items="${tipoStatus}" var="itemStatus">			
 										<c:if test="${itemCot.status.id == itemStatus.id}">${itemStatus.descricao}</c:if>
@@ -116,7 +112,7 @@ $( document ).ready(function() {
 		        </div>
           </div>
         
-          <div class="col-lg-4" style="margin-left:-20px;">
+          <div class="col-lg-4" style="margin-left:-20px;width: 50%">
             <div class="panel panel-primary">
               <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Reputação Fornecedor</h3>
@@ -143,7 +139,8 @@ $( document ).ready(function() {
 				<th>Cod. Fornecedor</th>
 				<th>Razão Social</th>
 				<th>Qualificação</th>	
-				<th>Valor Total Cotação</th>		
+				<th>Valor Total Cotação</th>	
+				<th> </th>	
 				<th> </th>
 			</tr>	
 		<%
@@ -162,6 +159,7 @@ $( document ).ready(function() {
 						    <td><%= lc.getFornecedor().getRazao_social() %></td>
 						    <td><%= lc.getFornecedor().getReputacao() %></td>
 						    <td><%= Formatacao.formatarNumero(total) %> </td>
+						    <td> <a href="<c:url value='/contrato/criarContrato?f='/><%=lc.getFornecedor().getId() %>&c=<%=lc.getCotacao().getId() %>" >Fechar contrato</a> </td>
 						    <td id="<%=lc.getId()%>" onclick="btnProd(this)" style="cursor:pointer;"> <i class="fa fa-angle-down"></i> </td>
 						</tr>
 						<tr id="Prod<%=lc.getId()%>" class="prod">

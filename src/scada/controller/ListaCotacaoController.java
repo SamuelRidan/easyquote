@@ -158,13 +158,12 @@ public class ListaCotacaoController {
 					    }
 				}
 			}
-	        result.use(Results.http()).body(str);
-	        
-
+	        result.use(Results.http()).body(str);      
 		}
 	
 	@Get
 	@Path("/listaCotacao/propostaFornecedor")		
+	@Funcionalidade(nome = "Melhor Cotação")
 	public void propostaFornecedor(ListaCotacaoFornecedor listaCotacaoFornecedor) {
 	        List<Cotacao> cotacao = hibernateUtil.buscar(new Cotacao());
 			result.include("tipoCotacao", cotacao);

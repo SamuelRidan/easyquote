@@ -1,8 +1,10 @@
 package scada.modelo;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import scada.hibernate.Entidade;
 
@@ -16,6 +18,9 @@ public class Aditivo implements Entidade {
 	private Integer id;
 
     private Double precoTotal;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Contrato contrato;
 
 	public Aditivo() {
 	}

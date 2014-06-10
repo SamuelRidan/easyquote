@@ -7,10 +7,6 @@
             <h1><small><span style="color:#31708F">// </span> Listar Pedidos </small></h1>
           </div>
         </div><!-- /.row -->    
-
-
-		
-		<a class="btn" href="<c:url value="/pedido/criarPedido"/>" > Criar pedido </a>
 		
 		<br><br>
 		
@@ -19,8 +15,6 @@
 		
 			<button type="submit" class="btn btn-info">Pesquisar</button>
 		</form>
-		
-		<h3> Pedidos </h3>
 		
 		<c:choose>
 			<c:when test="${!empty pedidos}">
@@ -31,17 +25,21 @@
 				<table class="table table-striped table-bordered tablesorter">
 					<thead>
 				    	<tr>
+				    		<th> Status </th>
 		                    <th> DataEntrega </th>
-		                    <th> Editar </th>
-		                    <th> Remover </th>			                    
+		                    <th> Editar </th>			                    
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${pedidos}" var="item">
 							<tr id="pedido_${item.id}">
+								<td> 
+									<c:forEach items="${tipoStatus}" var="itemStatus">
+										<c:if test="${item.status.id == itemStatus.id}">  ${itemStatus.descricao}  </c:if>
+									</c:forEach>
+								</td>
 		                        <td> <fmt:formatDate value="${item.dataEntrega.time}" /> </td>
-			                    <td> <a href="<c:url value="/pedido/editarPedido/${item.id}"/>" ><i class="fa fa-edit"></i> Editar </a> </td>
-			                    <td> <a href="<c:url value="/pedido/excluirPedido/${item.id}"/>" ><i class="fa fa-trash-o"></i> Remover</a></td>			                        
+			                    <td> <a href="<c:url value="/pedido/editarPedido/${item.id}"/>" ><i class="fa fa-edit"></i> Editar </a> </td>			                        
 							</tr>
 						</c:forEach>
 					</tbody>

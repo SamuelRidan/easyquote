@@ -2,7 +2,7 @@ package teste;
 
 import java.util.*;
 
-import scada.auxiliar.AuxiliarEmail;
+import scada.auxiliar.AuxiliarTexto;
 import scada.modelo.Comprador;
 import scada.modelo.Cotacao;
 import scada.util.CommonsMail;
@@ -47,7 +47,7 @@ class TarefaTemporizada extends TimerTask {
 			
 			cotacoes = HibernateUtilTest.executarConsultaHQL("from Cotacao");
 			
-			textoHTML = AuxiliarEmail.cabecalhoHTML();
+			textoHTML = AuxiliarTexto.cabecalhoHTML();
 			
 			for (Object obj: cotacoes) {
 	            Cotacao c = (Cotacao)obj;
@@ -62,12 +62,11 @@ class TarefaTemporizada extends TimerTask {
 	            } 
 	            
 	            if (c.getDataLimiteResposta().getTime().before(dataAtual.getTime())){
-	            	HibernateUtilTest.executarHQL("update Cotacao set status.id = :idStatus where id = :idCotacao","idStatus", 2, "idCotacao", c.getId());;
-	            }
-	            
-	        textoHTML += AuxiliarEmail.rodapeHTML();
-	            
+	            	HibernateUtilTest.executarHQL("update Cotacao set status.id = :idStatus where id = :idCotacao","idStatus", 2, "idCotacao", c.getId());
+	            }	            
 			}
+			
+			textoHTML += AuxiliarTexto.rodapeHTML();
 			
 			CommonsMail.enviaEmailFormatoHtml(emailComprador, nomeComprador, "Cotações pendentes!", textoHTML);
 			

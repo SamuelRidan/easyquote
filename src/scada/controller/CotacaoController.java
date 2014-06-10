@@ -130,6 +130,10 @@ public class CotacaoController {
 
 	}
 	
+	@Funcionalidade(nome = "Cotação Pendentes", modulo = "Relatórios")
+	public void listarCotacaoPendentes() {
+	}
+	
 	@Funcionalidade(nome = "Cotação para Fornecedores", modulo = "Cotações em aberto")
 	public void listarCotFornecedor(Cotacao cotacao, Integer pagina) {
 

@@ -5,6 +5,7 @@ import java.util.List;
 import scada.anotacoes.Funcionalidade;
 import scada.hibernate.HibernateUtil;
 import scada.modelo.Pedido;
+import scada.modelo.StatusPedido;
 import scada.sessao.SessaoGeral;
 import scada.util.Util;
 import scada.util.UtilController;
@@ -48,6 +49,10 @@ public class PedidoController {
 
 	@Funcionalidade(nome = "Criar e editar pedidos")
 	public void criarEditarPedido() {
+		
+		List<StatusPedido> status = hibernateUtil.buscar(new StatusPedido());
+		result.include("status", status);
+		
 	}
 
 	@Path("/pedido/excluirPedido/{pedido.id}")
@@ -72,7 +77,7 @@ public class PedidoController {
 		result.redirectTo(this).listarPedidos(new Pedido(), null);
 	}
 
-	@Funcionalidade(nome = "Pedido", modulo = "Novo")
+	@Funcionalidade(nome = "Pedido", modulo = "Informações")
 	public void listarPedidos(Pedido pedido, Integer pagina) {
 
 		pedido = (Pedido) UtilController.preencherFiltros(pedido, "pedido", sessaoGeral);
@@ -82,6 +87,9 @@ public class PedidoController {
 
 		List<Pedido> pedidos = hibernateUtil.buscar(pedido, pagina);
 		result.include("pedidos", pedidos);
+		
+		List<StatusPedido> status = hibernateUtil.buscar(new StatusPedido());
+		result.include("tipoStatus", status);
 
 	}
 }

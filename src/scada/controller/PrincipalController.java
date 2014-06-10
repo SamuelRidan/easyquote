@@ -1,13 +1,25 @@
 package scada.controller;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
+
+import org.apache.commons.mail.EmailException;
+
+import com.itextpdf.text.DocumentException;
 
 import scada.anotacoes.Funcionalidade;
 import scada.hibernate.HibernateUtil;
+import scada.modelo.Contrato;
+import scada.modelo.Pedido;
 import scada.modelo.Principal;
+import scada.modelo.StatusPedido;
 import scada.sessao.SessaoGeral;
+import scada.util.CommonsMail;
+import scada.util.GeradorPDF;
 import scada.util.Util;
 import scada.util.UtilController;
+import teste.HibernateUtilTest;
 
 
 import br.com.caelum.vraptor.Path;
@@ -60,16 +72,29 @@ public class PrincipalController {
 	}
 
 	@Funcionalidade(filhaDe = "criarEditarPrincipal")
-	public void salvarPrincipal(Principal principal) {
-
+	public void salvarPrincipal(Principal principal) throws FileNotFoundException, DocumentException, IOException, EmailException {
+		Pedido pedido = new Pedido();
 		if (Util.preenchido(sessaoGeral.getValor("idPrincipal"))) {
-
 			principal.setId((Integer) sessaoGeral.getValor("idPrincipal"));
 		}
 
-		hibernateUtil.salvarOuAtualizar(principal);
-		result.include("sucesso", "Principal salvo(a) com sucesso");
-		result.redirectTo(this).listarPrincipals(new Principal(), null);
+		List contratos = HibernateUtilTest.executarConsultaHQL("from Contrato where id = :idContrato", "idContrato", principal.getContrato().getId());
+		for (Object obj: contratos){
+			Contrato c = (Contrato)obj;
+			HibernateUtilTest.executarHQL("update Cotacao set status.id = :idStatus where id = :idCotacao","idStatus", 3, "idCotacao", c.getCotacao().getId());
+			GeradorPDF.GerarContratoPDF(c);
+			CommonsMail.enviaEmailComAnexo("C:/ContratosGerados/" + c.getId() + "_" + c.getFornecedor().getCnpj() + ".pdf", c.getFornecedor().getEmail(),
+					c.getFornecedor().getOperador().getLogin(), "Sistema de envio automático de contratos", "Olá!\n\nSegue em anexo o nosso contrato.");
+			pedido.setCotacao(c.getCotacao().getCotacao());
+			pedido.setFornecedor(c.getFornecedor());
+			pedido.setStatus(new StatusPedido(2));
+			
+		}
+		
+		hibernateUtil.salvarOuAtualizar(principal);		
+		hibernateUtil.salvarOuAtualizar(pedido);
+		result.include("sucesso", "Contrato criado e enviado com sucesso por email ao fornecedor!");
+		result.redirectTo(ContratoController.class).listarContratos(new Contrato(), null);
 	}
 
 	@Funcionalidade(nome = "Contrato Principal", modulo = "Contratos")
