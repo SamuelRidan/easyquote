@@ -108,7 +108,7 @@ public class HibernateUtil {
 
 	}
 
-	private void abrirSessao() {
+	public void abrirSessao() {
 
 		if (session == null || !session.isOpen()) {
 

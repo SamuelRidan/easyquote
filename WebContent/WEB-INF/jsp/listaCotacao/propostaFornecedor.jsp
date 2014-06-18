@@ -163,7 +163,7 @@ $( document ).ready(function() {
 						    <td id="<%=lc.getId()%>" onclick="btnProd(this)" style="cursor:pointer;"> <i class="fa fa-angle-down"></i> </td>
 						</tr>
 						<tr id="Prod<%=lc.getId()%>" class="prod">
-						   <td colspan="4">
+						   <td colspan="6">
 						   
 				            <div class="bs-example">
 				              <ul class="nav nav-tabs" style="margin-bottom: -1px;">

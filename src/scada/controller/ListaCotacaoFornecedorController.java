@@ -72,7 +72,7 @@ public class ListaCotacaoFornecedorController {
 		result.redirectTo(this).listarListaCotacaoFornecedors(new ListaCotacaoFornecedor(), null);
 	}
 
-	@Funcionalidade(nome = "ListaCotacaoFornecedors", modulo = "New")
+//	@Funcionalidade(nome = "ListaCotacaoFornecedors", modulo = "New")
 	public void listarListaCotacaoFornecedors(ListaCotacaoFornecedor listaCotacaoFornecedor, Integer pagina) {
 
 		listaCotacaoFornecedor = (ListaCotacaoFornecedor) UtilController.preencherFiltros(listaCotacaoFornecedor, "listaCotacaoFornecedor", sessaoGeral);

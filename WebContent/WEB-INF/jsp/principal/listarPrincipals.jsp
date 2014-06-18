@@ -4,23 +4,9 @@
       <div id="page-wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h1><small><span style="color:#31708F">// </span> Listar Principais </small></h1>
+            <h1><small><span style="color:#31708F">// </span> Listar Contratos Principais </small></h1>
           </div>
         </div><!-- /.row -->     
-
-
-
-<a class="btn" href="<c:url value="/principal/criarPrincipal"/>" > Criar principal </a>
-
-<br><br>
-
-<form class="well form-inline" action="<c:url value="/principal/listarPrincipals"/>" method="post" >
-    <input type="text" class="input-small numero-inteiro" name="principal.precoTotal" value="${sessaoGeral.valor.get('principal').precoTotal}" placeholder="PrecoTotal">
-
-	<button type="submit" class="btn btn-info">Pesquisar</button>
-</form>
-
-<h3> Principals </h3>
 
 <c:choose>
 	<c:when test="${!empty principals}">
@@ -31,17 +17,17 @@
 		<table class="table table-striped table-bordered tablesorter">
 			<thead>
 		    	<tr>
+		    		<th> Contrato Nº: </th>
                     <th> PrecoTotal </th>
-		            <th> Editar </th>
-		            <th> Remover </th>	                    
+		            <th> Editar </th>	                    
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${principals}" var="item">
 					<tr id="principal_${item.id}">
+						<td> ${item.contrato.id } </td>
                         <td> ${item.precoTotal} </td>
-                         <td> <a href="<c:url value="/principal/editarPrincipal/${item.id}"/>" ><i class="fa fa-edit"></i> Editar </a> </td>
-			             <td> <a href="<c:url value="/principal/excluirPrincipal/${item.id}"/>" ><i class="fa fa-trash-o"></i> Remover</a></td>                        
+                        <td> <a href="<c:url value="/principal/editarPrincipal/${item.id}"/>" ><i class="fa fa-edit"></i> Editar </a> </td>                        
 					</tr>
 				</c:forEach>
 			</tbody>

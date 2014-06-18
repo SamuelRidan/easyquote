@@ -6,8 +6,6 @@ import java.util.List;
 
 import org.apache.commons.mail.EmailException;
 
-import com.itextpdf.text.DocumentException;
-
 import scada.anotacoes.Funcionalidade;
 import scada.hibernate.HibernateUtil;
 import scada.modelo.Contrato;
@@ -20,11 +18,13 @@ import scada.util.GeradorPDF;
 import scada.util.Util;
 import scada.util.UtilController;
 import teste.HibernateUtilTest;
-
-
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.validator.ValidationMessage;
+
+import com.itextpdf.text.DocumentException;
 
 @Resource
 public class PrincipalController {
@@ -32,7 +32,8 @@ public class PrincipalController {
 	private final Result result;
 	private SessaoGeral sessaoGeral;
 	private HibernateUtil hibernateUtil;
-
+	private Validator validator;
+	
 	public PrincipalController(Result result, SessaoGeral sessaoGeral, HibernateUtil hibernateUtil) {
 		this.result = result;
 		this.sessaoGeral = sessaoGeral;
@@ -83,17 +84,22 @@ public class PrincipalController {
 			Contrato c = (Contrato)obj;
 			HibernateUtilTest.executarHQL("update Cotacao set status.id = :idStatus where id = :idCotacao","idStatus", 3, "idCotacao", c.getCotacao().getId());
 			GeradorPDF.GerarContratoPDF(c);
-			CommonsMail.enviaEmailComAnexo("C:/ContratosGerados/" + c.getId() + "_" + c.getFornecedor().getCnpj() + ".pdf", c.getFornecedor().getEmail(),
-					c.getFornecedor().getOperador().getLogin(), "Sistema de envio automático de contratos", "Olá!\n\nSegue em anexo o nosso contrato.");
+			try {
+				CommonsMail.enviaEmailComAnexo("C:/ContratosGerados/" + c.getId() + "_" + c.getFornecedor().getCnpj() + ".pdf", c.getFornecedor().getEmail(),
+						c.getFornecedor().getOperador().getLogin(), "Sistema de envio automático de contratos", "Olá!\n\nSegue em anexo o nosso contrato.");
+			} catch (Exception e) {
+				result.include("erro","Por falaha de conexão não foi possível enviar o econtrato por email ao fornecedor!");
+				e.printStackTrace();
+			}
 			pedido.setCotacao(c.getCotacao().getCotacao());
 			pedido.setFornecedor(c.getFornecedor());
-			pedido.setStatus(new StatusPedido(2));
+			pedido.setStatus(new StatusPedido(1));
 			
 		}
 		
 		hibernateUtil.salvarOuAtualizar(principal);		
 		hibernateUtil.salvarOuAtualizar(pedido);
-		result.include("sucesso", "Contrato criado e enviado com sucesso por email ao fornecedor!");
+		result.include("sucesso", "Contrato criado com sucesso!");
 		result.redirectTo(ContratoController.class).listarContratos(new Contrato(), null);
 	}
 

@@ -25,6 +25,8 @@
 				<table class="table table-striped table-bordered tablesorter">
 					<thead>
 				    	<tr>
+				    		<th style="width: 30px"> <center>#</center> </th>
+				    		<th style="width: 100px"> Cotação # </th>
 				    		<th> Status </th>
 		                    <th> DataEntrega </th>
 		                    <th> Editar </th>			                    
@@ -33,6 +35,8 @@
 					<tbody>
 						<c:forEach items="${pedidos}" var="item">
 							<tr id="pedido_${item.id}">
+								<td> ${item.id } </td>
+								<td> ${item.cotacao.id } </td>
 								<td> 
 									<c:forEach items="${tipoStatus}" var="itemStatus">
 										<c:if test="${item.status.id == itemStatus.id}">  ${itemStatus.descricao}  </c:if>

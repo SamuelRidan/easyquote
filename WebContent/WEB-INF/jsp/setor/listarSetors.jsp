@@ -4,7 +4,7 @@
       <div id="page-wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h1><small><span style="color:#31708F">// </span> Troca Própria Senha  </small></h1>
+            <h1><small><span style="color:#31708F">// </span> Lista de Setores da organização  </small></h1>
           </div>
         </div><!-- /.row -->  
         

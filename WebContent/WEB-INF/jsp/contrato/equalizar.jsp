@@ -7,19 +7,31 @@
 <script type="text/javascript">
 
 function btnProd(r){
-    $("#Prod"+r.id).toggle("fast");
+    $("#Indice"+r.id).toggle("fast");
     $(r).html("<i class='fa fa-angle-up'></i>");
     $(r).attr("onclick", "btnProd2(this);");
 } 
 
 function btnProd2(r){	
-    $("#Prod"+r.id).toggle("fast");
+    $("#Indice"+r.id).toggle("fast");
     $(r).html("<i class='fa fa-angle-down'></i>");
     $(r).attr("onclick", "btnProd(this);");	
 }
 
+function aprovar(ok){
+	$.ajax({
+    	  url: "<c:url value='/contrato/aceitarIndices'/>",
+    	  data: {
+    		idContrato: ok.id,
+    	  },
+    	  success: function( data ) {
+    		  location.href="<c:url value='/aditivo/listarAditivos'/>";
+    	  }
+    	}); 
+}
+
 $( document ).ready(function() {
-	$(".prod").hide();
+	$(".indice").hide();
  
  });
 </script>
@@ -32,7 +44,7 @@ $( document ).ready(function() {
   </div><!-- /.row -->   
 <br>
 	
-		<c:set var="link" value="cotacao/listarCotacaos" scope="request" />
+<c:set var="link" value="contrato/listarContratos" scope="request" />
 		
 <table class="table table-striped table-bordered tablesorter">
 	<thead>
@@ -72,15 +84,50 @@ $( document ).ready(function() {
 	                      <td> <%= c.getFornecedor().getRazao_social() %> </td>
 	                      <td id="<%= c.getId() %>" onclick="btnProd(this)" style="cursor:pointer;"> <i class="fa fa-angle-down"></i> </td>                                           
 					</tr>
-					<tr class="prod" id="Prod<%=c.getCotacao().getProduto().getId()%>">
-					  <td colspan="6" style="background:#E5E5E5;">       	
+					<tr class="indice" id="Indice<%=c.getId()%>">
+					  <td colspan="7" style="background:#E5E5E5;">       	
 						 	<table style="width:80%;" align="center" class="table table-hover tablesorter" >
-							   	<tr>
-									<th> teste </th>
-							   	</tr>	 
+						 		<%
+						 			List indices = HibernateUtilTest.executarConsultaHQL("from Indices where fornecedor.id = " + c.getFornecedor().getId());
+						 			if (indices.size()!=0){
+						 		%>
+							 			<tr>
+											<th> # </th>
+											<th> Produto </th>
+											<th> Índice(%) </th>
+											<th> </th>
+								   		</tr>
+						 		<%
+							 			for (Object ob: indices){
+							 				Indices i = (Indices)ob;
+						 		%>
+										   	<tr>
+												<td> <%= i.getId() %> </td>
+												<td> <%= i.getProduto().getProduto().getDescricao() %> </td>
+												<td> <%= i.getIndice() %> </td>
+												<td> <a id="<%= c.getId() %>" onclick="aprovar(this)" style="cursor:pointer;">Aprovar</a> </td>
+										   	</tr>	
+							   	<%
+							 			} 
+						 			} else {
+							 				
+							 	%>
+							 				<tr>
+							 					<th colspan="4"> <center> Nenhum índice encontrato </center> </th>
+							 				</tr>
+							 	<%			
+						 			}
+							   	%> 
 						   </table>
 					  </td>	 	 
 					</tr>
+					<tr>
+ 						<td colspan="6">
+ 							<center>
+ 								<iframe src="http://www.ipeadata.gov.br/ExibeSerie.aspx?serid=39616&module=M"  style="border:0px;  width:900px; height:7500px;"></iframe>
+ 							</center>
+ 						</td>
+ 					</tr>
 		<%
 	            	}
 	            } while (data.getTime().before(c.getFimVigencia().getTime()));    

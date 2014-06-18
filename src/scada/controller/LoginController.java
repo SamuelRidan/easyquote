@@ -11,6 +11,7 @@ import org.hibernate.criterion.MatchMode;
 
 import scada.anotacoes.Public;
 import scada.hibernate.HibernateUtil;
+import scada.listener.CounterListener;
 import scada.modelo.FuncionalidadeGrupoOperador;
 import scada.modelo.GrupoOperador;
 import scada.modelo.Operador;
@@ -54,6 +55,7 @@ public class LoginController {
 	@Public
 	public void efetuarLogin(Operador operador) {
 
+		hibernateUtil.abrirSessao();
 		verificaExistenciaAdministrador(operador);
 		tentarEfetuarLogin(operador);
 		colocarOperadorNaSessao(operador);
@@ -176,8 +178,8 @@ public class LoginController {
 	@Public
 	public void logout() {
 
-		sessaoOperador.logout();
-
+		sessaoOperador.logout();	
+		hibernateUtil.fecharSessao();
 		result.redirectTo(this).telaLogin();
 	}
 

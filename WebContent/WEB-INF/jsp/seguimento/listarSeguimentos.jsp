@@ -17,7 +17,7 @@
 	<button type="submit" class="btn btn-info">Pesquisar</button>
 </form>
 
-<h3> Seguimentos </h3>
+
 
 <c:choose>
 	<c:when test="${!empty seguimentos}">

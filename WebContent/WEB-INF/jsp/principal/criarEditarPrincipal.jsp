@@ -15,14 +15,14 @@
 		      	<label class="control-label">Contrato de número: </label>
 		      	<div class="controls">
 		           	<%		    
-		           		Double total = 0.0;
+		           		Double total = 0.00;
 			    		List contrato = HibernateUtilTest.RetornaUmValorEmConsultaHQL("from Contrato order by id desc");		    		
 			    		for (Object obj: contrato) {
 			    			Contrato c = (Contrato)obj;
 			    			List preco = HibernateUtilTest.executarConsultaHQL("from ListaCotacaoFornecedor where cotacao.id="+c.getCotacao().getId()+" and fornecedor.id="+c.getFornecedor().getId());
 			    			for (Object ob: preco){
 			    				ListaCotacaoFornecedor lcf = (ListaCotacaoFornecedor)ob;
-								total = total + lcf.getPreco();
+								total = total + (lcf.getPreco() * lcf.getListaCotacao().getQuantidade());
 			    			}
 		           	%>		           	
 		      				<input type="text" class="input-xlarge numero-inteiro" id="principal.contrato.id" name="principal.contrato.id" value="<%= c.getId() %>">

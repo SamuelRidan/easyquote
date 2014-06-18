@@ -72,7 +72,7 @@ public class PesquisaPedidoController {
 		result.redirectTo(this).listarPesquisaPedidos(new PesquisaPedido(), null);
 	}
 
-	@Funcionalidade(nome = "PesquisaPedidos", modulo = "New")
+//	@Funcionalidade(nome = "PesquisaPedidos", modulo = "New")
 	public void listarPesquisaPedidos(PesquisaPedido pesquisaPedido, Integer pagina) {
 
 		pesquisaPedido = (PesquisaPedido) UtilController.preencherFiltros(pesquisaPedido, "pesquisaPedido", sessaoGeral);

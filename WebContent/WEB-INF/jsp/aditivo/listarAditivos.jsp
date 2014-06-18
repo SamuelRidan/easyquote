@@ -1,26 +1,13 @@
 <%@ include file="/EQbase.jsp" %> 
 
-
 <%@ taglib uri="/tags/tags" prefix="tags"%>
 
       <div id="page-wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h1><small><span style="color:#31708F">//</span> Contrato Aditivo </small></h1>
+            <h1><small><span style="color:#31708F">//</span> Contratos Aditivos </small></h1>
           </div>
         </div><!-- /.row -->    
-
-		<a class="btn" href="<c:url value="/aditivo/criarAditivo"/>" > Criar aditivo </a>
-		
-		<br><br>
-		
-		<form class="well form-inline" action="<c:url value="/aditivo/listarAditivos"/>" method="post" >
-		    <input type="text" class="input-small numero-inteiro" name="aditivo.precoTotal" value="${sessaoGeral.valor.get('aditivo').precoTotal}" placeholder="PrecoTotal">
-		
-			<button type="submit" class="btn btn-info">Pesquisar</button>
-		</form>
-		
-		<h3> Aditivos </h3>
 		
 		<c:choose>
 			<c:when test="${!empty aditivos}">
@@ -31,17 +18,15 @@
 				<table class="table table-striped table-bordered tablesorter">
 					<thead>
 				    	<tr>
+				    		<th> Aditivo do contrato nº </th>
 		                    <th> Preço Total </th>
-		                    <th> Editar </th>
-		                    <th> Remover </th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${aditivos}" var="item">
 							<tr id="aditivo_${item.id}">
-		                        <td> ${item.precoTotal} </td>
-			                    <td> <a href="<c:url value="/aditivo/editarAditivo/${item.id}"/>" ><i class="fa fa-edit"></i> Editar </a> </td>
-			                    <td> <a href="<c:url value="/aditivo/excluirAditivo/${item.id}"/>" ><i class="fa fa-trash-o"></i> Remover</a></td>		                        
+								<td> ${item.contrato.id } </td>
+		                        <td> ${item.precoTotal} </td>		                        
 							</tr>
 						</c:forEach>
 					</tbody>

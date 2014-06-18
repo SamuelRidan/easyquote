@@ -107,7 +107,6 @@
 
 <form class="form-horizontal" action="<c:url value="/comprador/salvarComprador"/>" method="post">
   <fieldset>
-    <legend>Criar/editar comprador</legend>
     <div class="control-group">
       <label class="control-label">Operador</label>
       <div class="controls">

@@ -3,6 +3,84 @@
 <%@ include file="/EQbase.jsp" %> 
 <%@ page import="java.util.*, scada.modelo.*, scada.hibernate.*, teste.*" %>
 
+<script type="text/javascript">
+
+function validaCNPJ() {
+	CNPJ = document.getElementById("fornecedor.cnpj").value;
+	erro = new String;
+	if ((CNPJ.length < 18) && (CNPJ.length != 14)) {
+		erro += "É necessario preencher corretamente o número do CNPJ! "; 
+	}
+	if (CNPJ.length == 14){
+		CNPJ = CNPJ.substr(0,2)+"."+CNPJ.substr(2,3)+"."+CNPJ.substr(5,3)+"/"+CNPJ.substr(8,4)+"-"+CNPJ.substr(12,2);
+	}
+	if ((CNPJ.charAt(2) != ".") || (CNPJ.charAt(6) != ".") || (CNPJ.charAt(10) != "/") || (CNPJ.charAt(15) != "-")){
+		if (erro.length == 0) {
+			erro += "É necessário preencher corretamente o número do CNPJ! ";
+		}
+    }
+	
+    //substituir os caracteres que não são números
+    if(document.layers && parseInt(navigator.appVersion) == 4){
+	    x = CNPJ.substring(0,2);
+	    x += CNPJ. substring (3,6);
+	    x += CNPJ. substring (7,10);
+	    x += CNPJ. substring (11,15);
+	    x += CNPJ. substring (16,18);
+	    CNPJ = x;
+    } else {
+	      CNPJ = CNPJ. replace (".","");
+	      CNPJ = CNPJ. replace (".","");
+	      CNPJ = CNPJ. replace ("-","");
+	      CNPJ = CNPJ. replace ("/","");
+      	}
+    
+	var nonNumbers = /\D/;
+	if (nonNumbers.test(CNPJ)) erro += "A verificação de CNPJ suporta apenas números! "; 
+	var a = [];
+	var b = new Number;
+	var c = [6,5,4,3,2,9,8,7,6,5,4,3,2];
+	
+	for (i=0; i<12; i++){
+	    a[i] = CNPJ.charAt(i);
+	    b += a[i] * c[i+1];
+	}
+    
+	if ((x = b % 11) < 2) { 
+    	a[12] = 0; 
+    } else { 
+    	a[12] = 11-x;
+      }
+	
+    b = 0;
+    
+    for (y=0; y<13; y++) {
+    	b += (a[y] * c[y]); 
+    }
+    
+    if ((x = b % 11) < 2) { 
+  		a[13] = 0; 
+  	} else { 
+  	  	a[13] = 11-x; 
+  	  }
+    
+    if ((CNPJ.charAt(12) != a[12]) || (CNPJ.charAt(13) != a[13])){
+       erro +="Dígito verificador com problema!";
+    }
+    
+    if (erro.length > 0){
+		alert(erro);
+		document.getElementById("fornecedor.cnpj").value = "";
+		document.getElementById("fornecedor.cnpj").focus();
+	} else {
+		CNPJ = CNPJ.substr(0,2)+"."+CNPJ.substr(2,3)+"."+CNPJ.substr(5,3)+"/"+CNPJ.substr(8,4)+"-"+CNPJ.substr(12,2);
+		document.getElementById("fornecedor.cnpj").value = CNPJ;
+	}
+    
+}
+
+</script>
+
 <div id="page-wrapper">
   <div class="row">
     <div class="col-lg-12">
@@ -27,9 +105,9 @@
       </div>
     </div>
     <div class="control-group">
-      <label class="control-label">Cnpj</label>
+      <label class="control-label">CNPJ</label>
       <div class="controls">
-        <input type="text" class="input-xlarge" name="fornecedor.cnpj" value="${fornecedor.cnpj}">
+        <input type="text" class="input-xlarge" name="fornecedor.cnpj" id="fornecedor.cnpj" value="${fornecedor.cnpj}" onblur="validaCNPJ()">
       </div>
     </div>
     <div class="control-group">

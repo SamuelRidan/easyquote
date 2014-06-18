@@ -1,17 +1,28 @@
 package scada.controller;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
+
+import com.itextpdf.text.DocumentException;
 
 import scada.anotacoes.Funcionalidade;
 import scada.hibernate.HibernateUtil;
+import scada.modelo.Aditivo;
 import scada.modelo.Contrato;
+import scada.modelo.Indices;
+import scada.modelo.ListaCotacaoFornecedor;
 import scada.modelo.TipoContrato;
 import scada.sessao.SessaoGeral;
+import scada.util.CommonsMail;
+import scada.util.GeradorPDF;
 import scada.util.Util;
 import scada.util.UtilController;
+import teste.HibernateUtilTest;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.view.Results;
 
 @Resource
 public class ContratoController {
@@ -121,12 +132,46 @@ public class ContratoController {
 	}
 	
 	@Funcionalidade(nome = "Vencimento dos contratos", modulo = "Relatórios")
-	public void equalizarForn(){
-		
+	public void equalizarForn(){		
 	}
 	
 	@Funcionalidade(nome = "Vencimento dos contratos", modulo = "Relatórios")
-	public void equalizar(){
+	public void equalizar(){	
+	}
 	
+	@Funcionalidade(filhaDe="equalizar")
+	public void aceitarIndices(Integer idContrato) throws FileNotFoundException, DocumentException, IOException{
+		Contrato contrato = new Contrato(idContrato);		
+		contrato = hibernateUtil.selecionar(contrato);
+		
+		Aditivo aditivo = new Aditivo();
+		Double total = 0.0;
+		
+		aditivo.setContrato(contrato);
+		List preco = HibernateUtilTest.executarConsultaHQL("from ListaCotacaoFornecedor where cotacao.id="+contrato.getCotacao().getId()+" and fornecedor.id="+contrato.getFornecedor().getId());
+		for (Object obj: preco){
+			ListaCotacaoFornecedor lcf = (ListaCotacaoFornecedor)obj;
+			List indices = HibernateUtilTest.executarConsultaHQL("from Indices where fornecedor.id = " + lcf.getFornecedor().getId());
+			for (Object ob: indices){
+				Indices i = (Indices)ob;				
+				total = total + (((lcf.getPreco() * lcf.getListaCotacao().getQuantidade())*i.getIndice())/100) + (lcf.getPreco() * lcf.getListaCotacao().getQuantidade());
+			}
+		}
+		
+		aditivo.setPrecoTotal(total);
+		
+		hibernateUtil.salvarOuAtualizar(aditivo);
+		
+		GeradorPDF.GerarContratoAditivoPDF(contrato);
+		
+		try {
+			CommonsMail.enviaEmailComAnexo("C:/ContratosGerados/aditivo_" + contrato.getId() + "_" + contrato.getFornecedor().getCnpj() + ".pdf", contrato.getFornecedor().getEmail(),
+					contrato.getFornecedor().getOperador().getLogin(), "Sistema de envio automático de contratos", "Olá!\n\nSegue em anexo o nosso contrato.");
+		} catch (Exception e) {
+			result.include("erro","Por falaha de conexão não foi possível enviar o econtrato por email ao fornecedor!");
+			e.printStackTrace();
+		}
+		
+		result.use(Results.json()).from("ok").serialize();
 	}
 }

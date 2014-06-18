@@ -168,4 +168,34 @@ public class AuxiliarTexto {
 		return texto;
 		
 	}
+	
+	public static String contratoAditivo(Contrato contrato){
+		String texto = "";
+		DateFormat formatada = new SimpleDateFormat("dd/MM/yyyy");
+		
+		texto += "\n\nDeclaramos para os devidos fins que XXXXXXXXXXXXXXXXXXXX, portador do CNPJ xxx.xxx.xxx.xxxx-xx, " +
+				"situado em xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx, no bairro xxxxxxxxxxxxx da cidade xxxxxxxxxxxxxxxx, CEP xxxxx-xxx, " +
+				"doravante demonimado comprador firma contrato aditivo com " + contrato.getFornecedor().getRazao_social() + " portador do CNPJ "
+				+ contrato.getFornecedor().getCnpj() + ", doravante denominado fornecedor a cumprir com as regulamentações deste contrato.\n";
+		
+		texto += "\n\n";
+		texto += "Clausula 1: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. " +
+				"Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.";
+		texto += "\n";
+		texto += "Clausula 2: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. " +
+				"Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.";
+		texto += "\n";
+		texto += "Clausula 3: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. " +
+				"Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.";
+		texto += "\n";
+		texto += "Clausula 4: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. " +
+				"Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.";
+		texto += "\n";
+		texto += "Clausula 5: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. " +
+				"Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.";
+		texto += "\n\n";
+		texto += "Concordam com o texto ambas as partes";
+		
+		return texto;
+	}
 }

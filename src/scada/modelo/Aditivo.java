@@ -45,4 +45,12 @@ public class Aditivo implements Entidade {
     public void setPrecoTotal(Double precoTotal){
         this.precoTotal = precoTotal;
     }
+
+	public Contrato getContrato() {
+		return contrato;
+	}
+
+	public void setContrato(Contrato contrato) {
+		this.contrato = contrato;
+	}
 }
