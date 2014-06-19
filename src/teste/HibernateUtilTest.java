@@ -16,8 +16,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.hibernate.Session;
 
-import scada.hibernate.HibernateUtil;
-import scada.modelo.*;
+import easyquote.hibernate.HibernateUtil;
+import easyquote.modelo.*;
+
 
 
 
@@ -39,7 +40,6 @@ public class HibernateUtilTest {
 
 	@After
 	public void fecharSessao() {
-
 		hibernateUtil.fecharSessao();
 	}
 
@@ -168,139 +168,5 @@ public class HibernateUtilTest {
 		operador.setLogin(".0");
 		assertEquals(new Integer(2), hibernateUtil.contar(operador, MatchMode.END));
 	}
-	
-	@Test
-	static public List executarConsultaHQL(String hql) {
-        List resultList = null;
-        try {
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            
-            Query query = session.createQuery(hql);
-            resultList = query.list();
-            
-            session.getTransaction().commit();
-        } catch (HibernateException he) {
-            he.printStackTrace();
-            throw he;
-        }
-        return resultList;
-    }
-	
-	@Test
-	static public List executarConsultaHQL(String hql,String param1,Integer ValorParam1) {
-        List resultList = null;
-        try {
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            
-            Query query = session.createQuery(hql);
-            query.setParameter(param1, ValorParam1);
-            resultList = query.list();
-            
-            session.getTransaction().commit();
-        } catch (HibernateException he) {
-            he.printStackTrace();
-            throw he;
-        }
-        return resultList;
-    }
-	
-	@Test
-	static public List executarConsultaHQL(String hql,String param1,String ValorParam1) {
-        List resultList = null;
-        try {
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            
-            Query query = session.createQuery(hql);
-            query.setParameter(param1, ValorParam1);
-            resultList = query.list();
-            
-            session.getTransaction().commit();
-        } catch (HibernateException he) {
-            he.printStackTrace();
-            throw he;
-        }
-        return resultList;
-    }
-	
-	@Test
-	static public List executarConsultaHQL(String hql,String param1,Integer ValorParam1, String param2, Integer Valorparam2) {
-        List resultList = null;
-        try {
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            
-            Query query = session.createQuery(hql);
-            query.setParameter(param1, ValorParam1);
-            query.setParameter(param2, Valorparam2);
-            resultList = query.list();
-            
-            session.getTransaction().commit();
-        } catch (HibernateException he) {
-            he.printStackTrace();
-            throw he;
-        }
-        return resultList;
-    }
-	
-	@Test
-	static public void executarHQL(String hql,String param1,Integer ValorParam1) {
-        try {
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            
-            Query query = session.createQuery(hql);
-            query.setParameter(param1, ValorParam1);
-            int result = query.executeUpdate();
-            
-            session.getTransaction().commit();
-            
-        } catch (HibernateException he) {
-            he.printStackTrace();
-            throw he;
-        }
-    }
-	
-	@Test
-	static public void executarHQL(String hql,String param1,Integer ValorParam1,String param2,Integer ValorParam2) {
-        try {
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            
-            Query query = session.createQuery(hql);
-            query.setParameter(param1, ValorParam1);
-            query.setParameter(param2, ValorParam2);
-            int result = query.executeUpdate();
-            
-            session.getTransaction().commit();
-            
-        } catch (HibernateException he) {
-            he.printStackTrace();
-            throw he;
-        }
-    }
-	
-	@Test
-	static public List RetornaUmValorEmConsultaHQL(String hql) {
-        List resultList = null;
-        try {
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            
-            Query query = session.createQuery(hql);
-            query.setMaxResults(1);
-            resultList = query.list();
-            
-            session.getTransaction().commit();
-        } catch (HibernateException he) {
-            he.printStackTrace();
-            throw he;
-        }
-        return resultList;
-    }
-
- 
 	
 }

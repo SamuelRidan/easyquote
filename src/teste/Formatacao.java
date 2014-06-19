@@ -33,7 +33,6 @@ public class Formatacao {
 
     public static String formatarData(GregorianCalendar valor) {  
     	System.out.println(valor);
-    	GregorianCalendar valor1;
     	String valor0;
     	DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
     	valor0 = df.format(valor);   	

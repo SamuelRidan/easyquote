@@ -2,7 +2,7 @@
 <%@ taglib uri="/tags/tags" prefix="tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
 
-<%@ page import="java.util.*, scada.modelo.*, scada.hibernate.*, teste.*" %>
+<%@ page import="java.util.*,easyquote.modelo.*,easyquote.hibernate.*, teste.*" %>
 
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
  
@@ -26,7 +26,6 @@ $( document ).ready(function() {
 
 	console.log("IDcot:"+idCotacao);
 	
-	// First Chart Example - Area Line Chart
  $.ajax({
 		      	  url:"<c:url value='/listaCotacao/propostaFornecedor1'/>",
 		      	  data: {
@@ -125,8 +124,10 @@ $( document ).ready(function() {
          </div><!-- /.row --> 
         
  
-		<%          	
-		   List propFornecedor = HibernateUtilTest.executarConsultaHQL("from ListaCotacaoFornecedor  where cotacao_id= "+idCodigo+"group by fornecedor_id");
+		<%   
+			HibernateUtil hibernateUtil = new HibernateUtil();
+		   List propFornecedor = hibernateUtil.buscaPorHQL("from ListaCotacaoFornecedor where cotacao_id= "+idCodigo+"group by fornecedor_id");
+		   
 		 %>
          <div class="alert alert-info alert-dismissable">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -148,7 +149,7 @@ $( document ).ready(function() {
 				ListaCotacaoFornecedor lc = (ListaCotacaoFornecedor)obj;            
 	            if(lc.getCotacao().getId() == idCodigo){
 	            	Double total = 0.0;
-	                 List totalCotacao = HibernateUtilTest.RetornaUmValorEmConsultaHQL("FROM ListaCotacaoFornecedor WHERE cotacao.id="+lc.getCotacao().getId()+"and fornecedor_id="+lc.getFornecedor().getId()); 
+	                 List totalCotacao = hibernateUtil.retorna1HQL("FROM ListaCotacaoFornecedor WHERE cotacao.id="+lc.getCotacao().getId()+"and fornecedor_id="+lc.getFornecedor().getId()); 
 						for (Object ob: totalCotacao){
 							ListaCotacaoFornecedor lcf = (ListaCotacaoFornecedor)ob;
 							total = total + lcf.getPreco();
@@ -184,7 +185,7 @@ $( document ).ready(function() {
 								   		<%
 								   		Integer i; 
 								   		i = 0;
-								   		List listaCotacao = HibernateUtilTest.executarConsultaHQL("from ListaCotacaoFornecedor where fornecedor_id = :idFornecedor and cotacao.id= :idCotacao", "idFornecedor",lc.getFornecedor().getId(), "idCotacao", lc.getCotacao().getId());
+								   		List listaCotacao = hibernateUtil.buscaPorHQL("from ListaCotacaoFornecedor where fornecedor_id = "+ lc.getFornecedor().getId() +" and cotacao.id = "+ lc.getCotacao().getId());
 						            	for (Object ob: listaCotacao){
 						            		ListaCotacaoFornecedor lista = (ListaCotacaoFornecedor)ob;
 						            		i++;
@@ -238,6 +239,8 @@ $( document ).ready(function() {
 	    <%			
                  }
 		      }
+		
+		hibernateUtil.fecharSessao();
 		  %>				
 					
 		     </table>	

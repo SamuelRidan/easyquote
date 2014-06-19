@@ -2,7 +2,7 @@
 <%@page import="java.util.*, java.text.*"%>
 <%@ include file="/EQbase.jsp" %> 
 <%@ taglib uri="/tags/tags" prefix="tags"%>
-<%@page import="java.util.*, java.text.*, scada.modelo.*"%>
+<%@page import="java.util.*, java.text.*,easyquote.modelo.*"%>
 
  <div id="page-wrapper">
    <div class="row">

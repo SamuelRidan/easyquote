@@ -32,6 +32,6 @@
 		    <a class="btn btn-danger" href="<c:url value="/grupoOperador/listarGruposOperador"/>" > Cancelar </a>
 		  </fieldset>
 		</form>
-
+</div>
 		
 <%@ include file="/EQbaseFim.jsp" %> 

@@ -1,7 +1,7 @@
-<%@page import="scada.controller.ListaCotacaoController"%>
+<%@page import="easyquote.controller.ListaCotacaoController"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/EQbase.jsp" %> 
-<%@ page import="java.util.*, scada.modelo.*, scada.hibernate.*, teste.*" %>
+<%@ page import="java.util.*,easyquote.modelo.*,easyquote.hibernate.*, teste.*" %>
 
 <script type="text/javascript">
 
@@ -90,18 +90,10 @@ function validaCNPJ() {
 
 <form class="form-horizontal" action="<c:url value="/fornecedor/salvarFornecedor"/>" method="post">
   <fieldset>
-    <div class="control-group">
+    <div class="control-group" style="display: none;">
       <label class="control-label">Operador</label>
-      <div class="controls">
-      	<%
-		    List operador = HibernateUtilTest.RetornaUmValorEmConsultaHQL("from Operador order by id desc");    		
-		    for (Object obj: operador) {
-		    	Operador op = (Operador)obj;
-		%>      	
-		    	<input type="text" class="input-xlarge numero-decimal" name="fornecedor.operador.id" value="<%= op.getId() %>">   	
-		<%  		
-		  	}		
-		%>
+      <div class="controls">     	
+		  <input type="text" class="input-xlarge numero-decimal" name="fornecedor.operador.id" value="${fornecedor.operador.id}">   	
       </div>
     </div>
     <div class="control-group">

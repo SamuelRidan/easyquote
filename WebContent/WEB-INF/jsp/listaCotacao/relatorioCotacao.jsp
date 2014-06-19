@@ -2,7 +2,7 @@
 <%@ taglib uri="/tags/tags" prefix="tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
 
-<%@ page import="java.util.*, scada.modelo.*, scada.hibernate.*, teste.*" %> 
+<%@ page import="java.util.*,easyquote.modelo.*,easyquote.hibernate.*, teste.*" %> 
  
 <script type="text/javascript">
 
@@ -61,41 +61,8 @@ $( document ).ready(function() {
 			</tr>		
 			<tr class="prod" id="Prod${itemCot.id}">
 			  <td colspan="8" style="background:#E5E5E5;">       	
-		         <c:set var="idcot" value="${itemCot.id}"/>
-		           <%    	
-		    		List listCotacaoFonecedor = HibernateUtilTest.executarConsultaHQL("from ListaCotacaoFornecedor where cotacao_id="+pageContext.getAttribute("idcot")+"group by fornecedor_id");
-		           %><span> Quantidade de Propostas:<a href="<c:url value="/listaCotacao/propostaFornecedor?id=${itemCot.id}"/>"> <%= listCotacaoFonecedor.size() %></a></span>
-				 <table style="width:80%;" align="center" class="table table-hover tablesorter" >
-				   <tr>
-						 	<th>Cod. Produto</th>
-						 	<th>Descrição</th>
-						 	<th>Quantidade</th>
-				   </tr>
-					<c:forEach items="${listaCotacaos}" var="lista" varStatus="l">	   
-				    <c:choose>
-					     <c:when test="${lista.cotacao.id == itemCot.id}">					     															
-						 <tr>
-						 	<td>${lista.produto.id }</td>
-			                 <c:forEach items="${tipoProduto}" var="itemProd">
-							     <c:choose>
-						          <c:when test="${lista.produto.id == itemProd.id}">
-						          	<td> ${itemProd.descricao} </td>
-						          </c:when>
-						         </c:choose>              
-						     </c:forEach>	
-						 	<td> ${lista.quantidade}</td>
-						 </tr>						 	
-						</c:when>
-						<c:otherwise>
-								<c:choose>
-								<c:when test="${l.count == 1 }">	
-							 		  <tr> <td colspan="3"><center> <h5> Nenhum produto para esta cotação </h5></center></td> </tr>
-							   </c:when>
-							   </c:choose>				
-						</c:otherwise>
-					</c:choose>
-					</c:forEach>	 
-				   </table>
+		          <span> Quantidade de Propostas: ${itemCot.quantidadePropostas} - 
+		          <a href="<c:url value="/listaCotacao/propostaFornecedor?id=${itemCot.id}"/>"> Click aqui para vê-las </a></span>
 			  </td>	 	 
 			</tr>					
 		 </c:forEach>				 

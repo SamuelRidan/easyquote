@@ -36,5 +36,5 @@
 				<br>  <br>  <h4> Nenhum registro foi encontrado </h4>
 			</c:otherwise>
 		</c:choose>
-		
+		</div>
 <%@ include file="/EQbaseFim.jsp" %> 		

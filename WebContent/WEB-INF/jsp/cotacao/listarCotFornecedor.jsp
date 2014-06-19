@@ -6,9 +6,7 @@
           <div class="col-lg-12">
             <h1><small><span style="color:#31708F">//</span> Listar cotação </small></h1>
           </div>
-        </div><!-- /.row -->   
-
-<a class="btn" href="<c:url value="/cotacao/criarCotacao"/>" > Criar cotação </a>
+        </div><!-- /.row -->  
 
 <br><br>
 
@@ -19,7 +17,6 @@
 	<button type="submit" class="btn btn-info">Pesquisar</button>
 </form>
 
-<h3> Cotações </h3>
 
 <c:choose>
 	<c:when test="${!empty cotacaos}">

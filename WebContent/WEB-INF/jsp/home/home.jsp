@@ -1,5 +1,5 @@
 <%@ include file="/EQbase.jsp" %> 
-<%@ page import="java.util.*, scada.modelo.*, scada.hibernate.*, teste.*" %>
+<%@ page import="java.util.*,easyquote.modelo.*,easyquote.hibernate.*, teste.*" %>
       <div id="page-wrapper">
         <div class="row">
           <div class="col-lg-12">
@@ -23,8 +23,7 @@
                     <i class="fa fa-comments fa-5x"></i>
                   </div>
                   <div class="col-xs-6 text-right">
-                    <% List contratoAditivo = HibernateUtilTest.executarConsultaHQL("from Contrato where tipoContrato<>1");%>
-                    <p class="announcement-heading"><% out.println(contratoAditivo.size());%></p>
+                    <p class="announcement-heading">${contratosAditivos}</p>
                     <p class="announcement-text">Contratos Ativos</p>
                   </div>
                 </div>
@@ -50,8 +49,7 @@
                     <i class="fa fa-tasks fa-5x"></i>
                   </div>
                   <div class="col-xs-6 text-right">
-                    <% List cotacaoPendente = HibernateUtilTest.executarConsultaHQL("from Cotacao where status.id=1");%>
-                    <p class="announcement-heading"><% out.println(cotacaoPendente.size());%></p>
+                    <p class="announcement-heading">${cotacoesPendentes}</p>
                     <p class="announcement-text">Cotações em aberto</p>
                   </div>
                 </div>
@@ -78,8 +76,7 @@
                     <i class="fa fa-check fa-5x"></i>
                   </div>
                   <div class="col-xs-6 text-right">
-                   <% List cotacaoAndamento = HibernateUtilTest.executarConsultaHQL("from Pedido where status.id<>1");%>
-                    <p class="announcement-heading"><% out.println(cotacaoAndamento.size());%></p>
+                    <p class="announcement-heading">${cotacoesAndamento}</p>
                     <p class="announcement-text">Pedidos entregues</p>
                   </div>
                 </div>
@@ -106,8 +103,7 @@
                     <i class="fa fa-comments fa-5x"></i>
                   </div>
                   <div class="col-xs-6 text-right">
-                   <% List pedidos = HibernateUtilTest.executarConsultaHQL("from Pedido where status.id=1");%>
-                    <p class="announcement-heading"><% out.println(pedidos.size());%></p>
+                    <p class="announcement-heading">${pedidos}</p>
                     <p class="announcement-text">Pedidos não entregues</p>
                   </div>
                 </div>

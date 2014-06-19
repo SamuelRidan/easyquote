@@ -26,10 +26,27 @@
     <script src="<c:url value="/EQ-js/bootstrap.js"/>"></script>
     <script src="<c:url value="/EQ-js/datepicker/js/bootstrap-datepicker.js"/>"></script>
  
-
   </head>
 
+  <script>
+  
+  $(document).ready(function() {
 
+  	var login = $("#login").val();
+  	if(login == "adam"){
+  		$(".img-circle").attr("src", "<c:url value='/imagens/adam.jpg'/>");
+  		
+  	}else if(login == "samuel"){
+  		$(".img-circle").attr("src", "<c:url value='/imagens/samuel.jpg'/>");
+  		
+  	}else{
+  		$(".img-circle").attr("src", "<c:url value='/imagens/profile-pic.jpg'/>");
+  	}
+  	
+  	
+  	
+  });
+  </script>
   <body>
 
 <!--
@@ -55,9 +72,10 @@
          
 		 <ul class="nav navbar-nav side-nav">
 		 <li class="side-user hidden-xs">
+		                <input type="hidden" id="login" value="${sessaoOperador.operador.login}" >
                         <img class="img-circle" src="<c:url value="/imagens/profile-pic.jpg"/>" alt="">
                         <p class="welcome"><i class="fa fa-key"></i> Logado como</p>
-                        <p class="name tooltip-sidebar-logout">${sessaoOperador.operador.postoGraduacao} <span class="last-name"> ${sessaoOperador.operador.login}</span> <a data-original-title="Logout" id="open_45009172" data-popup-ordinal="1" style="color: inherit" class="logout_open" href="<c:url value="/login/logout"/>" data-toggle="tooltip" data-placement="top" title=""><i class="fa fa-sign-out"></i></a></p>
+                        <p class="name tooltip-sidebar-logout">${sessaoOperador.operador.postoGraduacao} <span class="last-name" >#${sessaoOperador.operador.login}</span> <a data-original-title="Logout" id="open_45009172" data-popup-ordinal="1" style="color: inherit" class="logout_open" href="<c:url value="/login/logout"/>" data-toggle="tooltip" data-placement="top" title=""><i class="fa fa-sign-out"></i></a></p>
                         <div class="clearfix"></div>
            </li>         	   
           	<c:forEach var="modulo" items="${sessaoFuncionalidades.modulos}">       
@@ -76,7 +94,7 @@
 
           <ul class="nav navbar-nav navbar-right navbar-user">
             <li class="dropdown user-dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> ${sessaoOperador.operador.postoGraduacao} ${sessaoOperador.operador.login}<b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-transform: uppercase;"><i class="fa fa-user"></i> ${sessaoOperador.operador.postoGraduacao} ${sessaoOperador.operador.login}<b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="<c:url value="/login/trocarPropriaSenha"/>"><i class="fa fa-gear"></i> Troca Senha</a></li>
                 <li class="divider"></li>

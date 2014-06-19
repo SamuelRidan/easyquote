@@ -1,5 +1,5 @@
 <%@ include file="/EQbase.jsp" %> 
-<%@ page import="java.util.*, scada.modelo.*, scada.hibernate.*, teste.*" %>
+<%@ page import="java.util.*,easyquote.modelo.*,easyquote.hibernate.*, teste.*" %>
 
       <div id="page-wrapper">
         <div class="row">
@@ -13,29 +13,15 @@
 		  	
 		  	<div class="control-group">
 		      	<label class="control-label">Contrato de número: </label>
-		      	<div class="controls">
-		           	<%		    
-		           		Double total = 0.00;
-			    		List contrato = HibernateUtilTest.RetornaUmValorEmConsultaHQL("from Contrato order by id desc");		    		
-			    		for (Object obj: contrato) {
-			    			Contrato c = (Contrato)obj;
-			    			List preco = HibernateUtilTest.executarConsultaHQL("from ListaCotacaoFornecedor where cotacao.id="+c.getCotacao().getId()+" and fornecedor.id="+c.getFornecedor().getId());
-			    			for (Object ob: preco){
-			    				ListaCotacaoFornecedor lcf = (ListaCotacaoFornecedor)ob;
-								total = total + (lcf.getPreco() * lcf.getListaCotacao().getQuantidade());
-			    			}
-		           	%>		           	
-		      				<input type="text" class="input-xlarge numero-inteiro" id="principal.contrato.id" name="principal.contrato.id" value="<%= c.getId() %>">
-		      		<%		      		
-		    			}		    		
-		      		%>			      	
+		      	<div class="controls">         	
+		      		<input type="text" class="input-xlarge numero-inteiro" id="principal.contrato.id" name="principal.contrato.id" value="${contrato}">		      	
 		      	 </div>
 		    	</div>
 		  
 		    <div class="control-group">
 		      <label class="control-label">Preço total da compra</label>
 		      <div class="controls">
-		        <input type="text" class="input-xlarge numero-inteiro" name="principal.precoTotal" value="<%= total%>">
+		        <input type="text" class="input-xlarge numero-inteiro" name="principal.precoTotal" value="${total}">
 		      </div>
 		    </div>
 		

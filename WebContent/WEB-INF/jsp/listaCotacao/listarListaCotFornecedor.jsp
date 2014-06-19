@@ -1,9 +1,9 @@
-<%@page import="scada.controller.LoginController"%>
+<%@page import="easyquote.controller.LoginController"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/EQbase.jsp" %> 
 <%@ taglib uri="/tags/tags" prefix="tags"%>
 
-<%@ page import="java.util.*, scada.modelo.*, scada.hibernate.*, teste.*" %>
+<%@ page import="java.util.*,easyquote.modelo.*,easyquote.hibernate.*, teste.*" %>
 <%
 	int i = 1;
 %>

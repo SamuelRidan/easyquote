@@ -3,7 +3,7 @@
 <%@ include file="/EQbase.jsp" %> 
 <%@ taglib uri="/tags/tags" prefix="tags"%>
 
-<%@ page import="java.util.*, scada.modelo.*, scada.hibernate.*, teste.*" %>
+<%@ page import="java.util.*,easyquote.modelo.*,easyquote.hibernate.*, teste.*" %>
 
 <div id="page-wrapper">
   <div class="row">
@@ -22,42 +22,19 @@
     	<tr>
                   <th> # </th>  
                   <th> Inicio da Vigência </th> 
-                  <th> Fim da Vigência </th>
-                  <th> Reajustar até </th>  
+                  <th> Fim da Vigência </th>  
                   <th>  </th>              
 		</tr>
 	</thead>
 	<tbody>
-		<%					
-			Date date = new Date();
-			GregorianCalendar data = (GregorianCalendar) GregorianCalendar.getInstance();
-			GregorianCalendar dataAtual = (GregorianCalendar) GregorianCalendar.getInstance();
-			GregorianCalendar dataMesAdiante = (GregorianCalendar) GregorianCalendar.getInstance();
-			dataAtual.setTime(date);
-			dataMesAdiante.setTime(date);
-			dataMesAdiante.add(Calendar.MONTH, 1);
-			DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-			
-			List contratos = HibernateUtilTest.executarConsultaHQL("from Contrato where tipoContrato.id <> :idStatus", "idStatus", 1);
-			for (Object obj: contratos) {
-	            Contrato c = (Contrato)obj;
-	            data.setTime(c.getInicioVigencia().getTime());
-	            do {
-		            data.add(Calendar.MONTH, c.getPeriodicidadeReajuste());
-		            if ((data.getTime().after(dataAtual.getTime())) && (data.getTime().before(dataMesAdiante.getTime())) && (c.getFimVigencia().getTime().after(dataAtual.getTime()))) {	 
-		%>
-					<tr id="contrato_<%= c.getId() %>">
-	                      <td> <%= c.getId() %> </td>
-	                      <td> <%= df.format(c.getInicioVigencia().getTime()) %> </td>	
-	                      <td> <%= df.format(c.getFimVigencia().getTime()) %> </td>
-	                      <td> <%= df.format(data.getTime()) %> </td>	
-	                      <td> <a href="<c:url value="/indices/reajustarIndices/"/><%=c.getId()%>">Reajustar</a> </td>                                           
-					</tr>
-		<%
-	            	}
-	            } while (data.getTime().before(c.getFimVigencia().getTime()));    
-			}
-		%>
+		<c:forEach items="${contratos}" var="contrato"> 
+			<tr id="contrato_${contrato.id}">
+                     <td> ${contrato.id} </td>
+                     <td> <fmt:formatDate value="${contrato.inicioVigencia.time}"/> </td>	
+                     <td> <fmt:formatDate value="${contrato.fimVigencia.time}"/> </td>	
+                     <td> <a href="<c:url value="/indices/reajustarIndices/${contrato.id}"/>">Reajustar</a> </td>                                           
+			</tr>
+		</c:forEach>
 	</tbody>
 </table>
 

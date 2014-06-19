@@ -17,32 +17,32 @@
       
       <property name="hibernate.c3p0.min_size">5</property>
       <property name="hibernate.c3p0.max_size">20</property>
-      <property name="hibernate.c3p0.timeout">300</property>
+      <property name="hibernate.c3p0.timeout">30</property>
       <property name="hibernate.c3p0.max_statements">50</property>
       <property name="hibernate.c3p0.idle_test_period">3000</property>
       
-      <mapping class="scada.modelo.Operador"/>
-      <mapping class="scada.modelo.GrupoOperador" />
-      <mapping class="scada.modelo.FuncionalidadeGrupoOperador" />
-      <mapping class="scada.modelo.Configuracao" />
-      <mapping class="scada.modelo.Aditivo" />
-      <mapping class="scada.modelo.Contrato" />
-      <mapping class="scada.modelo.Cotacao" />
-      <mapping class="scada.modelo.Pagamento" />
-      <mapping class="scada.modelo.Pedido" />
-      <mapping class="scada.modelo.Principal" />
-      <mapping class="scada.modelo.Produto" />
-      <mapping class="scada.modelo.ListaCotacao" />
-      <mapping class="scada.modelo.Setor" />
-      <mapping class="scada.modelo.Status" />
-	  <mapping class="scada.modelo.TipoContrato" />
-	  <mapping class="scada.modelo.Fornecedor" />
-	  <mapping class="scada.modelo.Comprador" />
-	  <mapping class="scada.modelo.ListaCotacaoFornecedor" />
-	  <mapping class="scada.modelo.PesquisaPedido" />
-	  <mapping class="scada.modelo.Seguimento" />
-	  <mapping class="scada.modelo.StatusPedido" />
-	  <mapping class="scada.modelo.Indices" />
+      <mapping class="easyquote.modelo.Operador"/>
+      <mapping class="easyquote.modelo.GrupoOperador" />
+      <mapping class="easyquote.modelo.FuncionalidadeGrupoOperador" />
+      <mapping class="easyquote.modelo.Configuracao" />
+      <mapping class="easyquote.modelo.Aditivo" />
+      <mapping class="easyquote.modelo.Contrato" />
+      <mapping class="easyquote.modelo.Cotacao" />
+      <mapping class="easyquote.modelo.Pagamento" />
+      <mapping class="easyquote.modelo.Pedido" />
+      <mapping class="easyquote.modelo.Principal" />
+      <mapping class="easyquote.modelo.Produto" />
+      <mapping class="easyquote.modelo.ListaCotacao" />
+      <mapping class="easyquote.modelo.Setor" />
+      <mapping class="easyquote.modelo.Status" />
+	  <mapping class="easyquote.modelo.TipoContrato" />
+	  <mapping class="easyquote.modelo.Fornecedor" />
+	  <mapping class="easyquote.modelo.Comprador" />
+	  <mapping class="easyquote.modelo.ListaCotacaoFornecedor" />
+	  <mapping class="easyquote.modelo.PesquisaPedido" />
+	  <mapping class="easyquote.modelo.Seguimento" />
+	  <mapping class="easyquote.modelo.StatusPedido" />
+	  <mapping class="easyquote.modelo.Indices" />
 	  
 </session-factory>
 </hibernate-configuration>

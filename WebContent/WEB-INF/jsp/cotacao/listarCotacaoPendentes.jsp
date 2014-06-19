@@ -3,7 +3,7 @@
 <%@ include file="/EQbase.jsp" %> 
 <%@ taglib uri="/tags/tags" prefix="tags"%>
 
-<%@ page import="java.util.*, scada.modelo.*, scada.hibernate.*, teste.*" %>
+<%@ page import="java.util.*,easyquote.modelo.*,easyquote.hibernate.*, teste.*" %>
 
 <div id="page-wrapper">
   <div class="row">
@@ -29,30 +29,24 @@
 		</tr>
 	</thead>
 	<tbody>
-		<%					
-			Date date = new Date();
-			GregorianCalendar data = (GregorianCalendar) GregorianCalendar.getInstance();
-			data.setTime(date);	
-			data.add(Calendar.DAY_OF_MONTH, 7);	
-			DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-			
-			List cotacaos = HibernateUtilTest.executarConsultaHQL("from Cotacao where status.id = :idStatus order by dataLimiteResposta desc", "idStatus", 1);
-			for (Object obj: cotacaos) {
-	            Cotacao c = (Cotacao)obj;
-	            if (c.getDataLimiteResposta().getTime().before(data.getTime())) {	 
-		%>
-					<tr id="cotacao_<%= c.getId() %>">
-	                      <td> <%= df.format(c.getDataAbertura().getTime()) %> </td>
-	                      <td> <%= df.format(c.getDataLimiteResposta().getTime()) %> </td>
-	                      <td> <%= c.getStatus().getDescricao() %></td>
-						  <td> <%= c.getSetor().getDescricao() %></td> 						
-	                      <td> <%= c.getObs() %> </td>
-	                      <td> <a href="<c:url value="/listaCotacao/listarListaCotacaos/"/><%= c.getId() %>" ><i class="fa fa-edit"></i> Visualizar lista </a> </td>		                                           
-					</tr>
-		<%
-	            }
-			}
-		%>
+		<c:forEach items="${cotacoes}" var="cotacao">
+			<tr id="cotacao_${cotacao.id}">
+                     <td> <fmt:formatDate value="${cotacao.dataAbertura.time}" /> </td>
+                     <td> <fmt:formatDate value="${cotacao.dataLimiteResposta.time}" /> </td>
+                     <td>
+	                     <c:forEach items="${tipoStatus}" var="itemStatus">
+								<c:if test="${cotacao.status.id == itemStatus.id}">  ${itemStatus.descricao}  </c:if>
+						 </c:forEach>
+					 </td>
+					 <td>						
+	                     <c:forEach items="${tipoSetor}" var="itemSetor">
+						 	<c:if test="${cotacao.setor.id == itemSetor.id}">  ${itemSetor.descricao} </c:if> 
+						 </c:forEach>
+					 </td> 						
+                     <td> ${cotacao.obs} </td>
+                     <td> <a href="<c:url value="/listaCotacao/listarListaCotacaos/${cotacao.id}"/>" ><i class="fa fa-edit"></i> Visualizar lista </a> </td>		                                           
+			</tr>
+		</c:forEach>
 	</tbody>
 </table>
 

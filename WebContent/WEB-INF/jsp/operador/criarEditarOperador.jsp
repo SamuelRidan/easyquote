@@ -1,4 +1,4 @@
-<%@page import="scada.controller.ListaCotacaoController"%>
+<%@page import="easyquote.controller.ListaCotacaoController"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/EQbase.jsp" %> 
 

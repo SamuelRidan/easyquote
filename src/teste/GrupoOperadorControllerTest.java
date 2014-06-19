@@ -11,12 +11,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import scada.controller.GrupoOperadorController;
-import scada.hibernate.HibernateUtil;
-import scada.modelo.FuncionalidadeGrupoOperador;
-import scada.modelo.GrupoOperador;
-import scada.modelo.Operador;
-import scada.sessao.SessaoGeral;
+import easyquote.controller.GrupoOperadorController;
+import easyquote.hibernate.HibernateUtil;
+import easyquote.modelo.FuncionalidadeGrupoOperador;
+import easyquote.modelo.GrupoOperador;
+import easyquote.modelo.Operador;
+import easyquote.sessao.SessaoGeral;
+
 
 
 import br.com.caelum.vraptor.util.test.MockResult;

@@ -2,16 +2,19 @@ package teste;
 
 import java.util.*;
 
-import scada.auxiliar.AuxiliarTexto;
-import scada.modelo.Comprador;
-import scada.modelo.Cotacao;
-import scada.util.CommonsMail;
+import easyquote.auxiliar.AuxiliarTexto;
+import easyquote.hibernate.HibernateUtil;
+import easyquote.modelo.Comprador;
+import easyquote.modelo.Cotacao;
+import easyquote.util.CommonsMail;
+
 
 //---------------------------------------------------------------------------------
 class TarefaTemporizada extends TimerTask {
 
 	private Timer temporizador;
 	private long tempo = 1;
+	private HibernateUtil hibernateUtil;
 	
 	public TarefaTemporizada(long tempo) {
 		this.tempo = tempo;
@@ -28,6 +31,7 @@ class TarefaTemporizada extends TimerTask {
 	
 	public void run() {
 		
+		@SuppressWarnings("rawtypes")
 		List cotacoes;
 		String textoHTML;
 		String emailComprador = null;
@@ -45,14 +49,15 @@ class TarefaTemporizada extends TimerTask {
 			dataAtual.setTime(date);
 			data.add(Calendar.DAY_OF_MONTH, 7);	
 			
-			cotacoes = HibernateUtilTest.executarConsultaHQL("from Cotacao");
+			cotacoes = hibernateUtil.buscaPorHQL("from Cotacao");
 			
 			textoHTML = AuxiliarTexto.cabecalhoHTML();
 			
 			for (Object obj: cotacoes) {
 	            Cotacao c = (Cotacao)obj;
 	            if ((c.getDataLimiteResposta().getTime().before(data.getTime())) && (c.getStatus().getId() == 1)) {	            	
-	            	List comp = HibernateUtilTest.executarConsultaHQL("from Comprador where operador.id = :idOperador", "idOperador", c.getResponsavel().getId());
+	            	@SuppressWarnings("rawtypes")
+					List comp = hibernateUtil.buscaPorHQL("from Comprador where operador.id = "+ c.getResponsavel().getId());
 	            	for (Object ob: comp){
 	            		Comprador comprador = (Comprador)ob;		            	
 	            			emailComprador = comprador.getEmail();
@@ -62,7 +67,7 @@ class TarefaTemporizada extends TimerTask {
 	            } 
 	            
 	            if (c.getDataLimiteResposta().getTime().before(dataAtual.getTime())){
-	            	HibernateUtilTest.executarHQL("update Cotacao set status.id = :idStatus where id = :idCotacao","idStatus", 2, "idCotacao", c.getId());
+	            	hibernateUtil.executarSQL("update Cotacao set status.id = 2 where id = " + c.getId());
 	            }	            
 			}
 			

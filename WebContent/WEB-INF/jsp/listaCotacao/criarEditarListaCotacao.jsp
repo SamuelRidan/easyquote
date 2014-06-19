@@ -1,8 +1,8 @@
-<%@page import="scada.controller.ListaCotacaoController"%>
+<%@page import="easyquote.controller.ListaCotacaoController"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/EQbase.jsp" %> 
 
-<%@ page import="java.util.*, scada.modelo.*, scada.hibernate.*, teste.*" %>
+<%@ page import="java.util.*,easyquote.modelo.*,easyquote.hibernate.*, teste.*" %>
 
 <script type="text/javascript">
     totals = 0;
@@ -92,26 +92,10 @@
 		   <table width="80%" border="0" align="center" id="tabela" class="table table-striped table-bordered tablesorter">
   			<tr>
     			<td colspan="4">
-    			<div class="control-group">
+    			<div class="control-group" style="display: none;">
 		      	<label class="control-label">Sequencial de Cotacao</label>
 		      	<div class="controls">
-		           	<%
-		           	
-		    		List cotacao = HibernateUtilTest.RetornaUmValorEmConsultaHQL("from Cotacao order by id desc");
-		    		
-		    		for (Object obj: cotacao) {
-		                Cotacao c = (Cotacao)obj;
-		           	
-		           	%>
-		           	
-		      		<input type="text" class="input-xlarge numero-inteiro" id="listaCotacao.cotacao.id" name="listaCotacao.cotacao.id" value="<%= c.getId() %>">
-		      	
-		      		<%
-		      		
-		    		}
-		    		
-		      		%>	
-		      	
+		      		<input type="text" class="input-xlarge numero-inteiro" id="listaCotacao.cotacao.id" name="listaCotacao.cotacao.id" value="${cotacao.cotacao.id}">
 		      	 </div>
 		    	</div>	    
 		    
@@ -124,51 +108,24 @@
 		      
 				        <select name="listaCotacao.produto" id="produto">
 				        	<option selected="selected" disabled="disabled" value="0">Escolha seu produto</option>
-				        	<%
-					      		
-					      		Produto produto = new Produto();
-					      		HibernateUtil hibernateUtil = new HibernateUtil();
-					      		List<Produto> produtos = hibernateUtil.buscar(produto);
-					
-								for (Produto p : produtos ) {
-								
-							%>
-									<option value="<%= p.getId() %>"><%=p.getDescricao() %></option>
-							<%
-								}
-							%>
+				        	<c:forEach items="${produtos}" var="produto">
+								<option value="${produto.id}">${produto.descricao}</option>
+							</c:forEach>
 				        </select> 
 				        
 				    </c:when>
-				    <c:otherwise>
-				    
-				    	<select name="listaCotacao.produto" id="produto">					
-							<%
-					      		
-					      		Produto produto = new Produto();
-					      		HibernateUtil hibernateUtil = new HibernateUtil();
-					      		List<Produto> produtos = hibernateUtil.buscar(produto);
-					
-								for (Produto p : produtos ) {
-								
-							%>
+				    <c:otherwise>				    
+				    	<select name="listaCotacao.produto.id" id="produto">					
 								<c:forEach items="${tipoProduto}" var="itemProd">
-									<c:choose>
-									 
-										<c:when test="${listaCotacao.produto == itemProd.id}">
-											<option selected="selected" value="${listaCotacao.produto}"> <%= p.getDescricao() %></option>
-										</c:when>
-									 
+									<c:choose>									 
+										<c:when test="${listaCotacao.produto.id == itemProd.id}">
+											<option selected="selected" value="${listaCotacao.produto}"> ${itemProd.descricao} </option>
+										</c:when>									 
 										<c:otherwise>
-											<option value="<%= p.getId() %>"><%= p.getDescricao() %></option>
-										</c:otherwise>	
-																					
-									</c:choose>
-									
+											<option value="${itemProd.id}">${itemProd.descricao}</option>	
+										</c:otherwise>										
+									</c:choose>									
 								</c:forEach>
-							<%
-								}
-							%>
 						</select>
 						
 					</c:otherwise>   
